@@ -157,15 +157,125 @@ public interface LatinListener extends ParseTreeListener {
 	 */
 	void exitLocalVariableSection(LatinParser.LocalVariableSectionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#statement}.
+	 * Enter a parse tree produced by the {@code AssignmentStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterStatement(LatinParser.StatementContext ctx);
+	void enterAssignmentStmt(LatinParser.AssignmentStmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LatinParser#statement}.
+	 * Exit a parse tree produced by the {@code AssignmentStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitStatement(LatinParser.StatementContext ctx);
+	void exitAssignmentStmt(LatinParser.AssignmentStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IfStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStmt(LatinParser.IfStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IfStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStmt(LatinParser.IfStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code WhileStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileStmt(LatinParser.WhileStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code WhileStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileStmt(LatinParser.WhileStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DoWhileStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoWhileStmt(LatinParser.DoWhileStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DoWhileStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoWhileStmt(LatinParser.DoWhileStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ForStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterForStmt(LatinParser.ForStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ForStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitForStmt(LatinParser.ForStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ReturnStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnStmt(LatinParser.ReturnStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ReturnStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnStmt(LatinParser.ReturnStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BreakStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterBreakStmt(LatinParser.BreakStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BreakStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitBreakStmt(LatinParser.BreakStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ContinueStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterContinueStmt(LatinParser.ContinueStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ContinueStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitContinueStmt(LatinParser.ContinueStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PrintStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrintStmt(LatinParser.PrintStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PrintStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrintStmt(LatinParser.PrintStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ReadStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReadStmt(LatinParser.ReadStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ReadStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReadStmt(LatinParser.ReadStmtContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LatinParser#ifStatement}.
 	 * @param ctx the parse tree
@@ -356,6 +466,30 @@ public interface LatinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLocation(LatinParser.LocationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ArrayLocationAccess}
+	 * labeled alternative in {@link LatinParser#locationAccess}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayLocationAccess(LatinParser.ArrayLocationAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArrayLocationAccess}
+	 * labeled alternative in {@link LatinParser#locationAccess}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayLocationAccess(LatinParser.ArrayLocationAccessContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MemberLocationAccess}
+	 * labeled alternative in {@link LatinParser#locationAccess}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberLocationAccess(LatinParser.MemberLocationAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MemberLocationAccess}
+	 * labeled alternative in {@link LatinParser#locationAccess}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberLocationAccess(LatinParser.MemberLocationAccessContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LatinParser#expression}.
 	 * @param ctx the parse tree

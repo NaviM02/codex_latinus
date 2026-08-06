@@ -100,11 +100,75 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLocalVariableSection(LatinParser.LocalVariableSectionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#statement}.
+	 * Visit a parse tree produced by the {@code AssignmentStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement(LatinParser.StatementContext ctx);
+	T visitAssignmentStmt(LatinParser.AssignmentStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IfStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfStmt(LatinParser.IfStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code WhileStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileStmt(LatinParser.WhileStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DoWhileStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoWhileStmt(LatinParser.DoWhileStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ForStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForStmt(LatinParser.ForStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ReturnStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnStmt(LatinParser.ReturnStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BreakStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBreakStmt(LatinParser.BreakStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ContinueStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitContinueStmt(LatinParser.ContinueStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PrintStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrintStmt(LatinParser.PrintStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ReadStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReadStmt(LatinParser.ReadStmtContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LatinParser#ifStatement}.
 	 * @param ctx the parse tree
@@ -219,6 +283,20 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLocation(LatinParser.LocationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArrayLocationAccess}
+	 * labeled alternative in {@link LatinParser#locationAccess}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayLocationAccess(LatinParser.ArrayLocationAccessContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MemberLocationAccess}
+	 * labeled alternative in {@link LatinParser#locationAccess}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMemberLocationAccess(LatinParser.MemberLocationAccessContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LatinParser#expression}.
 	 * @param ctx the parse tree

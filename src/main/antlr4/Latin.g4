@@ -59,7 +59,7 @@ functionWithReturn
     ;
 
 parameterList
-    : parameter (',' parameter)*
+    : parameters+=parameter (',' parameters+=parameter)*
     ;
 
 parameter
@@ -77,16 +77,16 @@ localVariableSection
 
 // statement
 statement
-    : assignment
-    | ifStatement
-    | whileStatement
-    | doWhileStatement
-    | forStatement
-    | returnStatement
-    | breakStatement
-    | continueStatement
-    | printStatement
-    | readStatement
+    : assignment         #AssignmentStmt
+    | ifStatement        #IfStmt
+    | whileStatement     #WhileStmt
+    | doWhileStatement   #DoWhileStmt
+    | forStatement       #ForStmt
+    | returnStatement    #ReturnStmt
+    | breakStatement     #BreakStmt
+    | continueStatement  #ContinueStmt
+    | printStatement     #PrintStmt
+    | readStatement      #ReadStmt
     ;
 
 ifStatement
@@ -130,7 +130,7 @@ breakStatement
     ;
 
 argumentList
-    : expression (',' expression)*
+    : arguments+=expression (',' arguments+=expression)*
     ;
 
 readStatement
@@ -138,7 +138,7 @@ readStatement
     ;
 
 printStatement
-    : PRINT expression (PRINT expression)* ';'
+    : PRINT expressions+=expression (PRINT expressions+=expression)* ';'
     ;
 
 // declarations
@@ -161,7 +161,7 @@ arrayDeclaration
     ;
 
 arrayInitializer
-    : '{' expression (',' expression)* '}'
+    : '{' values+=expression (',' values+=expression)* '}'
     ;
 
 assignment
@@ -169,7 +169,12 @@ assignment
     ;
 
 location
-    : ID ( '[' expression ']' | '.' ID )*
+    : base=ID accesses+=locationAccess*
+    ;
+
+locationAccess
+    : '[' expression ']' #ArrayLocationAccess
+    | '.' ID             #MemberLocationAccess
     ;
 
 // expr

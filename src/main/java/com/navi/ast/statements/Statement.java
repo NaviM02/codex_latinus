@@ -1,4 +1,6 @@
 package com.navi.ast.statements;
 
-public class Statement {
+import com.navi.ast.AstNode;
+
+public abstract class Statement extends AstNode {
 }
