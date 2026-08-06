@@ -222,14 +222,14 @@ functionArguments
     ;
 
 primaryExpression
-    : NUMBER
-    | DECIMAL
-    | STRING
-    | CHAR
-    | VERUM
-    | FALSUS
-    | ID
-    | '(' expression ')'
+    : NUMBER                 #NumberLiteralExpr
+    | DECIMAL                #DecimalLiteralExpr
+    | STRING                 #StringLiteralExpr
+    | CHAR                   #CharLiteralExpr
+    | VERUM                  #TrueLiteralExpr
+    | FALSUS                 #FalseLiteralExpr
+    | ID                     #VariableExpr
+    | '(' expression ')'     #ParenthesizedExpr
     ;
 
 // lexer
