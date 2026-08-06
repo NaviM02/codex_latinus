@@ -1,4 +1,4 @@
-package com.navi.ast.antlr4;// Generated from Latin.g4 by ANTLR 4.13.2
+package com.navi.ast.lexer_parser;// Generated from Latin.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

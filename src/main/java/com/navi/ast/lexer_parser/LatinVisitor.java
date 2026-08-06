@@ -1,4 +1,4 @@
-package com.navi.ast.antlr4;// Generated from Latin.g4 by ANTLR 4.13.2
+package com.navi.ast.lexer_parser;// Generated from Latin.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -226,53 +226,187 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(LatinParser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#logicalOrExpression}.
+	 * Visit a parse tree produced by the {@code ToLogicalAndExpr}
+	 * labeled alternative in {@link LatinParser#logicalOrExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLogicalOrExpression(LatinParser.LogicalOrExpressionContext ctx);
+	T visitToLogicalAndExpr(LatinParser.ToLogicalAndExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#logicalAndExpression}.
+	 * Visit a parse tree produced by the {@code OrExpr}
+	 * labeled alternative in {@link LatinParser#logicalOrExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLogicalAndExpression(LatinParser.LogicalAndExpressionContext ctx);
+	T visitOrExpr(LatinParser.OrExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#equalityExpression}.
+	 * Visit a parse tree produced by the {@code AndExpr}
+	 * labeled alternative in {@link LatinParser#logicalAndExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEqualityExpression(LatinParser.EqualityExpressionContext ctx);
+	T visitAndExpr(LatinParser.AndExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#comparisonExpression}.
+	 * Visit a parse tree produced by the {@code ToEqualityExpr}
+	 * labeled alternative in {@link LatinParser#logicalAndExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitComparisonExpression(LatinParser.ComparisonExpressionContext ctx);
+	T visitToEqualityExpr(LatinParser.ToEqualityExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#additiveExpression}.
+	 * Visit a parse tree produced by the {@code EqualExpr}
+	 * labeled alternative in {@link LatinParser#equalityExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAdditiveExpression(LatinParser.AdditiveExpressionContext ctx);
+	T visitEqualExpr(LatinParser.EqualExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#multiplicativeExpression}.
+	 * Visit a parse tree produced by the {@code ToComparisonExpr}
+	 * labeled alternative in {@link LatinParser#equalityExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMultiplicativeExpression(LatinParser.MultiplicativeExpressionContext ctx);
+	T visitToComparisonExpr(LatinParser.ToComparisonExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#unaryExpression}.
+	 * Visit a parse tree produced by the {@code NotEqualExpr}
+	 * labeled alternative in {@link LatinParser#equalityExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnaryExpression(LatinParser.UnaryExpressionContext ctx);
+	T visitNotEqualExpr(LatinParser.NotEqualExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#postfixExpression}.
+	 * Visit a parse tree produced by the {@code ToAdditiveExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPostfixExpression(LatinParser.PostfixExpressionContext ctx);
+	T visitToAdditiveExpr(LatinParser.ToAdditiveExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code GreaterExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGreaterExpr(LatinParser.GreaterExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code GreaterEqualExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGreaterEqualExpr(LatinParser.GreaterEqualExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LessExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLessExpr(LatinParser.LessExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LessEqualExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLessEqualExpr(LatinParser.LessEqualExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ToMultiplicativeExpr}
+	 * labeled alternative in {@link LatinParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToMultiplicativeExpr(LatinParser.ToMultiplicativeExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AdditionExpr}
+	 * labeled alternative in {@link LatinParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAdditionExpr(LatinParser.AdditionExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SubtractionExpr}
+	 * labeled alternative in {@link LatinParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubtractionExpr(LatinParser.SubtractionExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ToUnaryExpr}
+	 * labeled alternative in {@link LatinParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToUnaryExpr(LatinParser.ToUnaryExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DivisionExpr}
+	 * labeled alternative in {@link LatinParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDivisionExpr(LatinParser.DivisionExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultiplicationExpr}
+	 * labeled alternative in {@link LatinParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultiplicationExpr(LatinParser.MultiplicationExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NotExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotExpr(LatinParser.NotExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PreIncrementExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPreIncrementExpr(LatinParser.PreIncrementExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PreDecrementExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPreDecrementExpr(LatinParser.PreDecrementExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ToPostfixExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToPostfixExpr(LatinParser.ToPostfixExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FunctionCallExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCallExpr(LatinParser.FunctionCallExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArrayAccessExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayAccessExpr(LatinParser.ArrayAccessExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MemberAccessExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMemberAccessExpr(LatinParser.MemberAccessExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ToPrimaryExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToPrimaryExpr(LatinParser.ToPrimaryExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LatinParser#functionArguments}.
 	 * @param ctx the parse tree

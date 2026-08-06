@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class BinaryExpression extends Expression {
     private Expression left;
-    private Expression right;
     private BinaryOperator operator;
+    private Expression right;
 }

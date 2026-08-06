@@ -7,7 +7,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class FunctionCallExpression extends Expression {
-    private String name;
+    private Expression callee;
     private List<Expression> arguments;
 
 }

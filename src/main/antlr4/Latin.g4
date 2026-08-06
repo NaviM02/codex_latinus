@@ -178,43 +178,53 @@ expression
     ;
 
 logicalOrExpression
-    : logicalAndExpression ( OR logicalAndExpression )*
+    : logicalOrExpression OR logicalAndExpression      #OrExpr
+    | logicalAndExpression                             #ToLogicalAndExpr
     ;
 
 logicalAndExpression
-    : equalityExpression ( AND equalityExpression )*
+    : logicalAndExpression AND equalityExpression      #AndExpr
+    | equalityExpression                               #ToEqualityExpr
     ;
 
 equalityExpression
-    : comparisonExpression ( (EQUAL | NOT_EQUAL) comparisonExpression )*
+    : equalityExpression EQUAL comparisonExpression        #EqualExpr
+    | equalityExpression NOT_EQUAL comparisonExpression    #NotEqualExpr
+    | comparisonExpression                                #ToComparisonExpr
     ;
 
 comparisonExpression
-    : additiveExpression ( (LESS | GREATER | LESS_EQUAL | GREATER_EQUAL) additiveExpression )*
+    : comparisonExpression LESS additiveExpression             #LessExpr
+    | comparisonExpression GREATER additiveExpression          #GreaterExpr
+    | comparisonExpression LESS_EQUAL additiveExpression       #LessEqualExpr
+    | comparisonExpression GREATER_EQUAL additiveExpression    #GreaterEqualExpr
+    | additiveExpression                                       #ToAdditiveExpr
     ;
 
 additiveExpression
-    : multiplicativeExpression ( (PLUS | MINUS) multiplicativeExpression )*
+    : additiveExpression PLUS multiplicativeExpression     #AdditionExpr
+    | additiveExpression MINUS multiplicativeExpression    #SubtractionExpr
+    | multiplicativeExpression                             #ToMultiplicativeExpr
     ;
 
 multiplicativeExpression
-    : unaryExpression ( (MULT | DIV) unaryExpression )*
+    : multiplicativeExpression MULT unaryExpression        #MultiplicationExpr
+    | multiplicativeExpression DIV unaryExpression         #DivisionExpr
+    | unaryExpression                                      #ToUnaryExpr
     ;
 
 unaryExpression
-    : NON unaryExpression
-    | PLUSPLUS unaryExpression
-    | MINUSMINUS unaryExpression
-    | postfixExpression
+    : NON unaryExpression          #NotExpr
+    | PLUSPLUS unaryExpression     #PreIncrementExpr
+    | MINUSMINUS unaryExpression   #PreDecrementExpr
+    | postfixExpression            #ToPostfixExpr
     ;
 
 postfixExpression
-    : primaryExpression
-      (
-            '[' expression ']'
-        |   '.' ID
-        |   functionArguments
-      )*
+    : postfixExpression '[' expression ']'        #ArrayAccessExpr
+    | postfixExpression '.' ID                    #MemberAccessExpr
+    | postfixExpression functionArguments         #FunctionCallExpr
+    | primaryExpression                           #ToPrimaryExpr
     ;
 
 functionArguments

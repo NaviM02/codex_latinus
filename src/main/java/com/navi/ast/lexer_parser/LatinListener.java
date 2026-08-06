@@ -1,4 +1,4 @@
-package com.navi.ast.antlr4;// Generated from Latin.g4 by ANTLR 4.13.2
+package com.navi.ast.lexer_parser;// Generated from Latin.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -367,85 +367,317 @@ public interface LatinListener extends ParseTreeListener {
 	 */
 	void exitExpression(LatinParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#logicalOrExpression}.
+	 * Enter a parse tree produced by the {@code ToLogicalAndExpr}
+	 * labeled alternative in {@link LatinParser#logicalOrExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterLogicalOrExpression(LatinParser.LogicalOrExpressionContext ctx);
+	void enterToLogicalAndExpr(LatinParser.ToLogicalAndExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LatinParser#logicalOrExpression}.
+	 * Exit a parse tree produced by the {@code ToLogicalAndExpr}
+	 * labeled alternative in {@link LatinParser#logicalOrExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitLogicalOrExpression(LatinParser.LogicalOrExpressionContext ctx);
+	void exitToLogicalAndExpr(LatinParser.ToLogicalAndExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#logicalAndExpression}.
+	 * Enter a parse tree produced by the {@code OrExpr}
+	 * labeled alternative in {@link LatinParser#logicalOrExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterLogicalAndExpression(LatinParser.LogicalAndExpressionContext ctx);
+	void enterOrExpr(LatinParser.OrExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LatinParser#logicalAndExpression}.
+	 * Exit a parse tree produced by the {@code OrExpr}
+	 * labeled alternative in {@link LatinParser#logicalOrExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitLogicalAndExpression(LatinParser.LogicalAndExpressionContext ctx);
+	void exitOrExpr(LatinParser.OrExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#equalityExpression}.
+	 * Enter a parse tree produced by the {@code AndExpr}
+	 * labeled alternative in {@link LatinParser#logicalAndExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterEqualityExpression(LatinParser.EqualityExpressionContext ctx);
+	void enterAndExpr(LatinParser.AndExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LatinParser#equalityExpression}.
+	 * Exit a parse tree produced by the {@code AndExpr}
+	 * labeled alternative in {@link LatinParser#logicalAndExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitEqualityExpression(LatinParser.EqualityExpressionContext ctx);
+	void exitAndExpr(LatinParser.AndExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#comparisonExpression}.
+	 * Enter a parse tree produced by the {@code ToEqualityExpr}
+	 * labeled alternative in {@link LatinParser#logicalAndExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterComparisonExpression(LatinParser.ComparisonExpressionContext ctx);
+	void enterToEqualityExpr(LatinParser.ToEqualityExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LatinParser#comparisonExpression}.
+	 * Exit a parse tree produced by the {@code ToEqualityExpr}
+	 * labeled alternative in {@link LatinParser#logicalAndExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitComparisonExpression(LatinParser.ComparisonExpressionContext ctx);
+	void exitToEqualityExpr(LatinParser.ToEqualityExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#additiveExpression}.
+	 * Enter a parse tree produced by the {@code EqualExpr}
+	 * labeled alternative in {@link LatinParser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterAdditiveExpression(LatinParser.AdditiveExpressionContext ctx);
+	void enterEqualExpr(LatinParser.EqualExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LatinParser#additiveExpression}.
+	 * Exit a parse tree produced by the {@code EqualExpr}
+	 * labeled alternative in {@link LatinParser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitAdditiveExpression(LatinParser.AdditiveExpressionContext ctx);
+	void exitEqualExpr(LatinParser.EqualExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#multiplicativeExpression}.
+	 * Enter a parse tree produced by the {@code ToComparisonExpr}
+	 * labeled alternative in {@link LatinParser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterMultiplicativeExpression(LatinParser.MultiplicativeExpressionContext ctx);
+	void enterToComparisonExpr(LatinParser.ToComparisonExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LatinParser#multiplicativeExpression}.
+	 * Exit a parse tree produced by the {@code ToComparisonExpr}
+	 * labeled alternative in {@link LatinParser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitMultiplicativeExpression(LatinParser.MultiplicativeExpressionContext ctx);
+	void exitToComparisonExpr(LatinParser.ToComparisonExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#unaryExpression}.
+	 * Enter a parse tree produced by the {@code NotEqualExpr}
+	 * labeled alternative in {@link LatinParser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterUnaryExpression(LatinParser.UnaryExpressionContext ctx);
+	void enterNotEqualExpr(LatinParser.NotEqualExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LatinParser#unaryExpression}.
+	 * Exit a parse tree produced by the {@code NotEqualExpr}
+	 * labeled alternative in {@link LatinParser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitUnaryExpression(LatinParser.UnaryExpressionContext ctx);
+	void exitNotEqualExpr(LatinParser.NotEqualExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#postfixExpression}.
+	 * Enter a parse tree produced by the {@code ToAdditiveExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterPostfixExpression(LatinParser.PostfixExpressionContext ctx);
+	void enterToAdditiveExpr(LatinParser.ToAdditiveExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LatinParser#postfixExpression}.
+	 * Exit a parse tree produced by the {@code ToAdditiveExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitPostfixExpression(LatinParser.PostfixExpressionContext ctx);
+	void exitToAdditiveExpr(LatinParser.ToAdditiveExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code GreaterExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterGreaterExpr(LatinParser.GreaterExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code GreaterExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitGreaterExpr(LatinParser.GreaterExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code GreaterEqualExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterGreaterEqualExpr(LatinParser.GreaterEqualExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code GreaterEqualExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitGreaterEqualExpr(LatinParser.GreaterEqualExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LessExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLessExpr(LatinParser.LessExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LessExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLessExpr(LatinParser.LessExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LessEqualExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLessEqualExpr(LatinParser.LessEqualExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LessEqualExpr}
+	 * labeled alternative in {@link LatinParser#comparisonExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLessEqualExpr(LatinParser.LessEqualExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ToMultiplicativeExpr}
+	 * labeled alternative in {@link LatinParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterToMultiplicativeExpr(LatinParser.ToMultiplicativeExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ToMultiplicativeExpr}
+	 * labeled alternative in {@link LatinParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitToMultiplicativeExpr(LatinParser.ToMultiplicativeExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AdditionExpr}
+	 * labeled alternative in {@link LatinParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAdditionExpr(LatinParser.AdditionExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AdditionExpr}
+	 * labeled alternative in {@link LatinParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAdditionExpr(LatinParser.AdditionExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SubtractionExpr}
+	 * labeled alternative in {@link LatinParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubtractionExpr(LatinParser.SubtractionExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SubtractionExpr}
+	 * labeled alternative in {@link LatinParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubtractionExpr(LatinParser.SubtractionExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ToUnaryExpr}
+	 * labeled alternative in {@link LatinParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterToUnaryExpr(LatinParser.ToUnaryExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ToUnaryExpr}
+	 * labeled alternative in {@link LatinParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitToUnaryExpr(LatinParser.ToUnaryExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DivisionExpr}
+	 * labeled alternative in {@link LatinParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterDivisionExpr(LatinParser.DivisionExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DivisionExpr}
+	 * labeled alternative in {@link LatinParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitDivisionExpr(LatinParser.DivisionExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultiplicationExpr}
+	 * labeled alternative in {@link LatinParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultiplicationExpr(LatinParser.MultiplicationExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultiplicationExpr}
+	 * labeled alternative in {@link LatinParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultiplicationExpr(LatinParser.MultiplicationExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NotExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterNotExpr(LatinParser.NotExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NotExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitNotExpr(LatinParser.NotExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PreIncrementExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPreIncrementExpr(LatinParser.PreIncrementExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PreIncrementExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPreIncrementExpr(LatinParser.PreIncrementExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PreDecrementExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPreDecrementExpr(LatinParser.PreDecrementExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PreDecrementExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPreDecrementExpr(LatinParser.PreDecrementExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ToPostfixExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterToPostfixExpr(LatinParser.ToPostfixExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ToPostfixExpr}
+	 * labeled alternative in {@link LatinParser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitToPostfixExpr(LatinParser.ToPostfixExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FunctionCallExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCallExpr(LatinParser.FunctionCallExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FunctionCallExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCallExpr(LatinParser.FunctionCallExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ArrayAccessExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayAccessExpr(LatinParser.ArrayAccessExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArrayAccessExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayAccessExpr(LatinParser.ArrayAccessExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MemberAccessExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberAccessExpr(LatinParser.MemberAccessExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MemberAccessExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberAccessExpr(LatinParser.MemberAccessExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ToPrimaryExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterToPrimaryExpr(LatinParser.ToPrimaryExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ToPrimaryExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitToPrimaryExpr(LatinParser.ToPrimaryExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LatinParser#functionArguments}.
 	 * @param ctx the parse tree
