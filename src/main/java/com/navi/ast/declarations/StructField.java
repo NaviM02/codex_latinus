@@ -4,10 +4,10 @@ import com.navi.ast.AstNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
-public class LocalVariableSection extends AstNode {
-    private final List<VariableDeclaration> declarations;
+public class StructField extends AstNode {
+    private String name;
+    private String type;
+    private boolean isArray;
 }

@@ -47,26 +47,6 @@ public interface LatinListener extends ParseTreeListener {
 	 */
 	void exitMainSection(LatinParser.MainSectionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#declarationSection}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclarationSection(LatinParser.DeclarationSectionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LatinParser#declarationSection}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclarationSection(LatinParser.DeclarationSectionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LatinParser#declaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclaration(LatinParser.DeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LatinParser#declaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclaration(LatinParser.DeclarationContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link LatinParser#structDeclaration}.
 	 * @param ctx the parse tree
 	 */
@@ -77,15 +57,77 @@ public interface LatinListener extends ParseTreeListener {
 	 */
 	void exitStructDeclaration(LatinParser.StructDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#structField}.
+	 * Enter a parse tree produced by the {@code StructVariableFieldSemicolon}
+	 * labeled alternative in {@link LatinParser#structFieldWithSemicolon}.
 	 * @param ctx the parse tree
 	 */
-	void enterStructField(LatinParser.StructFieldContext ctx);
+	void enterStructVariableFieldSemicolon(LatinParser.StructVariableFieldSemicolonContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LatinParser#structField}.
+	 * Exit a parse tree produced by the {@code StructVariableFieldSemicolon}
+	 * labeled alternative in {@link LatinParser#structFieldWithSemicolon}.
 	 * @param ctx the parse tree
 	 */
-	void exitStructField(LatinParser.StructFieldContext ctx);
+	void exitStructVariableFieldSemicolon(LatinParser.StructVariableFieldSemicolonContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StructBooleanFieldSemicolon}
+	 * labeled alternative in {@link LatinParser#structFieldWithSemicolon}.
+	 * @param ctx the parse tree
+	 */
+	void enterStructBooleanFieldSemicolon(LatinParser.StructBooleanFieldSemicolonContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StructBooleanFieldSemicolon}
+	 * labeled alternative in {@link LatinParser#structFieldWithSemicolon}.
+	 * @param ctx the parse tree
+	 */
+	void exitStructBooleanFieldSemicolon(LatinParser.StructBooleanFieldSemicolonContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StructArrayFieldSemicolon}
+	 * labeled alternative in {@link LatinParser#structFieldWithSemicolon}.
+	 * @param ctx the parse tree
+	 */
+	void enterStructArrayFieldSemicolon(LatinParser.StructArrayFieldSemicolonContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StructArrayFieldSemicolon}
+	 * labeled alternative in {@link LatinParser#structFieldWithSemicolon}.
+	 * @param ctx the parse tree
+	 */
+	void exitStructArrayFieldSemicolon(LatinParser.StructArrayFieldSemicolonContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StructVariableFieldComma}
+	 * labeled alternative in {@link LatinParser#structFieldWithComma}.
+	 * @param ctx the parse tree
+	 */
+	void enterStructVariableFieldComma(LatinParser.StructVariableFieldCommaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StructVariableFieldComma}
+	 * labeled alternative in {@link LatinParser#structFieldWithComma}.
+	 * @param ctx the parse tree
+	 */
+	void exitStructVariableFieldComma(LatinParser.StructVariableFieldCommaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StructBooleanFieldComma}
+	 * labeled alternative in {@link LatinParser#structFieldWithComma}.
+	 * @param ctx the parse tree
+	 */
+	void enterStructBooleanFieldComma(LatinParser.StructBooleanFieldCommaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StructBooleanFieldComma}
+	 * labeled alternative in {@link LatinParser#structFieldWithComma}.
+	 * @param ctx the parse tree
+	 */
+	void exitStructBooleanFieldComma(LatinParser.StructBooleanFieldCommaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StructArrayFieldComma}
+	 * labeled alternative in {@link LatinParser#structFieldWithComma}.
+	 * @param ctx the parse tree
+	 */
+	void enterStructArrayFieldComma(LatinParser.StructArrayFieldCommaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StructArrayFieldComma}
+	 * labeled alternative in {@link LatinParser#structFieldWithComma}.
+	 * @param ctx the parse tree
+	 */
+	void exitStructArrayFieldComma(LatinParser.StructArrayFieldCommaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LatinParser#functionDeclaration}.
 	 * @param ctx the parse tree
@@ -147,6 +189,16 @@ public interface LatinListener extends ParseTreeListener {
 	 */
 	void exitFunctionBody(LatinParser.FunctionBodyContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LatinParser#declaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclaration(LatinParser.DeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#declaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclaration(LatinParser.DeclarationContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link LatinParser#localVariableSection}.
 	 * @param ctx the parse tree
 	 */
@@ -156,6 +208,124 @@ public interface LatinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLocalVariableSection(LatinParser.LocalVariableSectionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NormalVarDeclaration}
+	 * labeled alternative in {@link LatinParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterNormalVarDeclaration(LatinParser.NormalVarDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NormalVarDeclaration}
+	 * labeled alternative in {@link LatinParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitNormalVarDeclaration(LatinParser.NormalVarDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BooleanVarDeclaration}
+	 * labeled alternative in {@link LatinParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanVarDeclaration(LatinParser.BooleanVarDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BooleanVarDeclaration}
+	 * labeled alternative in {@link LatinParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanVarDeclaration(LatinParser.BooleanVarDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExprInit}
+	 * labeled alternative in {@link LatinParser#initializer}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprInit(LatinParser.ExprInitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExprInit}
+	 * labeled alternative in {@link LatinParser#initializer}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprInit(LatinParser.ExprInitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StructInit}
+	 * labeled alternative in {@link LatinParser#initializer}.
+	 * @param ctx the parse tree
+	 */
+	void enterStructInit(LatinParser.StructInitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StructInit}
+	 * labeled alternative in {@link LatinParser#initializer}.
+	 * @param ctx the parse tree
+	 */
+	void exitStructInit(LatinParser.StructInitContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LatinParser#structInitializer}.
+	 * @param ctx the parse tree
+	 */
+	void enterStructInitializer(LatinParser.StructInitializerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#structInitializer}.
+	 * @param ctx the parse tree
+	 */
+	void exitStructInitializer(LatinParser.StructInitializerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LatinParser#structFieldInitializer}.
+	 * @param ctx the parse tree
+	 */
+	void enterStructFieldInitializer(LatinParser.StructFieldInitializerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#structFieldInitializer}.
+	 * @param ctx the parse tree
+	 */
+	void exitStructFieldInitializer(LatinParser.StructFieldInitializerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LatinParser#arrayConstructor}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayConstructor(LatinParser.ArrayConstructorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#arrayConstructor}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayConstructor(LatinParser.ArrayConstructorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LatinParser#booleanLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanLiteral(LatinParser.BooleanLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#booleanLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanLiteral(LatinParser.BooleanLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LatinParser#arrayDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayDeclaration(LatinParser.ArrayDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#arrayDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayDeclaration(LatinParser.ArrayDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LatinParser#arrayInitializer}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayInitializer(LatinParser.ArrayInitializerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#arrayInitializer}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayInitializer(LatinParser.ArrayInitializerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LatinParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterType(LatinParser.TypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitType(LatinParser.TypeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code AssignmentStmt}
 	 * labeled alternative in {@link LatinParser#statement}.
@@ -277,6 +447,16 @@ public interface LatinListener extends ParseTreeListener {
 	 */
 	void exitReadStmt(LatinParser.ReadStmtContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LatinParser#assignment}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignment(LatinParser.AssignmentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#assignment}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignment(LatinParser.AssignmentContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link LatinParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -377,16 +557,6 @@ public interface LatinListener extends ParseTreeListener {
 	 */
 	void exitBreakStatement(LatinParser.BreakStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LatinParser#argumentList}.
-	 * @param ctx the parse tree
-	 */
-	void enterArgumentList(LatinParser.ArgumentListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LatinParser#argumentList}.
-	 * @param ctx the parse tree
-	 */
-	void exitArgumentList(LatinParser.ArgumentListContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link LatinParser#readStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -406,90 +576,6 @@ public interface LatinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPrintStatement(LatinParser.PrintStatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LatinParser#variableDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariableDeclaration(LatinParser.VariableDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LatinParser#variableDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariableDeclaration(LatinParser.VariableDeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LatinParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void enterType(LatinParser.TypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LatinParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void exitType(LatinParser.TypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LatinParser#arrayDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayDeclaration(LatinParser.ArrayDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LatinParser#arrayDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayDeclaration(LatinParser.ArrayDeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LatinParser#arrayInitializer}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayInitializer(LatinParser.ArrayInitializerContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LatinParser#arrayInitializer}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayInitializer(LatinParser.ArrayInitializerContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LatinParser#assignment}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignment(LatinParser.AssignmentContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LatinParser#assignment}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignment(LatinParser.AssignmentContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LatinParser#location}.
-	 * @param ctx the parse tree
-	 */
-	void enterLocation(LatinParser.LocationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LatinParser#location}.
-	 * @param ctx the parse tree
-	 */
-	void exitLocation(LatinParser.LocationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ArrayLocationAccess}
-	 * labeled alternative in {@link LatinParser#locationAccess}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayLocationAccess(LatinParser.ArrayLocationAccessContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ArrayLocationAccess}
-	 * labeled alternative in {@link LatinParser#locationAccess}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayLocationAccess(LatinParser.ArrayLocationAccessContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code MemberLocationAccess}
-	 * labeled alternative in {@link LatinParser#locationAccess}.
-	 * @param ctx the parse tree
-	 */
-	void enterMemberLocationAccess(LatinParser.MemberLocationAccessContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code MemberLocationAccess}
-	 * labeled alternative in {@link LatinParser#locationAccess}.
-	 * @param ctx the parse tree
-	 */
-	void exitMemberLocationAccess(LatinParser.MemberLocationAccessContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LatinParser#expression}.
 	 * @param ctx the parse tree
@@ -822,6 +908,16 @@ public interface LatinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctionArguments(LatinParser.FunctionArgumentsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LatinParser#argumentList}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgumentList(LatinParser.ArgumentListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#argumentList}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgumentList(LatinParser.ArgumentListContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code NumberLiteralExpr}
 	 * labeled alternative in {@link LatinParser#primaryExpression}.

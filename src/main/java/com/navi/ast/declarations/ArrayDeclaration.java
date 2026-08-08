@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ArrayDeclaration extends AstNode {
+public class ArrayDeclaration extends Declaration {
     private String name;
     private Expression size;
     private String type;

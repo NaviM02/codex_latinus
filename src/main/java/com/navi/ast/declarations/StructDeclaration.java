@@ -1,6 +1,5 @@
 package com.navi.ast.declarations;
 
-import com.navi.ast.AstNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,7 +7,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class StructDeclaration extends AstNode {
+public class StructDeclaration extends Declaration {
     private String name;
-    private List<AstNode> fields;
+    private List<StructField> fields;
 }

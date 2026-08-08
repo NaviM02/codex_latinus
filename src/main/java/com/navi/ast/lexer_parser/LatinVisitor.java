@@ -34,29 +34,53 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMainSection(LatinParser.MainSectionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#declarationSection}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDeclarationSection(LatinParser.DeclarationSectionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link LatinParser#declaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDeclaration(LatinParser.DeclarationContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link LatinParser#structDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitStructDeclaration(LatinParser.StructDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#structField}.
+	 * Visit a parse tree produced by the {@code StructVariableFieldSemicolon}
+	 * labeled alternative in {@link LatinParser#structFieldWithSemicolon}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStructField(LatinParser.StructFieldContext ctx);
+	T visitStructVariableFieldSemicolon(LatinParser.StructVariableFieldSemicolonContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StructBooleanFieldSemicolon}
+	 * labeled alternative in {@link LatinParser#structFieldWithSemicolon}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructBooleanFieldSemicolon(LatinParser.StructBooleanFieldSemicolonContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StructArrayFieldSemicolon}
+	 * labeled alternative in {@link LatinParser#structFieldWithSemicolon}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructArrayFieldSemicolon(LatinParser.StructArrayFieldSemicolonContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StructVariableFieldComma}
+	 * labeled alternative in {@link LatinParser#structFieldWithComma}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructVariableFieldComma(LatinParser.StructVariableFieldCommaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StructBooleanFieldComma}
+	 * labeled alternative in {@link LatinParser#structFieldWithComma}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructBooleanFieldComma(LatinParser.StructBooleanFieldCommaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StructArrayFieldComma}
+	 * labeled alternative in {@link LatinParser#structFieldWithComma}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructArrayFieldComma(LatinParser.StructArrayFieldCommaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LatinParser#functionDeclaration}.
 	 * @param ctx the parse tree
@@ -94,11 +118,87 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionBody(LatinParser.FunctionBodyContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link LatinParser#declaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclaration(LatinParser.DeclarationContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link LatinParser#localVariableSection}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLocalVariableSection(LatinParser.LocalVariableSectionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NormalVarDeclaration}
+	 * labeled alternative in {@link LatinParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNormalVarDeclaration(LatinParser.NormalVarDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BooleanVarDeclaration}
+	 * labeled alternative in {@link LatinParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanVarDeclaration(LatinParser.BooleanVarDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprInit}
+	 * labeled alternative in {@link LatinParser#initializer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprInit(LatinParser.ExprInitContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StructInit}
+	 * labeled alternative in {@link LatinParser#initializer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructInit(LatinParser.StructInitContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LatinParser#structInitializer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructInitializer(LatinParser.StructInitializerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LatinParser#structFieldInitializer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructFieldInitializer(LatinParser.StructFieldInitializerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LatinParser#arrayConstructor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayConstructor(LatinParser.ArrayConstructorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LatinParser#booleanLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanLiteral(LatinParser.BooleanLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LatinParser#arrayDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayDeclaration(LatinParser.ArrayDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LatinParser#arrayInitializer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayInitializer(LatinParser.ArrayInitializerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LatinParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitType(LatinParser.TypeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AssignmentStmt}
 	 * labeled alternative in {@link LatinParser#statement}.
@@ -170,6 +270,12 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReadStmt(LatinParser.ReadStmtContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link LatinParser#assignment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignment(LatinParser.AssignmentContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link LatinParser#ifStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -230,12 +336,6 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBreakStatement(LatinParser.BreakStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LatinParser#argumentList}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArgumentList(LatinParser.ArgumentListContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link LatinParser#readStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -247,56 +347,6 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPrintStatement(LatinParser.PrintStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link LatinParser#variableDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVariableDeclaration(LatinParser.VariableDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link LatinParser#type}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitType(LatinParser.TypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link LatinParser#arrayDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayDeclaration(LatinParser.ArrayDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link LatinParser#arrayInitializer}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayInitializer(LatinParser.ArrayInitializerContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link LatinParser#assignment}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssignment(LatinParser.AssignmentContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link LatinParser#location}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLocation(LatinParser.LocationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ArrayLocationAccess}
-	 * labeled alternative in {@link LatinParser#locationAccess}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayLocationAccess(LatinParser.ArrayLocationAccessContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code MemberLocationAccess}
-	 * labeled alternative in {@link LatinParser#locationAccess}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMemberLocationAccess(LatinParser.MemberLocationAccessContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LatinParser#expression}.
 	 * @param ctx the parse tree
@@ -491,6 +541,12 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunctionArguments(LatinParser.FunctionArgumentsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LatinParser#argumentList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgumentList(LatinParser.ArgumentListContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code NumberLiteralExpr}
 	 * labeled alternative in {@link LatinParser#primaryExpression}.

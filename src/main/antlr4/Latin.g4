@@ -1,48 +1,38 @@
 grammar Latin;
 
-// program
+// global
 program
-    : structDeclaration*
-      globalVariablesSection?
-      functionSection?
-      mainSection
-      FINIS_PROGRAM ';'
-      EOF
+    : globalVariablesSection? functionSection? mainSection FINIS_PROGRAM ';' EOF
     ;
 
 globalVariablesSection
-    : VARIABLES_SECTION
-      declaration*
+    : VARIABLES_SECTION declaration*
     ;
 
 functionSection
-    : FUNCTIONS_SECTION
-      functionDeclaration*
+    : FUNCTIONS_SECTION functionDeclaration*
     ;
 
 mainSection
-    : MAIN_SECTION
-      statement*
+    : MAIN_SECTION statement*
     ;
 
-declarationSection
-    : declaration*
-    ;
-
-declaration
-    : variableDeclaration
-    | arrayDeclaration
-    | structDeclaration
-    ;
-
-// struct
+// structures and functions
 structDeclaration
-    : STRUCTURA ID '{' structField* '}' FINIS ';'
+    : STRUCTURA ID '{' structFieldWithSemicolon* '}' FINIS ';'
+    | STRUCTURA ID '{' structFieldWithComma* '}' FINIS ';'
     ;
 
-structField
-    : variableDeclaration
-    | arrayDeclaration
+structFieldWithSemicolon
+    : ESTO ID ':' type ';'?                 #StructVariableFieldSemicolon
+    | ESTO ID ':' booleanLiteral ';'?        #StructBooleanFieldSemicolon
+    | SERIES ID (':' type)? ';'?            #StructArrayFieldSemicolon
+    ;
+
+structFieldWithComma
+    : ESTO ID ':' type ','?                 #StructVariableFieldComma
+    | ESTO ID ':' booleanLiteral ','?        #StructBooleanFieldComma
+    | SERIES ID (':' type)? ','?            #StructArrayFieldComma
     ;
 
 functionDeclaration
@@ -66,16 +56,65 @@ parameter
     : ESTO ID ':' type
     ;
 
-
 functionBody
     : '{' localVariableSection? statement* '}'
+    ;
+
+// declarations
+declaration
+    : variableDeclaration
+    | arrayDeclaration
+    | structDeclaration
     ;
 
 localVariableSection
     : VARIABILES '[' declaration* ']'
     ;
 
-// statement
+variableDeclaration
+    : ESTO ID ':' type initializer? ';'   #NormalVarDeclaration
+    | ESTO ID ':' booleanLiteral ';'       #BooleanVarDeclaration
+    ;
+
+initializer
+    : expression          #ExprInit
+    | structInitializer   #StructInit
+    ;
+
+structInitializer
+    : '{' structFieldInitializer (',' structFieldInitializer)* '}'
+    ;
+
+structFieldInitializer
+    : ID ':' initializer                  // ¡Reutiliza el mismo inicializador simplificado!
+    ;
+
+arrayConstructor
+    : type '[' expression ']'
+    ;
+
+booleanLiteral
+    : VERUM
+    | FALSUS
+    ;
+
+arrayDeclaration
+    : SERIES ID '[' expression ']' (':' type)? arrayInitializer? ';'
+    ;
+
+arrayInitializer
+    : '{' values+=expression (',' values+=expression)* '}'
+    ;
+
+type
+    : NUMERUS
+    | DECIMALIS
+    | TEXTUM
+    | LITTERA
+    | ID
+    ;
+
+// statements
 statement
     : assignment         #AssignmentStmt
     | ifStatement        #IfStmt
@@ -87,6 +126,10 @@ statement
     | continueStatement  #ContinueStmt
     | printStatement     #PrintStmt
     | readStatement      #ReadStmt
+    ;
+
+assignment
+    : postfixExpression '=' initializer ';'
     ;
 
 ifStatement
@@ -129,55 +172,15 @@ breakStatement
     : INTERRUMPE ';'
     ;
 
-argumentList
-    : arguments+=expression (',' arguments+=expression)*
-    ;
-
 readStatement
-    : location? READ
+    : postfixExpression? READ
     ;
 
 printStatement
     : PRINT expressions+=expression (PRINT expressions+=expression)* ';'
     ;
 
-// declarations
-variableDeclaration
-    : ESTO ID ':' type expression? ';'
-    ;
-
-type
-    : NUMERUS
-    | DECIMALIS
-    | TEXTUM
-    | LITTERA
-    | VERUM
-    | FALSUS
-    | ID
-    ;
-
-arrayDeclaration
-    : SERIES ID '[' expression ']' ':' type arrayInitializer? ';'
-    ;
-
-arrayInitializer
-    : '{' values+=expression (',' values+=expression)* '}'
-    ;
-
-assignment
-    : location '=' expression ';'
-    ;
-
-location
-    : base=ID accesses+=locationAccess*
-    ;
-
-locationAccess
-    : '[' expression ']' #ArrayLocationAccess
-    | '.' ID             #MemberLocationAccess
-    ;
-
-// expr
+// expressions
 expression
     : logicalOrExpression
     ;
@@ -236,6 +239,10 @@ functionArguments
     : '(' argumentList? ')'
     ;
 
+argumentList
+    : arguments+=expression (',' arguments+=expression)*
+    ;
+
 primaryExpression
     : NUMBER                 #NumberLiteralExpr
     | DECIMAL                #DecimalLiteralExpr
@@ -247,77 +254,65 @@ primaryExpression
     | '(' expression ')'     #ParenthesizedExpr
     ;
 
-// lexer
+// Lexer
+// key words for sections
 VARIABLES_SECTION : 'VARIABILES>';
 FUNCTIONS_SECTION : 'MUNERA>';
-MAIN_SECTION : 'MAIOR>';
-FINIS_PROGRAM : 'FINIS';
-STRUCTURA : 'structura';
-FINIS : 'finis';
-ESTO : 'esto';
-SERIES : 'series';
-ACTIO : 'actio';
-RATIO : 'ratio';
-SI : 'si';
-ALITER : 'aliter';
-DUM : 'dum';
-FACERE : 'facere';
-PER : 'per';
-REDDERE : 'reddere';
-PERGE : 'perge';
+MAIN_SECTION      : 'MAIOR>';
+FINIS_PROGRAM     : 'FINIS';
+
+// key words
+STRUCTURA  : 'structura';
+FINIS      : 'finis';
+ESTO       : 'esto';
+SERIES     : 'series';
+ACTIO      : 'actio';
+RATIO      : 'ratio';
+SI         : 'si';
+ALITER     : 'aliter';
+DUM        : 'dum';
+FACERE     : 'facere';
+PER        : 'per';
+REDDERE    : 'reddere';
+PERGE      : 'perge';
 INTERRUMPE : 'interrumpe';
 VARIABILES : 'VARIABILES';
-NUMERUS : 'numerus';
+
+// key word for types
+NUMERUS   : 'numerus';
 DECIMALIS : 'decimalis';
-TEXTUM : 'textum';
-LITTERA : 'littera';
-VERUM : 'verum';
-FALSUS : 'falsus';
-PLUS : '+';
-MINUS : '-';
-MULT : '*';
-DIV : '/';
-PLUSPLUS : '++';
-MINUSMINUS : '--';
-AND : '&&';
-OR : '||';
-NON : 'non';
-EQUAL : '==';
-NOT_EQUAL : '!=';
-LESS : '<';
-GREATER : '>';
-LESS_EQUAL : '<=';
+TEXTUM    : 'textum';
+LITTERA   : 'littera';
+VERUM     : 'verum';
+FALSUS    : 'falsus';
+
+// operators
+PLUS        : '+';
+MINUS       : '-';
+MULT        : '*';
+DIV         : '/';
+PLUSPLUS    : '++';
+MINUSMINUS  : '--';
+AND         : '&&';
+OR          : '||';
+NON         : 'non';
+EQUAL       : '==';
+NOT_EQUAL   : '!=';
+LESS        : '<';
+GREATER     : '>';
+LESS_EQUAL  : '<=';
 GREATER_EQUAL : '>=';
-READ : '<<';
-PRINT : '>>';
+READ        : '<<';
+PRINT       : '>>';
 
-NUMBER
-    : [0-9]+
-    ;
+// literals
+NUMBER  : [0-9]+ ;
+DECIMAL : [0-9]+ '.' [0-9]+ ;
+STRING  : '"' (~["\r\n])* '"' ;
+CHAR    : '\'' . '\'' ;
+ID      : [a-zA-Z_][a-zA-Z0-9_]* ;
 
-DECIMAL
-    : [0-9]+ '.' [0-9]+
-    ;
-STRING
-    : '"' (~["\r\n])* '"'
-    ;
-
-CHAR
-    : '\'' . '\''
-    ;
-
-ID
-    : [a-zA-Z_][a-zA-Z0-9_]*
-    ;
-
-LINE_COMMENT
-    : '//' ~[\r\n]* -> skip
-    ;
-
-BLOCK_COMMENT
-    : '##' .*? '##' -> skip
-    ;
-
-WS
-    : [ \t\r\n]+ -> skip
-    ;
+// comments
+LINE_COMMENT  : '//' ~[\r\n]* -> skip ;
+BLOCK_COMMENT : '##' .*? '##' -> skip ;
+WS            : [ \t\r\n]+ -> skip ;

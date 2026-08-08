@@ -2,39 +2,15 @@ package com.navi.ast.visitors;
 
 import com.navi.ast.AstNode;
 import com.navi.ast.declarations.VariableDeclaration;
+import com.navi.ast.declarations.initializers.Initializer;
 import com.navi.ast.expressions.Expression;
 import com.navi.ast.lexer_parser.LatinParser;
-import com.navi.ast.locations.ArrayAccess;
-import com.navi.ast.locations.Location;
-import com.navi.ast.locations.LocationAccess;
-import com.navi.ast.locations.MemberAccess;
 import com.navi.ast.statements.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StatementVisitor extends ExpressionVisitor {
-    @Override
-    public AstNode visitLocation(LatinParser.LocationContext ctx) {
-        List<LocationAccess> accesses = new ArrayList<>();
-
-        for (LatinParser.LocationAccessContext accessCtx : ctx.accesses) {
-            accesses.add((LocationAccess) visit(accessCtx));
-        }
-
-        return new Location(ctx.base.getText(), accesses);
-    }
-
-    @Override
-    public AstNode visitArrayLocationAccess(LatinParser.ArrayLocationAccessContext ctx) {
-        return new ArrayAccess((Expression) visit(ctx.expression()));
-    }
-
-    @Override
-    public AstNode visitMemberLocationAccess(LatinParser.MemberLocationAccessContext ctx) {
-        return new MemberAccess(ctx.ID().getText());
-    }
-
     @Override
     public AstNode visitAssignmentStmt(LatinParser.AssignmentStmtContext ctx) {
         return visit(ctx.assignment());
@@ -43,8 +19,8 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitAssignment(LatinParser.AssignmentContext ctx) {
         return new AssignmentStatement(
-                (Location) visit(ctx.location()),
-                (Expression) visit(ctx.expression())
+                (Expression) visit(ctx.postfixExpression()),
+                (Initializer) visit(ctx.initializer())
         );
     }
 

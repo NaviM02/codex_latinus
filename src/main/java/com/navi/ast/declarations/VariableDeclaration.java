@@ -1,14 +1,13 @@
 package com.navi.ast.declarations;
 
-import com.navi.ast.AstNode;
-import com.navi.ast.expressions.Expression;
+import com.navi.ast.declarations.initializers.Initializer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class VariableDeclaration extends AstNode {
-    private final String name;
-    private final String type;
-    private final Expression initializer;
+public class VariableDeclaration extends Declaration {
+    private String name;
+    private String type;
+    private Initializer initializer;
 }

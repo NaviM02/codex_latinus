@@ -1,17 +1,78 @@
 package com.navi;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import com.navi.ast.global.Program;
+import com.navi.ast.lexer_parser.LatinLexer;
+import com.navi.ast.lexer_parser.LatinParser;
+import com.navi.ast.visitors.ProgramVisitor;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        String source = """
+                ##
+                   Sección opcional de variables, puede no existir
+                   En esta sección solo se definen variables, arreglos
+                   o estructuras globales
+                ##
+                VARIABILES>
+                esto edad : numerus 20;
+                esto cifrado : falsus;
+                esto comandante : textum "Estudiante X";
+                esto fuerza : numerus 10;
+                esto poder : numerus 0;
+                
+                ##
+                   Seccion de funciones, es opcional
+                   En esta seccion solo se deben definir funciones
+                ##
+                MUNERA>
+                // Definición de funcion con retorno
+                ratio numerus calcularPoder(esto fuerza : numerus) {
+                   VARIABILES[
+                      esto total : numerus fuerza * 2;
+                   ]
+                   reddere total;
+                } finis;
+                
+                ##
+                   Seccion de funcion principal
+                   Esta sección es obligatoria
+                ##
+                MAIOR>
+                >> "Hola comandante!" ;
+                >> "Ingresa tu nombre por favor" ;
+                comandante <<
+                >> "Bienvenido" >> comandante ;
+                >> "Ingresa tu edad" ;
+                edad <<\s
+                
+                si (edad >= 18) {
+                   cifrado = verum;
+                   fuerza = 12;
+                } finis ;
+                
+                >> "Tu poder es: " >> calcularPoder(fuerza);
+                >> "La puerta esta cifrada?" >> cifrado ;
+                
+                FINIS;
+
+                
+                """;
+
+        CharStream input = CharStreams.fromString(source);
+
+        LatinLexer lexer = new LatinLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        LatinParser parser = new LatinParser(tokens);
+
+        LatinParser.ProgramContext tree = parser.program();
+
+        Program program = (Program) new ProgramVisitor().visit(tree);
+
+        System.out.println("=== AST GENERADO ===");
+        System.out.println(program);
     }
 }
