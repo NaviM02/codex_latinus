@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class Program extends AstNode {
-    private final List<GlobalVariableSection> globalVariables;
+    private final GlobalVariableSection globalVariables;
     private final List<FunctionDeclaration> functions;
     private final List<Statement> mainStatements;
 }

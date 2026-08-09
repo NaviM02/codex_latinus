@@ -13,12 +13,12 @@ import java.util.List;
 public class ProgramVisitor extends DeclarationVisitor {
     @Override
     public AstNode visitProgram(LatinParser.ProgramContext ctx) {
-        List<GlobalVariableSection> globalVariables = new ArrayList<>();
+        GlobalVariableSection globalVariables = null;
         List<FunctionDeclaration> functions = new ArrayList<>();
         List<Statement> mainStatements = new ArrayList<>();
 
         if (ctx.globalVariablesSection() != null) {
-            globalVariables.add((GlobalVariableSection) visit(ctx.globalVariablesSection()));
+            globalVariables = (GlobalVariableSection) visit(ctx.globalVariablesSection());
         }
 
         if (ctx.functionSection() != null) {

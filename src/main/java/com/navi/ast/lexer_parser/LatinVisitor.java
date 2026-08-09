@@ -487,19 +487,12 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNotExpr(LatinParser.NotExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PreIncrementExpr}
+	 * Visit a parse tree produced by the {@code NegateExpr}
 	 * labeled alternative in {@link LatinParser#unaryExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPreIncrementExpr(LatinParser.PreIncrementExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PreDecrementExpr}
-	 * labeled alternative in {@link LatinParser#unaryExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPreDecrementExpr(LatinParser.PreDecrementExprContext ctx);
+	T visitNegateExpr(LatinParser.NegateExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ToPostfixExpr}
 	 * labeled alternative in {@link LatinParser#unaryExpression}.
@@ -514,6 +507,13 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunctionCallExpr(LatinParser.FunctionCallExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PostDecrementExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPostDecrementExpr(LatinParser.PostDecrementExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ArrayAccessExpr}
 	 * labeled alternative in {@link LatinParser#postfixExpression}.
@@ -535,6 +535,13 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitToPrimaryExpr(LatinParser.ToPrimaryExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PostIncrementExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPostIncrementExpr(LatinParser.PostIncrementExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LatinParser#functionArguments}.
 	 * @param ctx the parse tree

@@ -64,8 +64,8 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitElseIfStatement(LatinParser.ElseIfStatementContext ctx) {
         return new ElseIfStatement(
-                (Expression) visit(ctx.expression()),
-                (BlockStatement) visit(ctx.block())
+            (Expression) visit(ctx.expression()),
+            (BlockStatement) visit(ctx.block())
         );
     }
 
@@ -82,8 +82,8 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitWhileStatement(LatinParser.WhileStatementContext ctx) {
         return new WhileStatement(
-                (Expression) visit(ctx.expression()),
-                (BlockStatement) visit(ctx.block())
+            (Expression) visit(ctx.expression()),
+            (BlockStatement) visit(ctx.block())
         );
     }
 
@@ -95,8 +95,8 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitDoWhileStatement(LatinParser.DoWhileStatementContext ctx) {
         return new DoWhileStatement(
-                (BlockStatement) visit(ctx.block()),
-                (Expression) visit(ctx.expression())
+            (BlockStatement) visit(ctx.block()),
+            (Expression) visit(ctx.expression())
         );
     }
 
@@ -108,11 +108,28 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitForStatement(LatinParser.ForStatementContext ctx) {
         return new ForStatement(
-                (VariableDeclaration) visit(ctx.variableDeclaration()),
-                (Expression) visit(ctx.expression(0)),
-                (Expression) visit(ctx.expression(1)),
-                (BlockStatement) visit(ctx.block())
+            (VariableDeclaration) visit(ctx.variableDeclaration()),
+            (Expression) visit(ctx.expression(0)),
+            (Expression) visit(ctx.expression(1)),
+            (BlockStatement) visit(ctx.block())
         );
+    }
+
+    @Override
+    public AstNode visitReturnStmt(LatinParser.ReturnStmtContext ctx) {
+        return new ReturnStatement(
+            (Expression) visit(ctx.returnStatement().expression())
+        );
+    }
+
+    @Override
+    public AstNode visitBreakStmt(LatinParser.BreakStmtContext ctx) {
+        return new BreakStatement();
+    }
+
+    @Override
+    public AstNode visitContinueStmt(LatinParser.ContinueStmtContext ctx) {
+        return new ContinueStatement();
     }
 
     @Override
@@ -126,4 +143,14 @@ public class StatementVisitor extends ExpressionVisitor {
         return new PrintStatement(expressions);
     }
 
+    @Override
+    public AstNode visitReadStatement(LatinParser.ReadStatementContext ctx) {
+        Expression target = null;
+
+        if (ctx.postfixExpression() != null) {
+            target = (Expression) visit(ctx.postfixExpression());
+        }
+
+        return new ReadStatement(target);
+    }
 }

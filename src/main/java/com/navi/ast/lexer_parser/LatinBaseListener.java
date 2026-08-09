@@ -892,25 +892,13 @@ public class LatinBaseListener implements LatinListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPreIncrementExpr(LatinParser.PreIncrementExprContext ctx) { }
+	@Override public void enterNegateExpr(LatinParser.NegateExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPreIncrementExpr(LatinParser.PreIncrementExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPreDecrementExpr(LatinParser.PreDecrementExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPreDecrementExpr(LatinParser.PreDecrementExprContext ctx) { }
+	@Override public void exitNegateExpr(LatinParser.NegateExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -935,6 +923,18 @@ public class LatinBaseListener implements LatinListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunctionCallExpr(LatinParser.FunctionCallExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPostDecrementExpr(LatinParser.PostDecrementExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPostDecrementExpr(LatinParser.PostDecrementExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -971,6 +971,18 @@ public class LatinBaseListener implements LatinListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitToPrimaryExpr(LatinParser.ToPrimaryExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPostIncrementExpr(LatinParser.PostIncrementExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPostIncrementExpr(LatinParser.PostIncrementExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -4,6 +4,7 @@ import com.navi.ast.global.Program;
 import com.navi.ast.lexer_parser.LatinLexer;
 import com.navi.ast.lexer_parser.LatinParser;
 import com.navi.ast.visitors.ProgramVisitor;
+import com.navi.semantic.*;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -71,8 +72,18 @@ public class Main {
         LatinParser.ProgramContext tree = parser.program();
 
         Program program = (Program) new ProgramVisitor().visit(tree);
+        SymbolTable symbolTable = new SymbolTable();
+        SymbolTableBuilder symbolTableBuilder = new SymbolTableBuilder(symbolTable);
+        symbolTableBuilder.build(program);
+
+        SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer(symbolTable);
+
+        semanticAnalyzer.analyze(program);
 
         System.out.println("=== AST GENERADO ===");
         System.out.println(program);
+
+        System.out.println("=== SEMANTIC ANALYSIS ===");
+        System.out.println("No semantic errors found.");
     }
 }

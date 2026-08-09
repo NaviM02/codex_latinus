@@ -815,29 +815,17 @@ public interface LatinListener extends ParseTreeListener {
 	 */
 	void exitNotExpr(LatinParser.NotExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PreIncrementExpr}
+	 * Enter a parse tree produced by the {@code NegateExpr}
 	 * labeled alternative in {@link LatinParser#unaryExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterPreIncrementExpr(LatinParser.PreIncrementExprContext ctx);
+	void enterNegateExpr(LatinParser.NegateExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PreIncrementExpr}
+	 * Exit a parse tree produced by the {@code NegateExpr}
 	 * labeled alternative in {@link LatinParser#unaryExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitPreIncrementExpr(LatinParser.PreIncrementExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PreDecrementExpr}
-	 * labeled alternative in {@link LatinParser#unaryExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterPreDecrementExpr(LatinParser.PreDecrementExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PreDecrementExpr}
-	 * labeled alternative in {@link LatinParser#unaryExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitPreDecrementExpr(LatinParser.PreDecrementExprContext ctx);
+	void exitNegateExpr(LatinParser.NegateExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ToPostfixExpr}
 	 * labeled alternative in {@link LatinParser#unaryExpression}.
@@ -862,6 +850,18 @@ public interface LatinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctionCallExpr(LatinParser.FunctionCallExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PostDecrementExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPostDecrementExpr(LatinParser.PostDecrementExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PostDecrementExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPostDecrementExpr(LatinParser.PostDecrementExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ArrayAccessExpr}
 	 * labeled alternative in {@link LatinParser#postfixExpression}.
@@ -898,6 +898,18 @@ public interface LatinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitToPrimaryExpr(LatinParser.ToPrimaryExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PostIncrementExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPostIncrementExpr(LatinParser.PostIncrementExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PostIncrementExpr}
+	 * labeled alternative in {@link LatinParser#postfixExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPostIncrementExpr(LatinParser.PostIncrementExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LatinParser#functionArguments}.
 	 * @param ctx the parse tree

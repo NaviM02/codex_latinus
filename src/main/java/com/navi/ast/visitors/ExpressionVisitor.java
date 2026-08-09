@@ -86,148 +86,156 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     @Override
     public AstNode visitOrExpr(LatinParser.OrExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.logicalOrExpression()),
-                BinaryOperator.OR,
-                (Expression) visit(ctx.logicalAndExpression())
+            (Expression) visit(ctx.logicalOrExpression()),
+            BinaryOperator.OR,
+            (Expression) visit(ctx.logicalAndExpression())
         );
     }
 
     @Override
     public AstNode visitAndExpr(LatinParser.AndExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.logicalAndExpression()),
-                BinaryOperator.AND,
-                (Expression) visit(ctx.equalityExpression())
+            (Expression) visit(ctx.logicalAndExpression()),
+            BinaryOperator.AND,
+            (Expression) visit(ctx.equalityExpression())
         );
     }
 
     @Override
     public AstNode visitEqualExpr(LatinParser.EqualExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.equalityExpression()),
-                BinaryOperator.EQUAL,
-                (Expression) visit(ctx.comparisonExpression())
+            (Expression) visit(ctx.equalityExpression()),
+            BinaryOperator.EQUAL,
+            (Expression) visit(ctx.comparisonExpression())
         );
     }
 
     @Override
     public AstNode visitNotEqualExpr(LatinParser.NotEqualExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.equalityExpression()),
-                BinaryOperator.NOT_EQUAL,
-                (Expression) visit(ctx.comparisonExpression())
+            (Expression) visit(ctx.equalityExpression()),
+            BinaryOperator.NOT_EQUAL,
+            (Expression) visit(ctx.comparisonExpression())
         );
     }
 
     @Override
     public AstNode visitLessExpr(LatinParser.LessExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.comparisonExpression()),
-                BinaryOperator.LESS,
-                (Expression) visit(ctx.additiveExpression())
+            (Expression) visit(ctx.comparisonExpression()),
+            BinaryOperator.LESS,
+            (Expression) visit(ctx.additiveExpression())
         );
     }
 
     @Override
     public AstNode visitGreaterExpr(LatinParser.GreaterExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.comparisonExpression()),
-                BinaryOperator.GREATER,
-                (Expression) visit(ctx.additiveExpression())
+            (Expression) visit(ctx.comparisonExpression()),
+            BinaryOperator.GREATER,
+            (Expression) visit(ctx.additiveExpression())
         );
     }
 
     @Override
     public AstNode visitLessEqualExpr(LatinParser.LessEqualExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.comparisonExpression()),
-                BinaryOperator.LESS_EQUAL,
-                (Expression) visit(ctx.additiveExpression())
+            (Expression) visit(ctx.comparisonExpression()),
+            BinaryOperator.LESS_EQUAL,
+            (Expression) visit(ctx.additiveExpression())
         );
     }
 
     @Override
     public AstNode visitGreaterEqualExpr(LatinParser.GreaterEqualExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.comparisonExpression()),
-                BinaryOperator.GREATER_EQUAL,
-                (Expression) visit(ctx.additiveExpression())
+            (Expression) visit(ctx.comparisonExpression()),
+            BinaryOperator.GREATER_EQUAL,
+            (Expression) visit(ctx.additiveExpression())
         );
     }
 
     @Override
     public AstNode visitAdditionExpr(LatinParser.AdditionExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.additiveExpression()),
-                BinaryOperator.ADD,
-                (Expression) visit(ctx.multiplicativeExpression())
+            (Expression) visit(ctx.additiveExpression()),
+            BinaryOperator.ADD,
+            (Expression) visit(ctx.multiplicativeExpression())
         );
     }
 
     @Override
     public AstNode visitSubtractionExpr(LatinParser.SubtractionExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.additiveExpression()),
-                BinaryOperator.SUBTRACT,
-                (Expression) visit(ctx.multiplicativeExpression())
+            (Expression) visit(ctx.additiveExpression()),
+            BinaryOperator.SUBTRACT,
+            (Expression) visit(ctx.multiplicativeExpression())
         );
     }
 
     @Override
     public AstNode visitMultiplicationExpr(LatinParser.MultiplicationExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.multiplicativeExpression()),
-                BinaryOperator.MULTIPLY,
-                (Expression) visit(ctx.unaryExpression())
+            (Expression) visit(ctx.multiplicativeExpression()),
+            BinaryOperator.MULTIPLY,
+            (Expression) visit(ctx.unaryExpression())
         );
     }
 
     @Override
     public AstNode visitDivisionExpr(LatinParser.DivisionExprContext ctx) {
         return new BinaryExpression(
-                (Expression) visit(ctx.multiplicativeExpression()),
-                BinaryOperator.DIVIDE,
-                (Expression) visit(ctx.unaryExpression())
+            (Expression) visit(ctx.multiplicativeExpression()),
+            BinaryOperator.DIVIDE,
+            (Expression) visit(ctx.unaryExpression())
         );
     }
 
     @Override
     public AstNode visitNotExpr(LatinParser.NotExprContext ctx) {
         return new UnaryExpression(
-                UnaryOperator.NOT,
-                (Expression) visit(ctx.unaryExpression())
+            UnaryOperator.NOT,
+            (Expression) visit(ctx.unaryExpression())
         );
     }
 
     @Override
-    public AstNode visitPreIncrementExpr(LatinParser.PreIncrementExprContext ctx) {
+    public AstNode visitNegateExpr(LatinParser.NegateExprContext ctx) {
         return new UnaryExpression(
-                UnaryOperator.PRE_INCREMENT,
-                (Expression) visit(ctx.unaryExpression())
+            UnaryOperator.NEGATE,
+            (Expression) visit(ctx.unaryExpression())
         );
     }
 
     @Override
-    public AstNode visitPreDecrementExpr(LatinParser.PreDecrementExprContext ctx) {
+    public AstNode visitPostIncrementExpr(LatinParser.PostIncrementExprContext ctx) {
         return new UnaryExpression(
-                UnaryOperator.PRE_DECREMENT,
-                (Expression) visit(ctx.unaryExpression())
+            UnaryOperator.POST_INCREMENT,
+            (Expression) visit(ctx.postfixExpression())
+        );
+    }
+
+    @Override
+    public AstNode visitPostDecrementExpr(LatinParser.PostDecrementExprContext ctx) {
+        return new UnaryExpression(
+            UnaryOperator.POST_DECREMENT,
+            (Expression) visit(ctx.postfixExpression())
         );
     }
 
     @Override
     public AstNode visitArrayAccessExpr(LatinParser.ArrayAccessExprContext ctx) {
         return new ArrayAccessExpression(
-                (Expression) visit(ctx.postfixExpression()),
-                (Expression) visit(ctx.expression())
+            (Expression) visit(ctx.postfixExpression()),
+            (Expression) visit(ctx.expression())
         );
     }
 
     @Override
     public AstNode visitMemberAccessExpr(LatinParser.MemberAccessExprContext ctx) {
         return new MemberAccessExpression(
-                (Expression) visit(ctx.postfixExpression()),
-                ctx.ID().getText()
+            (Expression) visit(ctx.postfixExpression()),
+            ctx.ID().getText()
         );
     }
 

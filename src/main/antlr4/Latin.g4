@@ -223,8 +223,7 @@ multiplicativeExpression
 
 unaryExpression
     : NON unaryExpression          #NotExpr
-    | PLUSPLUS unaryExpression     #PreIncrementExpr
-    | MINUSMINUS unaryExpression   #PreDecrementExpr
+    | MINUS unaryExpression        #NegateExpr
     | postfixExpression            #ToPostfixExpr
     ;
 
@@ -232,6 +231,8 @@ postfixExpression
     : postfixExpression '[' expression ']'        #ArrayAccessExpr
     | postfixExpression '.' ID                    #MemberAccessExpr
     | postfixExpression functionArguments         #FunctionCallExpr
+    | postfixExpression PLUSPLUS                  #PostIncrementExpr
+    | postfixExpression MINUSMINUS                #PostDecrementExpr
     | primaryExpression                           #ToPrimaryExpr
     ;
 

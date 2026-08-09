@@ -2,6 +2,7 @@ package com.navi.ast.expressions;
 
 public enum UnaryOperator {
     NOT,
-    PRE_INCREMENT,
-    PRE_DECREMENT
+    NEGATE,
+    POST_INCREMENT,
+    POST_DECREMENT
 }
