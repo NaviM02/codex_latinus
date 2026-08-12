@@ -207,6 +207,13 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignmentStmt(LatinParser.AssignmentStmtContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code IncrementStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIncrementStmt(LatinParser.IncrementStmtContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code IfStmt}
 	 * labeled alternative in {@link LatinParser#statement}.
 	 * @param ctx the parse tree
@@ -275,6 +282,33 @@ public interface LatinVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAssignment(LatinParser.AssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LatinParser#incrementStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIncrementStatement(LatinParser.IncrementStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IncrementVariable}
+	 * labeled alternative in {@link LatinParser#incrementableExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIncrementVariable(LatinParser.IncrementVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IncrementArrayAccess}
+	 * labeled alternative in {@link LatinParser#incrementableExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIncrementArrayAccess(LatinParser.IncrementArrayAccessContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IncrementMemberAccess}
+	 * labeled alternative in {@link LatinParser#incrementableExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIncrementMemberAccess(LatinParser.IncrementMemberAccessContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LatinParser#ifStatement}.
 	 * @param ctx the parse tree

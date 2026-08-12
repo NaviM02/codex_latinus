@@ -388,6 +388,18 @@ public class LatinBaseListener implements LatinListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIncrementStmt(LatinParser.IncrementStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIncrementStmt(LatinParser.IncrementStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIfStmt(LatinParser.IfStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -503,6 +515,54 @@ public class LatinBaseListener implements LatinListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignment(LatinParser.AssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIncrementStatement(LatinParser.IncrementStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIncrementStatement(LatinParser.IncrementStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIncrementVariable(LatinParser.IncrementVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIncrementVariable(LatinParser.IncrementVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIncrementArrayAccess(LatinParser.IncrementArrayAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIncrementArrayAccess(LatinParser.IncrementArrayAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIncrementMemberAccess(LatinParser.IncrementMemberAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIncrementMemberAccess(LatinParser.IncrementMemberAccessContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

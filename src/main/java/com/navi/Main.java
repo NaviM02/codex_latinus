@@ -4,6 +4,7 @@ import com.navi.ast.global.Program;
 import com.navi.ast.lexer_parser.LatinLexer;
 import com.navi.ast.lexer_parser.LatinParser;
 import com.navi.ast.visitors.ProgramVisitor;
+import com.navi.parser.*;
 import com.navi.semantic.*;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -65,11 +66,30 @@ public class Main {
 
         CharStream input = CharStreams.fromString(source);
 
+        SyntaxErrorListener errorListener = new SyntaxErrorListener();
+
         LatinLexer lexer = new LatinLexer(input);
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(errorListener);
+
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         LatinParser parser = new LatinParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(errorListener);
 
         LatinParser.ProgramContext tree = parser.program();
+
+        if (errorListener.hasErrors()) {
+            System.out.println("====== SYNTAX ERRORS ======");
+
+            for (SyntaxError error : errorListener.getErrors()) {
+                System.out.println(error);
+            }
+
+            System.out.println("\nProgram contains syntax errors. AST generation skipped.");
+
+            return;
+        }
 
         Program program = (Program) new ProgramVisitor().visit(tree);
         SymbolTable symbolTable = new SymbolTable();
@@ -80,10 +100,39 @@ public class Main {
 
         semanticAnalyzer.analyze(program);
 
+        if (semanticAnalyzer.hasErrors()) {
+            System.out.println("=== SEMANTIC ERRORS ===");
+
+            for (String error : semanticAnalyzer.getErrors()) {
+                System.out.println("ERROR: " + error);
+            }
+            return;
+        }
+
         System.out.println("=== AST GENERADO ===");
         System.out.println(program);
 
         System.out.println("=== SEMANTIC ANALYSIS ===");
         System.out.println("No semantic errors found.");
+
+
+        ParserTraceBuilder traceBuilder = new ParserTraceBuilder();
+        ParserTrace trace = traceBuilder.build(tree);
+
+        System.out.println();
+        System.out.println("====== PARSER TRACE ======");
+
+        for (ParserState state : trace.getStates()) {
+            System.out.println();
+            System.out.println("========== STATE " + state.step() + " ==========");
+            System.out.println("Operation: " + state.operation());
+            System.out.println("Symbol: " + state.symbol());
+            System.out.println("Stack:");
+            for (String symbol : state.stack()) {
+                System.out.println("  " + symbol);
+            }
+            System.out.println("Log: " + state.log());
+        }
     }
+
 }

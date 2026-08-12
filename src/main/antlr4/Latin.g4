@@ -117,6 +117,7 @@ type
 // statements
 statement
     : assignment         #AssignmentStmt
+    | incrementStatement  #IncrementStmt
     | ifStatement        #IfStmt
     | whileStatement     #WhileStmt
     | doWhileStatement   #DoWhileStmt
@@ -130,6 +131,17 @@ statement
 
 assignment
     : postfixExpression '=' initializer ';'
+    ;
+
+incrementStatement
+    : incrementableExpression PLUSPLUS  ';'
+    | incrementableExpression MINUSMINUS ';'
+    ;
+
+incrementableExpression
+    : ID                                     #IncrementVariable
+    | postfixExpression '[' expression ']'   #IncrementArrayAccess
+    | postfixExpression '.' ID               #IncrementMemberAccess
     ;
 
 ifStatement

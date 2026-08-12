@@ -7,15 +7,12 @@ import com.navi.ast.expressions.literals.*;
 import com.navi.ast.global.*;
 import com.navi.ast.statements.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class SemanticAnalyzer {
     private final SymbolTable symbolTable;
     private final Map<String, StructDeclaration> structs = new HashMap<>();
+    private final List<String> errors = new ArrayList<>();
     private FunctionDeclaration currentFunction;
     private int loopDepth = 0;
 
@@ -23,22 +20,40 @@ public class SemanticAnalyzer {
         this.symbolTable = symbolTable;
     }
 
-    // =========================================================
+    // for errors
+    public boolean hasErrors() {
+        return !errors.isEmpty();
+    }
+
+    public List<String> getErrors() {
+        return List.copyOf(errors);
+    }
+
+    private void reportError(SemanticException exception) {
+        errors.add(exception.getMessage());
+    }
+
     // PROGRAM
-    // =========================================================
 
     public void analyze(Program program) {
-        collectStructs(program);
+        try {
+            collectStructs(program);
+        } catch (SemanticException e) {
+            reportError(e);
+        }
         analyzeGlobalDeclarations(program);
         analyzeFunctions(program);
+        Scope globalScope = symbolTable.getGlobalScope();
         for (Statement statement : program.getMainStatements()) {
-            analyzeStatement(statement, symbolTable.getGlobalScope());
+            try {
+                analyzeStatement(statement, globalScope);
+            } catch (SemanticException e) {
+                reportError(e);
+            }
         }
     }
 
-    // =========================================================
     // STRUCTS
-    // =========================================================
 
     private void collectStructs(Program program) {
         if (program.getGlobalVariables() == null) return;
@@ -69,9 +84,7 @@ public class SemanticAnalyzer {
         }
     }
 
-    // =========================================================
     // GLOBAL DECLARATIONS
-    // =========================================================
 
     private void analyzeGlobalDeclarations(Program program) {
         if (program.getGlobalVariables() == null) return;
@@ -79,17 +92,24 @@ public class SemanticAnalyzer {
         Scope globalScope = symbolTable.getGlobalScope();
 
         for (Declaration declaration : program.getGlobalVariables().getDeclarations()) {
-            analyzeDeclaration(declaration, globalScope);
+            try {
+                analyzeDeclaration(declaration, globalScope);
+            } catch (SemanticException e) {
+                reportError(e);
+            }
         }
     }
 
-    // =========================================================
+
     // FUNCTIONS
-    // =========================================================
 
     private void analyzeFunctions(Program program) {
         for (FunctionDeclaration function : program.getFunctions()) {
-            analyzeFunction(function);
+            try {
+                analyzeFunction(function);
+            } catch (SemanticException e) {
+                reportError(e);
+            }
         }
     }
 
@@ -106,20 +126,26 @@ public class SemanticAnalyzer {
 
         if (body.getLocalVariables() != null) {
             for (Declaration declaration : body.getLocalVariables().getDeclarations()) {
-                analyzeDeclaration(declaration, functionScope);
+                try {
+                    analyzeDeclaration(declaration, functionScope);
+                } catch (SemanticException e) {
+                    reportError(e);
+                }
             }
         }
 
         for (Statement statement : body.getBody().getStatements()) {
-            analyzeStatement(statement, functionScope);
+            try {
+                analyzeStatement(statement, functionScope);
+            } catch (SemanticException e) {
+                reportError(e);
+            }
         }
 
         currentFunction = null;
     }
 
-    // =========================================================
     // DECLARATIONS
-    // =========================================================
 
     private void analyzeDeclaration(Declaration declaration, Scope scope) {
         if (declaration instanceof VariableDeclaration variable) {
@@ -168,9 +194,7 @@ public class SemanticAnalyzer {
         throw new SemanticException("Unsupported declaration: " + declaration.getClass().getSimpleName());
     }
 
-    // =========================================================
     // INITIALIZERS
-    // =========================================================
 
     private String analyzeInitializer(Initializer initializer, String expectedType, Scope scope) {
         if (initializer instanceof ExpressionInitializer expressionInitializer) {
@@ -224,9 +248,7 @@ public class SemanticAnalyzer {
         }
     }
 
-    // =========================================================
     // EXPRESSIONS
-    // =========================================================
 
     private String analyzeExpression(Expression expression, Scope scope) {
         // literals
@@ -286,9 +308,7 @@ public class SemanticAnalyzer {
         throw new SemanticException("Unsupported expression: " + expression.getClass().getSimpleName());
     }
 
-    // =========================================================
     // BINARY EXPRESSIONS
-    // =========================================================
 
     private String analyzeBinaryExpression(BinaryOperator operator, String left, String right) {
         if (!TypeSystem.isPrimitive(left) || !TypeSystem.isPrimitive(right)) {
@@ -349,9 +369,7 @@ public class SemanticAnalyzer {
         return false;
     }
 
-    // =========================================================
     // UNARY EXPRESSIONS
-    // =========================================================
 
     private String analyzeUnaryExpression(UnaryOperator operator, String type) {
         return switch (operator) {
@@ -378,9 +396,7 @@ public class SemanticAnalyzer {
         };
     }
 
-    // =========================================================
     // ARRAY ACCESS
-    // =========================================================
 
     private String analyzeArrayAccess(ArrayAccessExpression arrayAccess, Scope scope) {
         String indexType = analyzeExpression(arrayAccess.getIndex(), scope);
@@ -441,9 +457,7 @@ public class SemanticAnalyzer {
         return field.getType();
     }
 
-    // =========================================================
     // MEMBER ACCESS
-    // =========================================================
 
     private String analyzeMemberAccess(MemberAccessExpression memberAccess, Scope scope) {
         String objectType = analyzeExpression(memberAccess.getObject(), scope);
@@ -472,9 +486,7 @@ public class SemanticAnalyzer {
         return null;
     }
 
-    // =========================================================
     // FUNCTION CALL
-    // =========================================================
 
     private String analyzeFunctionCall(FunctionCallExpression call, Scope scope) {
 
@@ -508,9 +520,7 @@ public class SemanticAnalyzer {
         return function.getType();
     }
 
-    // =========================================================
     // STATEMENTS
-    // =========================================================
 
     private void analyzeStatement(Statement statement, Scope scope) {
         // assignment
@@ -525,6 +535,17 @@ public class SemanticAnalyzer {
             return;
         }
 
+        // increment / decrement
+        if (statement instanceof IncrementStatement increment) {
+            String targetType = analyzeAssignmentTarget(increment.getTarget(), scope);
+
+            if (!targetType.equals(TypeSystem.NUMERUS) && !targetType.equals(TypeSystem.DECIMALIS)) {
+                throw new SemanticException("Increment/decrement requires a numeric target.");
+            }
+
+            return;
+        }
+
         // block
         if (statement instanceof BlockStatement block) {
             analyzeBlock(block, scope);
@@ -533,11 +554,19 @@ public class SemanticAnalyzer {
 
         // if
         if (statement instanceof IfStatement ifStatement) {
-            requireBoolean(ifStatement.getCondition(), scope, "if");
+            try {
+                requireBoolean(ifStatement.getCondition(), scope, "if");
+            } catch (SemanticException e) {
+                reportError(e);
+            }
             analyzeBlock(ifStatement.getThenBlock(), scope);
 
             for (ElseIfStatement elseIf : ifStatement.getElseIfStatements()) {
-                requireBoolean(elseIf.getCondition(), scope, "else-if");
+                try {
+                    requireBoolean(elseIf.getCondition(), scope, "else-if");
+                } catch (SemanticException e) {
+                    reportError(e);
+                }
                 analyzeBlock(elseIf.getBlock(), scope);
             }
 
@@ -550,7 +579,11 @@ public class SemanticAnalyzer {
 
         // while
         if (statement instanceof WhileStatement whileStatement) {
-            requireBoolean(whileStatement.getCondition(), scope, "while");
+            try {
+                requireBoolean(whileStatement.getCondition(), scope, "while");
+            } catch (SemanticException e) {
+                reportError(e);
+            }
             loopDepth++;
 
             analyzeBlock(whileStatement.getBlock(), scope);
@@ -565,7 +598,11 @@ public class SemanticAnalyzer {
             analyzeBlock(doWhile.getBlock(), scope);
 
             loopDepth--;
-            requireBoolean(doWhile.getCondition(), scope, "do-while");
+            try {
+                requireBoolean(doWhile.getCondition(), scope, "do-while");
+            } catch (SemanticException e) {
+                reportError(e);
+            }
 
             return;
         }
@@ -630,19 +667,19 @@ public class SemanticAnalyzer {
         throw new SemanticException("Unsupported statement: " + statement.getClass().getSimpleName());
     }
 
-    // =========================================================
     // BLOCKS
-    // =========================================================
 
     private void analyzeBlock(BlockStatement block, Scope scope) {
         for (Statement statement : block.getStatements()) {
-            analyzeStatement(statement, scope);
+            try {
+                analyzeStatement(statement, scope);
+            } catch (SemanticException e) {
+                reportError(e);
+            }
         }
     }
 
-    // =========================================================
     // ASSIGNMENT TARGET
-    // =========================================================
 
     private String analyzeAssignmentTarget(Expression expression, Scope scope) {
         if (expression instanceof VariableExpression) {
@@ -664,9 +701,7 @@ public class SemanticAnalyzer {
         analyzeAssignmentTarget(expression, scope);
     }
 
-    // =========================================================
     // RETURN
-    // =========================================================
 
     private void analyzeReturn(ReturnStatement returnStatement, Scope scope) {
         if (currentFunction == null) {
@@ -700,9 +735,7 @@ public class SemanticAnalyzer {
         }
     }
 
-    // =========================================================
     // BOOLEAN
-    // =========================================================
 
     private void requireBoolean(Expression expression, Scope scope, String context) {
         String type = analyzeExpression(expression, scope);
@@ -712,9 +745,7 @@ public class SemanticAnalyzer {
         }
     }
 
-    // =========================================================
     // TYPES
-    // =========================================================
 
     private void validateTypeExists(String type) {
         if (TypeSystem.isPrimitive(type)) return;
@@ -722,9 +753,7 @@ public class SemanticAnalyzer {
         throw new SemanticException("Unknown type '" + type + "'.");
     }
 
-    // =========================================================
     // CONSTANT INTEGER
-    // =========================================================
 
     private Integer evaluateConstantInteger(Expression expression) {
         if (expression instanceof NumberLiteral number) {

@@ -339,6 +339,18 @@ public interface LatinListener extends ParseTreeListener {
 	 */
 	void exitAssignmentStmt(LatinParser.AssignmentStmtContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code IncrementStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIncrementStmt(LatinParser.IncrementStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IncrementStmt}
+	 * labeled alternative in {@link LatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIncrementStmt(LatinParser.IncrementStmtContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code IfStmt}
 	 * labeled alternative in {@link LatinParser#statement}.
 	 * @param ctx the parse tree
@@ -456,6 +468,52 @@ public interface LatinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssignment(LatinParser.AssignmentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LatinParser#incrementStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIncrementStatement(LatinParser.IncrementStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LatinParser#incrementStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIncrementStatement(LatinParser.IncrementStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IncrementVariable}
+	 * labeled alternative in {@link LatinParser#incrementableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIncrementVariable(LatinParser.IncrementVariableContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IncrementVariable}
+	 * labeled alternative in {@link LatinParser#incrementableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIncrementVariable(LatinParser.IncrementVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IncrementArrayAccess}
+	 * labeled alternative in {@link LatinParser#incrementableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIncrementArrayAccess(LatinParser.IncrementArrayAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IncrementArrayAccess}
+	 * labeled alternative in {@link LatinParser#incrementableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIncrementArrayAccess(LatinParser.IncrementArrayAccessContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IncrementMemberAccess}
+	 * labeled alternative in {@link LatinParser#incrementableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIncrementMemberAccess(LatinParser.IncrementMemberAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IncrementMemberAccess}
+	 * labeled alternative in {@link LatinParser#incrementableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIncrementMemberAccess(LatinParser.IncrementMemberAccessContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LatinParser#ifStatement}.
 	 * @param ctx the parse tree

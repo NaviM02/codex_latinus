@@ -36,6 +36,14 @@ public final class TypeSystem {
             return null;
         }
 
+        if (left.equals(TEXTUM) || right.equals(TEXTUM)) {
+            return TEXTUM;
+        }
+
+        if (left.equals(BOOLEAN) || right.equals(BOOLEAN)) {
+            return null;
+        }
+
         return rank(left) >= rank(right) ? left : right;
     }
 
@@ -44,10 +52,6 @@ public final class TypeSystem {
             return true;
         }
 
-        if (!isPrimitive(target) || !isPrimitive(source)) {
-            return false;
-        }
-
-        return rank(source) <= rank(target);
+        return target.equals(DECIMALIS) && source.equals(NUMERUS);
     }
 }
