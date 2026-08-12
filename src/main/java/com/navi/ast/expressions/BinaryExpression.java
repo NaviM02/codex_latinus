@@ -9,4 +9,30 @@ public class BinaryExpression extends Expression {
     private Expression left;
     private BinaryOperator operator;
     private Expression right;
+
+    @Override
+    public void toPigLatin(StringBuilder sb, int indent) {
+        left.toPigLatin(sb, indent);
+        sb.append(" ");
+        sb.append(getOperatorText(operator));
+        sb.append(" ");
+        right.toPigLatin(sb, indent);
+    }
+
+    private String getOperatorText(BinaryOperator operator) {
+        return switch (operator) {
+            case ADD -> "+";
+            case SUBTRACT -> "-";
+            case MULTIPLY -> "*";
+            case DIVIDE -> "/";
+            case EQUAL -> "==";
+            case NOT_EQUAL -> "!=";
+            case LESS -> "<";
+            case LESS_EQUAL -> "<=";
+            case GREATER -> ">";
+            case GREATER_EQUAL -> ">=";
+            case AND -> "&&";
+            case OR -> "||";
+        };
+    }
 }

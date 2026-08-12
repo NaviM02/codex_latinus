@@ -36,6 +36,9 @@ public class Main {
                    VARIABILES[
                       esto total : numerus fuerza * 2;
                    ]
+                   si (total == 1) {
+                      total++;
+                   } finis;
                    reddere total;
                 } finis;
                 
@@ -54,6 +57,9 @@ public class Main {
                 si (edad >= 18) {
                    cifrado = verum;
                    fuerza = 12;
+                   si (edad <= 30) {
+                        cifrado = falsus;
+                   } finis;
                 } finis ;
                 
                 >> "Tu poder es: " >> calcularPoder(fuerza);
@@ -115,11 +121,19 @@ public class Main {
         System.out.println("=== SEMANTIC ANALYSIS ===");
         System.out.println("No semantic errors found.");
 
+        if (!semanticAnalyzer.hasErrors()) {
+            StringBuilder sb = new StringBuilder();
+
+            program.toPigLatin(sb, 0);
+
+            System.out.println("====== PIG LATIN TRANSLATION ======");
+            System.out.println(sb);
+        }
 
         ParserTraceBuilder traceBuilder = new ParserTraceBuilder();
         ParserTrace trace = traceBuilder.build(tree);
 
-        System.out.println();
+       /* System.out.println();
         System.out.println("====== PARSER TRACE ======");
 
         for (ParserState state : trace.getStates()) {
@@ -132,7 +146,7 @@ public class Main {
                 System.out.println("  " + symbol);
             }
             System.out.println("Log: " + state.log());
-        }
+        }*/
     }
 
 }

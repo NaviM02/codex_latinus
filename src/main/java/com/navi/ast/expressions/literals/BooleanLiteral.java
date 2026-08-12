@@ -1,6 +1,7 @@
 package com.navi.ast.expressions.literals;
 
 import com.navi.ast.expressions.Expression;
+import com.navi.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,4 +10,9 @@ import lombok.Getter;
 public class BooleanLiteral extends Expression {
     private boolean value;
 
+    @Override
+    public void toPigLatin(StringBuilder sb, int indent) {
+        String valueText = value ? "verum" : "falsus";
+        sb.append(PigLatinRules.translateKeyword(valueText));
+    }
 }

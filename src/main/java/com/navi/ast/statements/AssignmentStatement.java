@@ -11,4 +11,11 @@ public class AssignmentStatement extends Statement {
     private Expression target;
     private Initializer initializer;
 
+    @Override
+    public void toPigLatin(StringBuilder sb, int indent) {
+        target.toPigLatin(sb, indent);
+        sb.append(" = ");
+        initializer.toPigLatin(sb, indent);
+        sb.append(";\n");
+    }
 }

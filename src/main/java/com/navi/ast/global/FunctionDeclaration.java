@@ -1,6 +1,7 @@
 package com.navi.ast.global;
 
 import com.navi.ast.AstNode;
+import com.navi.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,4 +14,25 @@ public class FunctionDeclaration extends AstNode {
     private String returnType;
     private List<Parameter> parameters;
     private FunctionBody body;
+
+    @Override
+    public void toPigLatin(StringBuilder sb, int indent) {
+        sb.append(PigLatinRules.translateKeyword("ratio"));
+        sb.append(" ");
+        sb.append(PigLatinRules.translateType(returnType));
+        sb.append(" ");
+        sb.append(PigLatinRules.translateIdentifier(name));
+        sb.append("(");
+
+        for (int i = 0; i < parameters.size(); i++) {
+            if (i > 0) sb.append(", ");
+            parameters.get(i).toPigLatin(sb, indent);
+        }
+
+        sb.append(") ");
+        body.toPigLatin(sb, indent);
+
+        sb.append(PigLatinRules.translateKeyword(" finis"));
+        sb.append(";\n");
+    }
 }

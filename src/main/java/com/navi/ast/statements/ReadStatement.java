@@ -8,4 +8,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ReadStatement extends Statement {
     private Expression target;
+
+    @Override
+    public void toPigLatin(StringBuilder sb, int indent) {
+        target.toPigLatin(sb, indent);
+        sb.append(" %OINK_OINK\n");
+    }
 }

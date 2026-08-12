@@ -9,4 +9,8 @@ import lombok.Getter;
 public class NumberLiteral extends Expression {
     private int value;
 
+    @Override
+    public void toPigLatin(StringBuilder sb, int indent) {
+        sb.append(value);
+    }
 }

@@ -9,4 +9,8 @@ import lombok.Getter;
 public class CharLiteral extends Expression {
     private char value;
 
+    @Override
+    public void toPigLatin(StringBuilder sb, int indent) {
+        sb.append("'").append(value).append("'");
+    }
 }

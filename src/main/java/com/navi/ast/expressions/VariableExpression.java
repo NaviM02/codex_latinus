@@ -1,5 +1,6 @@
 package com.navi.ast.expressions;
 
+import com.navi.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,4 +9,8 @@ import lombok.Getter;
 public class VariableExpression extends Expression {
     private String name;
 
+    @Override
+    public void toPigLatin(StringBuilder sb, int indent) {
+        sb.append(PigLatinRules.translateIdentifier(name));
+    }
 }

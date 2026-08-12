@@ -9,4 +9,17 @@ import java.util.List;
 @AllArgsConstructor
 public class StructInitializer extends Initializer {
     private List<StructFieldInitializer> fields;
+
+    @Override
+    public void toPigLatin(StringBuilder sb, int indent) {
+        sb.append("{");
+
+        for (int i = 0; i < fields.size(); i++) {
+            fields.get(i).toPigLatin(sb, indent);
+
+            if (i < fields.size() - 1) sb.append(", ");
+        }
+
+        sb.append("}");
+    }
 }
