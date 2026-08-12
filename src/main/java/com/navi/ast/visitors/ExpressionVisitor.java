@@ -3,88 +3,88 @@ package com.navi.ast.visitors;
 import com.navi.ast.AstNode;
 import com.navi.ast.expressions.*;
 import com.navi.ast.expressions.literals.*;
-import com.navi.ast.lexer_parser.LatinBaseVisitor;
-import com.navi.ast.lexer_parser.LatinParser;
+import com.navi.ast.lexer_parser.PigLatinBaseVisitor;
+import com.navi.ast.lexer_parser.PigLatinParser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
+public class ExpressionVisitor extends PigLatinBaseVisitor<AstNode> {
     @Override
-    public AstNode visitNumberLiteralExpr(LatinParser.NumberLiteralExprContext ctx) {
+    public AstNode visitNumberLiteralExpr(PigLatinParser.NumberLiteralExprContext ctx) {
         return new NumberLiteral(Integer.parseInt(ctx.NUMBER().getText()));
     }
 
     @Override
-    public AstNode visitDecimalLiteralExpr(LatinParser.DecimalLiteralExprContext ctx) {
+    public AstNode visitDecimalLiteralExpr(PigLatinParser.DecimalLiteralExprContext ctx) {
         return new DecimalLiteral(Double.parseDouble(ctx.DECIMAL().getText()));
     }
 
     @Override
-    public AstNode visitStringLiteralExpr(LatinParser.StringLiteralExprContext ctx) {
+    public AstNode visitStringLiteralExpr(PigLatinParser.StringLiteralExprContext ctx) {
         String text = ctx.STRING().getText();
         text = text.substring(1, text.length() - 1);
         return new StringLiteral(text);
     }
 
     @Override
-    public AstNode visitCharLiteralExpr(LatinParser.CharLiteralExprContext ctx) {
+    public AstNode visitCharLiteralExpr(PigLatinParser.CharLiteralExprContext ctx) {
         char c = ctx.CHAR().getText().charAt(1);
         return new CharLiteral(c);
     }
 
     @Override
-    public AstNode visitTrueLiteralExpr(LatinParser.TrueLiteralExprContext ctx) {
+    public AstNode visitTrueLiteralExpr(PigLatinParser.TrueLiteralExprContext ctx) {
         return new BooleanLiteral(true);
     }
 
     @Override
-    public AstNode visitFalseLiteralExpr(LatinParser.FalseLiteralExprContext ctx) {
+    public AstNode visitFalseLiteralExpr(PigLatinParser.FalseLiteralExprContext ctx) {
         return new BooleanLiteral(false);
     }
 
     @Override
-    public AstNode visitVariableExpr(LatinParser.VariableExprContext ctx) {
+    public AstNode visitVariableExpr(PigLatinParser.VariableExprContext ctx) {
         return new VariableExpression(ctx.ID().getText());
     }
 
     @Override
-    public AstNode visitParenthesizedExpr(LatinParser.ParenthesizedExprContext ctx) {
+    public AstNode visitParenthesizedExpr(PigLatinParser.ParenthesizedExprContext ctx) {
         return visit(ctx.expression());
     }
 
     @Override
-    public AstNode visitToLogicalAndExpr(LatinParser.ToLogicalAndExprContext ctx) {
+    public AstNode visitToLogicalAndExpr(PigLatinParser.ToLogicalAndExprContext ctx) {
         return visit(ctx.logicalAndExpression());
     }
 
     @Override
-    public AstNode visitToEqualityExpr(LatinParser.ToEqualityExprContext ctx) {
+    public AstNode visitToEqualityExpr(PigLatinParser.ToEqualityExprContext ctx) {
         return visit(ctx.equalityExpression());
     }
 
     @Override
-    public AstNode visitToComparisonExpr(LatinParser.ToComparisonExprContext ctx) {
+    public AstNode visitToComparisonExpr(PigLatinParser.ToComparisonExprContext ctx) {
         return visit(ctx.comparisonExpression());
     }
 
     @Override
-    public AstNode visitToAdditiveExpr(LatinParser.ToAdditiveExprContext ctx) {
+    public AstNode visitToAdditiveExpr(PigLatinParser.ToAdditiveExprContext ctx) {
         return visit(ctx.additiveExpression());
     }
 
     @Override
-    public AstNode visitToMultiplicativeExpr(LatinParser.ToMultiplicativeExprContext ctx) {
+    public AstNode visitToMultiplicativeExpr(PigLatinParser.ToMultiplicativeExprContext ctx) {
         return visit(ctx.multiplicativeExpression());
     }
 
     @Override
-    public AstNode visitToUnaryExpr(LatinParser.ToUnaryExprContext ctx) {
+    public AstNode visitToUnaryExpr(PigLatinParser.ToUnaryExprContext ctx) {
         return visit(ctx.unaryExpression());
     }
 
     @Override
-    public AstNode visitOrExpr(LatinParser.OrExprContext ctx) {
+    public AstNode visitOrExpr(PigLatinParser.OrExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.logicalOrExpression()),
             BinaryOperator.OR,
@@ -93,7 +93,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitAndExpr(LatinParser.AndExprContext ctx) {
+    public AstNode visitAndExpr(PigLatinParser.AndExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.logicalAndExpression()),
             BinaryOperator.AND,
@@ -102,7 +102,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitEqualExpr(LatinParser.EqualExprContext ctx) {
+    public AstNode visitEqualExpr(PigLatinParser.EqualExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.equalityExpression()),
             BinaryOperator.EQUAL,
@@ -111,7 +111,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitNotEqualExpr(LatinParser.NotEqualExprContext ctx) {
+    public AstNode visitNotEqualExpr(PigLatinParser.NotEqualExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.equalityExpression()),
             BinaryOperator.NOT_EQUAL,
@@ -120,7 +120,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitLessExpr(LatinParser.LessExprContext ctx) {
+    public AstNode visitLessExpr(PigLatinParser.LessExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.comparisonExpression()),
             BinaryOperator.LESS,
@@ -129,7 +129,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitGreaterExpr(LatinParser.GreaterExprContext ctx) {
+    public AstNode visitGreaterExpr(PigLatinParser.GreaterExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.comparisonExpression()),
             BinaryOperator.GREATER,
@@ -138,7 +138,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitLessEqualExpr(LatinParser.LessEqualExprContext ctx) {
+    public AstNode visitLessEqualExpr(PigLatinParser.LessEqualExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.comparisonExpression()),
             BinaryOperator.LESS_EQUAL,
@@ -147,7 +147,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitGreaterEqualExpr(LatinParser.GreaterEqualExprContext ctx) {
+    public AstNode visitGreaterEqualExpr(PigLatinParser.GreaterEqualExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.comparisonExpression()),
             BinaryOperator.GREATER_EQUAL,
@@ -156,7 +156,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitAdditionExpr(LatinParser.AdditionExprContext ctx) {
+    public AstNode visitAdditionExpr(PigLatinParser.AdditionExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.additiveExpression()),
             BinaryOperator.ADD,
@@ -165,7 +165,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitSubtractionExpr(LatinParser.SubtractionExprContext ctx) {
+    public AstNode visitSubtractionExpr(PigLatinParser.SubtractionExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.additiveExpression()),
             BinaryOperator.SUBTRACT,
@@ -174,7 +174,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitMultiplicationExpr(LatinParser.MultiplicationExprContext ctx) {
+    public AstNode visitMultiplicationExpr(PigLatinParser.MultiplicationExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.multiplicativeExpression()),
             BinaryOperator.MULTIPLY,
@@ -183,7 +183,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitDivisionExpr(LatinParser.DivisionExprContext ctx) {
+    public AstNode visitDivisionExpr(PigLatinParser.DivisionExprContext ctx) {
         return new BinaryExpression(
             (Expression) visit(ctx.multiplicativeExpression()),
             BinaryOperator.DIVIDE,
@@ -192,7 +192,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitNotExpr(LatinParser.NotExprContext ctx) {
+    public AstNode visitNotExpr(PigLatinParser.NotExprContext ctx) {
         return new UnaryExpression(
             UnaryOperator.NOT,
             (Expression) visit(ctx.unaryExpression())
@@ -200,7 +200,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitNegateExpr(LatinParser.NegateExprContext ctx) {
+    public AstNode visitNegateExpr(PigLatinParser.NegateExprContext ctx) {
         return new UnaryExpression(
             UnaryOperator.NEGATE,
             (Expression) visit(ctx.unaryExpression())
@@ -208,7 +208,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitPostIncrementExpr(LatinParser.PostIncrementExprContext ctx) {
+    public AstNode visitPostIncrementExpr(PigLatinParser.PostIncrementExprContext ctx) {
         return new UnaryExpression(
             UnaryOperator.POST_INCREMENT,
             (Expression) visit(ctx.postfixExpression())
@@ -216,7 +216,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitPostDecrementExpr(LatinParser.PostDecrementExprContext ctx) {
+    public AstNode visitPostDecrementExpr(PigLatinParser.PostDecrementExprContext ctx) {
         return new UnaryExpression(
             UnaryOperator.POST_DECREMENT,
             (Expression) visit(ctx.postfixExpression())
@@ -224,7 +224,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitArrayAccessExpr(LatinParser.ArrayAccessExprContext ctx) {
+    public AstNode visitArrayAccessExpr(PigLatinParser.ArrayAccessExprContext ctx) {
         return new ArrayAccessExpression(
             (Expression) visit(ctx.postfixExpression()),
             (Expression) visit(ctx.expression())
@@ -232,7 +232,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitMemberAccessExpr(LatinParser.MemberAccessExprContext ctx) {
+    public AstNode visitMemberAccessExpr(PigLatinParser.MemberAccessExprContext ctx) {
         return new MemberAccessExpression(
             (Expression) visit(ctx.postfixExpression()),
             ctx.ID().getText()
@@ -240,11 +240,11 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitFunctionCallExpr(LatinParser.FunctionCallExprContext ctx) {
+    public AstNode visitFunctionCallExpr(PigLatinParser.FunctionCallExprContext ctx) {
         List<Expression> arguments = new ArrayList<>();
 
         if (ctx.functionArguments().argumentList() != null) {
-            for (LatinParser.ExpressionContext expr : ctx.functionArguments().argumentList().expression()) {
+            for (PigLatinParser.ExpressionContext expr : ctx.functionArguments().argumentList().expression()) {
                 arguments.add((Expression) visit(expr));
             }
         }
@@ -256,7 +256,7 @@ public class ExpressionVisitor extends LatinBaseVisitor<AstNode> {
     }
 
     @Override
-    public AstNode visitToPrimaryExpr(LatinParser.ToPrimaryExprContext ctx) {
+    public AstNode visitToPrimaryExpr(PigLatinParser.ToPrimaryExprContext ctx) {
         return visit(ctx.primaryExpression());
     }
 }

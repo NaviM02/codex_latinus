@@ -12,7 +12,7 @@ import com.navi.ast.global.FunctionBody;
 import com.navi.ast.global.FunctionDeclaration;
 import com.navi.ast.global.LocalVariableSection;
 import com.navi.ast.global.Parameter;
-import com.navi.ast.lexer_parser.LatinParser;
+import com.navi.ast.lexer_parser.PigLatinParser;
 import com.navi.ast.statements.BlockStatement;
 import com.navi.ast.statements.Statement;
 
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class DeclarationVisitor extends StatementVisitor {
     @Override
-    public AstNode visitDeclaration(LatinParser.DeclarationContext ctx) {
+    public AstNode visitDeclaration(PigLatinParser.DeclarationContext ctx) {
         if (ctx.variableDeclaration() != null) {
             return visit(ctx.variableDeclaration());
         }
@@ -38,7 +38,7 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitNormalVarDeclaration(LatinParser.NormalVarDeclarationContext ctx) {
+    public AstNode visitNormalVarDeclaration(PigLatinParser.NormalVarDeclarationContext ctx) {
         Initializer initializer = null;
 
         if (ctx.initializer() != null) {
@@ -53,7 +53,7 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitBooleanVarDeclaration(LatinParser.BooleanVarDeclarationContext ctx) {
+    public AstNode visitBooleanVarDeclaration(PigLatinParser.BooleanVarDeclarationContext ctx) {
         boolean value = ctx.booleanLiteral().VERUM() != null;
 
         return new VariableDeclaration(
@@ -64,7 +64,7 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitArrayDeclaration(LatinParser.ArrayDeclarationContext ctx) {
+    public AstNode visitArrayDeclaration(PigLatinParser.ArrayDeclarationContext ctx) {
         String type = "boolean";
 
         if (ctx.type() != null) {
@@ -86,10 +86,10 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitArrayInitializer(LatinParser.ArrayInitializerContext ctx) {
+    public AstNode visitArrayInitializer(PigLatinParser.ArrayInitializerContext ctx) {
         List<Expression> values = new ArrayList<>();
 
-        for (LatinParser.ExpressionContext expression : ctx.values) {
+        for (PigLatinParser.ExpressionContext expression : ctx.values) {
             values.add((Expression) visit(expression));
         }
 
@@ -97,20 +97,20 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitExprInit(LatinParser.ExprInitContext ctx) {
+    public AstNode visitExprInit(PigLatinParser.ExprInitContext ctx) {
         return new ExpressionInitializer((Expression) visit(ctx.expression()));
     }
 
     @Override
-    public AstNode visitStructInit(LatinParser.StructInitContext ctx) {
+    public AstNode visitStructInit(PigLatinParser.StructInitContext ctx) {
         return visit(ctx.structInitializer());
     }
 
     @Override
-    public AstNode visitStructInitializer(LatinParser.StructInitializerContext ctx) {
+    public AstNode visitStructInitializer(PigLatinParser.StructInitializerContext ctx) {
         List<StructFieldInitializer> fields = new ArrayList<>();
 
-        for (LatinParser.StructFieldInitializerContext field : ctx.structFieldInitializer()) {
+        for (PigLatinParser.StructFieldInitializerContext field : ctx.structFieldInitializer()) {
             fields.add((StructFieldInitializer) visit(field));
         }
 
@@ -118,7 +118,7 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitStructFieldInitializer(LatinParser.StructFieldInitializerContext ctx) {
+    public AstNode visitStructFieldInitializer(PigLatinParser.StructFieldInitializerContext ctx) {
         return new StructFieldInitializer(
             ctx.ID().getText(),
             (Initializer) visit(ctx.initializer())
@@ -126,14 +126,14 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitStructDeclaration(LatinParser.StructDeclarationContext ctx) {
+    public AstNode visitStructDeclaration(PigLatinParser.StructDeclarationContext ctx) {
         List<StructField> fields = new ArrayList<>();
 
-        for (LatinParser.StructFieldWithSemicolonContext field : ctx.structFieldWithSemicolon()) {
+        for (PigLatinParser.StructFieldWithSemicolonContext field : ctx.structFieldWithSemicolon()) {
             fields.add((StructField) visit(field));
         }
 
-        for (LatinParser.StructFieldWithCommaContext field : ctx.structFieldWithComma()) {
+        for (PigLatinParser.StructFieldWithCommaContext field : ctx.structFieldWithComma()) {
             fields.add((StructField) visit(field));
         }
 
@@ -141,17 +141,17 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitStructVariableFieldSemicolon(LatinParser.StructVariableFieldSemicolonContext ctx) {
+    public AstNode visitStructVariableFieldSemicolon(PigLatinParser.StructVariableFieldSemicolonContext ctx) {
         return new StructField(ctx.ID().getText(), ctx.type().getText(), false);
     }
 
     @Override
-    public AstNode visitStructBooleanFieldSemicolon(LatinParser.StructBooleanFieldSemicolonContext ctx) {
+    public AstNode visitStructBooleanFieldSemicolon(PigLatinParser.StructBooleanFieldSemicolonContext ctx) {
         return new StructField(ctx.ID().getText(), "boolean", false);
     }
 
     @Override
-    public AstNode visitStructArrayFieldSemicolon(LatinParser.StructArrayFieldSemicolonContext ctx) {
+    public AstNode visitStructArrayFieldSemicolon(PigLatinParser.StructArrayFieldSemicolonContext ctx) {
         String type = "boolean";
 
         if (ctx.type() != null) {
@@ -162,17 +162,17 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitStructVariableFieldComma(LatinParser.StructVariableFieldCommaContext ctx) {
+    public AstNode visitStructVariableFieldComma(PigLatinParser.StructVariableFieldCommaContext ctx) {
         return new StructField(ctx.ID().getText(), ctx.type().getText(), false);
     }
 
     @Override
-    public AstNode visitStructBooleanFieldComma(LatinParser.StructBooleanFieldCommaContext ctx) {
+    public AstNode visitStructBooleanFieldComma(PigLatinParser.StructBooleanFieldCommaContext ctx) {
         return new StructField(ctx.ID().getText(), "boolean", false);
     }
 
     @Override
-    public AstNode visitStructArrayFieldComma(LatinParser.StructArrayFieldCommaContext ctx) {
+    public AstNode visitStructArrayFieldComma(PigLatinParser.StructArrayFieldCommaContext ctx) {
         String type = "boolean";
 
         if (ctx.type() != null) {
@@ -183,7 +183,7 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitFunctionDeclaration(LatinParser.FunctionDeclarationContext ctx) {
+    public AstNode visitFunctionDeclaration(PigLatinParser.FunctionDeclarationContext ctx) {
         if (ctx.procedureDeclaration() != null) {
             return visit(ctx.procedureDeclaration());
         }
@@ -192,11 +192,11 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitProcedureDeclaration(LatinParser.ProcedureDeclarationContext ctx) {
+    public AstNode visitProcedureDeclaration(PigLatinParser.ProcedureDeclarationContext ctx) {
         List<Parameter> parameters = new ArrayList<>();
 
         if (ctx.parameterList() != null) {
-            for (LatinParser.ParameterContext parameter : ctx.parameterList().parameter()) {
+            for (PigLatinParser.ParameterContext parameter : ctx.parameterList().parameter()) {
                 parameters.add((Parameter) visit(parameter));
             }
         }
@@ -210,11 +210,11 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitFunctionWithReturn(LatinParser.FunctionWithReturnContext ctx) {
+    public AstNode visitFunctionWithReturn(PigLatinParser.FunctionWithReturnContext ctx) {
         List<Parameter> parameters = new ArrayList<>();
 
         if (ctx.parameterList() != null) {
-            for (LatinParser.ParameterContext parameter : ctx.parameterList().parameter()) {
+            for (PigLatinParser.ParameterContext parameter : ctx.parameterList().parameter()) {
                 parameters.add((Parameter) visit(parameter));
             }
         }
@@ -228,12 +228,12 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitParameter(LatinParser.ParameterContext ctx) {
+    public AstNode visitParameter(PigLatinParser.ParameterContext ctx) {
         return new Parameter(ctx.ID().getText(), ctx.type().getText());
     }
 
     @Override
-    public AstNode visitFunctionBody(LatinParser.FunctionBodyContext ctx) {
+    public AstNode visitFunctionBody(PigLatinParser.FunctionBodyContext ctx) {
         LocalVariableSection localVariables = null;
 
         if (ctx.localVariableSection() != null) {
@@ -242,7 +242,7 @@ public class DeclarationVisitor extends StatementVisitor {
 
         List<Statement> statements = new ArrayList<>();
 
-        for (LatinParser.StatementContext statement : ctx.statement()) {
+        for (PigLatinParser.StatementContext statement : ctx.statement()) {
             statements.add((Statement) visit(statement));
         }
 
@@ -253,10 +253,10 @@ public class DeclarationVisitor extends StatementVisitor {
     }
 
     @Override
-    public AstNode visitLocalVariableSection(LatinParser.LocalVariableSectionContext ctx) {
+    public AstNode visitLocalVariableSection(PigLatinParser.LocalVariableSectionContext ctx) {
         List<Declaration> declarations = new ArrayList<>();
 
-        for (LatinParser.DeclarationContext declaration : ctx.declaration()) {
+        for (PigLatinParser.DeclarationContext declaration : ctx.declaration()) {
             declarations.add((Declaration) visit(declaration));
         }
 

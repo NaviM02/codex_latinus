@@ -1,7 +1,7 @@
 package com.navi.parser;
 
-import com.navi.ast.lexer_parser.LatinBaseListener;
-import com.navi.ast.lexer_parser.LatinParser;
+import com.navi.ast.lexer_parser.PigLatinBaseListener;
+import com.navi.ast.lexer_parser.PigLatinParser;
 import lombok.Getter;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -11,7 +11,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 
-public class ParserTraceListener extends LatinBaseListener {
+public class ParserTraceListener extends PigLatinBaseListener {
     @Getter
     private final ParserTrace trace = new ParserTrace();
     private final Deque<String> stack = new ArrayDeque<>();
@@ -36,7 +36,7 @@ public class ParserTraceListener extends LatinBaseListener {
     public void exitEveryRule(ParserRuleContext ctx) {
         String ruleName = getRuleName(ctx);
 
-        if (ctx instanceof LatinParser.ProgramContext) {
+        if (ctx instanceof PigLatinParser.ProgramContext) {
             trace.addState(ParserOperation.ACCEPT, "EOF", new ArrayList<>(stack), "accept");
             stack.removeLast();
             return;
@@ -55,6 +55,6 @@ public class ParserTraceListener extends LatinBaseListener {
     }
 
     private String getRuleName(ParserRuleContext ctx) {
-        return LatinParser.ruleNames[ctx.getRuleIndex()];
+        return PigLatinParser.ruleNames[ctx.getRuleIndex()];
     }
 }

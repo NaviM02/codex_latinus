@@ -4,7 +4,7 @@ import com.navi.ast.AstNode;
 import com.navi.ast.declarations.VariableDeclaration;
 import com.navi.ast.declarations.initializers.Initializer;
 import com.navi.ast.expressions.*;
-import com.navi.ast.lexer_parser.LatinParser;
+import com.navi.ast.lexer_parser.PigLatinParser;
 import com.navi.ast.statements.*;
 
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ import java.util.List;
 
 public class StatementVisitor extends ExpressionVisitor {
     @Override
-    public AstNode visitAssignmentStmt(LatinParser.AssignmentStmtContext ctx) {
+    public AstNode visitAssignmentStmt(PigLatinParser.AssignmentStmtContext ctx) {
         return visit(ctx.assignment());
     }
 
     @Override
-    public AstNode visitAssignment(LatinParser.AssignmentContext ctx) {
+    public AstNode visitAssignment(PigLatinParser.AssignmentContext ctx) {
         return new AssignmentStatement(
             (Expression) visit(ctx.postfixExpression()),
             (Initializer) visit(ctx.initializer())
@@ -25,9 +25,9 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitBlock(LatinParser.BlockContext ctx) {
+    public AstNode visitBlock(PigLatinParser.BlockContext ctx) {
         List<Statement> statements = new ArrayList<>();
-        for (LatinParser.StatementContext statement : ctx.statement()) {
+        for (PigLatinParser.StatementContext statement : ctx.statement()) {
             statements.add((Statement) visit(statement));
         }
 
@@ -35,12 +35,12 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitIncrementStmt(LatinParser.IncrementStmtContext ctx) {
+    public AstNode visitIncrementStmt(PigLatinParser.IncrementStmtContext ctx) {
         return visit(ctx.incrementStatement());
     }
 
     @Override
-    public AstNode visitIncrementStatement(LatinParser.IncrementStatementContext ctx) {
+    public AstNode visitIncrementStatement(PigLatinParser.IncrementStatementContext ctx) {
         Expression target = (Expression) visit(ctx.incrementableExpression());
         if (ctx.PLUSPLUS() != null) {
             return new IncrementStatement(target, UnaryOperator.POST_INCREMENT);
@@ -49,12 +49,12 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitIncrementVariable(LatinParser.IncrementVariableContext ctx) {
+    public AstNode visitIncrementVariable(PigLatinParser.IncrementVariableContext ctx) {
         return new VariableExpression(ctx.ID().getText());
     }
 
     @Override
-    public AstNode visitIncrementArrayAccess(LatinParser.IncrementArrayAccessContext ctx) {
+    public AstNode visitIncrementArrayAccess(PigLatinParser.IncrementArrayAccessContext ctx) {
         return new ArrayAccessExpression(
             (Expression) visit(ctx.postfixExpression()),
             (Expression) visit(ctx.expression())
@@ -62,7 +62,7 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitIncrementMemberAccess(LatinParser.IncrementMemberAccessContext ctx) {
+    public AstNode visitIncrementMemberAccess(PigLatinParser.IncrementMemberAccessContext ctx) {
         return new MemberAccessExpression(
             (Expression) visit(ctx.postfixExpression()),
             ctx.ID().getText()
@@ -70,15 +70,15 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitIfStmt(LatinParser.IfStmtContext ctx) {
+    public AstNode visitIfStmt(PigLatinParser.IfStmtContext ctx) {
         return visit(ctx.ifStatement());
     }
 
     @Override
-    public AstNode visitIfStatement(LatinParser.IfStatementContext ctx) {
+    public AstNode visitIfStatement(PigLatinParser.IfStatementContext ctx) {
         List<ElseIfStatement> elseIfs = new ArrayList<>();
 
-        for (LatinParser.ElseIfStatementContext elseIf : ctx.elseIfStatement()) {
+        for (PigLatinParser.ElseIfStatementContext elseIf : ctx.elseIfStatement()) {
             elseIfs.add((ElseIfStatement) visit(elseIf));
         }
 
@@ -97,7 +97,7 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitElseIfStatement(LatinParser.ElseIfStatementContext ctx) {
+    public AstNode visitElseIfStatement(PigLatinParser.ElseIfStatementContext ctx) {
         return new ElseIfStatement(
             (Expression) visit(ctx.expression()),
             (BlockStatement) visit(ctx.block())
@@ -105,17 +105,17 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitElseStatement(LatinParser.ElseStatementContext ctx) {
+    public AstNode visitElseStatement(PigLatinParser.ElseStatementContext ctx) {
         return visit(ctx.block());
     }
 
     @Override
-    public AstNode visitWhileStmt(LatinParser.WhileStmtContext ctx) {
+    public AstNode visitWhileStmt(PigLatinParser.WhileStmtContext ctx) {
         return visit(ctx.whileStatement());
     }
 
     @Override
-    public AstNode visitWhileStatement(LatinParser.WhileStatementContext ctx) {
+    public AstNode visitWhileStatement(PigLatinParser.WhileStatementContext ctx) {
         return new WhileStatement(
             (Expression) visit(ctx.expression()),
             (BlockStatement) visit(ctx.block())
@@ -123,12 +123,12 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitDoWhileStmt(LatinParser.DoWhileStmtContext ctx) {
+    public AstNode visitDoWhileStmt(PigLatinParser.DoWhileStmtContext ctx) {
         return visit(ctx.doWhileStatement());
     }
 
     @Override
-    public AstNode visitDoWhileStatement(LatinParser.DoWhileStatementContext ctx) {
+    public AstNode visitDoWhileStatement(PigLatinParser.DoWhileStatementContext ctx) {
         return new DoWhileStatement(
             (BlockStatement) visit(ctx.block()),
             (Expression) visit(ctx.expression())
@@ -136,12 +136,12 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitForStmt(LatinParser.ForStmtContext ctx) {
+    public AstNode visitForStmt(PigLatinParser.ForStmtContext ctx) {
         return visit(ctx.forStatement());
     }
 
     @Override
-    public AstNode visitForStatement(LatinParser.ForStatementContext ctx) {
+    public AstNode visitForStatement(PigLatinParser.ForStatementContext ctx) {
         return new ForStatement(
             (VariableDeclaration) visit(ctx.variableDeclaration()),
             (Expression) visit(ctx.expression(0)),
@@ -151,27 +151,27 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitReturnStmt(LatinParser.ReturnStmtContext ctx) {
+    public AstNode visitReturnStmt(PigLatinParser.ReturnStmtContext ctx) {
         return new ReturnStatement(
             (Expression) visit(ctx.returnStatement().expression())
         );
     }
 
     @Override
-    public AstNode visitBreakStmt(LatinParser.BreakStmtContext ctx) {
+    public AstNode visitBreakStmt(PigLatinParser.BreakStmtContext ctx) {
         return new BreakStatement();
     }
 
     @Override
-    public AstNode visitContinueStmt(LatinParser.ContinueStmtContext ctx) {
+    public AstNode visitContinueStmt(PigLatinParser.ContinueStmtContext ctx) {
         return new ContinueStatement();
     }
 
     @Override
-    public AstNode visitPrintStatement(LatinParser.PrintStatementContext ctx) {
+    public AstNode visitPrintStatement(PigLatinParser.PrintStatementContext ctx) {
         List<Expression> expressions = new ArrayList<>();
 
-        for (LatinParser.ExpressionContext expr : ctx.expressions) {
+        for (PigLatinParser.ExpressionContext expr : ctx.expressions) {
             expressions.add((Expression) visit(expr));
         }
 
@@ -179,7 +179,7 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
-    public AstNode visitReadStatement(LatinParser.ReadStatementContext ctx) {
+    public AstNode visitReadStatement(PigLatinParser.ReadStatementContext ctx) {
         Expression target = null;
 
         if (ctx.postfixExpression() != null) {

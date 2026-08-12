@@ -1,8 +1,8 @@
 package com.navi;
 
 import com.navi.ast.global.Program;
-import com.navi.ast.lexer_parser.LatinLexer;
-import com.navi.ast.lexer_parser.LatinParser;
+import com.navi.ast.lexer_parser.PigLatinLexer;
+import com.navi.ast.lexer_parser.PigLatinParser;
 import com.navi.ast.visitors.ProgramVisitor;
 import com.navi.parser.*;
 import com.navi.semantic.*;
@@ -74,16 +74,16 @@ public class Main {
 
         SyntaxErrorListener errorListener = new SyntaxErrorListener();
 
-        LatinLexer lexer = new LatinLexer(input);
+        PigLatinLexer lexer = new PigLatinLexer(input);
         lexer.removeErrorListeners();
         lexer.addErrorListener(errorListener);
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        LatinParser parser = new LatinParser(tokens);
+        PigLatinParser parser = new PigLatinParser(tokens);
         parser.removeErrorListeners();
         parser.addErrorListener(errorListener);
 
-        LatinParser.ProgramContext tree = parser.program();
+        PigLatinParser.ProgramContext tree = parser.program();
 
         if (errorListener.hasErrors()) {
             System.out.println("====== SYNTAX ERRORS ======");

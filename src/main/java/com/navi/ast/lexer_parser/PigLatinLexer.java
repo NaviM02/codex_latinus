@@ -1,4 +1,4 @@
-package com.navi.ast.lexer_parser;// Generated from Latin.g4 by ANTLR 4.13.2
+package com.navi.ast.lexer_parser;// Generated from PigLatin.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
-public class LatinLexer extends Lexer {
+public class PigLatinLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.13.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -110,13 +110,13 @@ public class LatinLexer extends Lexer {
 	}
 
 
-	public LatinLexer(CharStream input) {
+	public PigLatinLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Latin.g4"; }
+	public String getGrammarFileName() { return "PigLatin.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

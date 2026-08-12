@@ -1,4 +1,4 @@
-grammar Latin;
+grammar PigLatin;
 
 // global
 program

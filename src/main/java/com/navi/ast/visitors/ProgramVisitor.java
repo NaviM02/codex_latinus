@@ -4,7 +4,7 @@ import com.navi.ast.AstNode;
 import com.navi.ast.global.FunctionDeclaration;
 import com.navi.ast.global.GlobalVariableSection;
 import com.navi.ast.global.Program;
-import com.navi.ast.lexer_parser.LatinParser;
+import com.navi.ast.lexer_parser.PigLatinParser;
 import com.navi.ast.statements.Statement;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ProgramVisitor extends DeclarationVisitor {
     @Override
-    public AstNode visitProgram(LatinParser.ProgramContext ctx) {
+    public AstNode visitProgram(PigLatinParser.ProgramContext ctx) {
         GlobalVariableSection globalVariables = null;
         List<FunctionDeclaration> functions = new ArrayList<>();
         List<Statement> mainStatements = new ArrayList<>();
@@ -22,12 +22,12 @@ public class ProgramVisitor extends DeclarationVisitor {
         }
 
         if (ctx.functionSection() != null) {
-            for (LatinParser.FunctionDeclarationContext function : ctx.functionSection().functionDeclaration()) {
+            for (PigLatinParser.FunctionDeclarationContext function : ctx.functionSection().functionDeclaration()) {
                 functions.add((FunctionDeclaration) visit(function));
             }
         }
 
-        for (LatinParser.StatementContext statement : ctx.mainSection().statement()) {
+        for (PigLatinParser.StatementContext statement : ctx.mainSection().statement()) {
             mainStatements.add((Statement) visit(statement));
         }
 
@@ -35,10 +35,10 @@ public class ProgramVisitor extends DeclarationVisitor {
     }
 
     @Override
-    public AstNode visitGlobalVariablesSection(LatinParser.GlobalVariablesSectionContext ctx) {
+    public AstNode visitGlobalVariablesSection(PigLatinParser.GlobalVariablesSectionContext ctx) {
         List<com.navi.ast.declarations.Declaration> declarations = new ArrayList<>();
 
-        for (LatinParser.DeclarationContext declaration : ctx.declaration()) {
+        for (PigLatinParser.DeclarationContext declaration : ctx.declaration()) {
             declarations.add((com.navi.ast.declarations.Declaration) visit(declaration));
         }
 

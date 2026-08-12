@@ -1,4 +1,4 @@
-package com.navi.ast.lexer_parser;// Generated from Latin.g4 by ANTLR 4.13.2
+package com.navi.ast.lexer_parser;// Generated from PigLatin.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
-public class LatinParser extends Parser {
+public class PigLatinParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.13.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -124,7 +124,7 @@ public class LatinParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Latin.g4"; }
+	public String getGrammarFileName() { return "PigLatin.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -135,7 +135,7 @@ public class LatinParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public LatinParser(TokenStream input) {
+	public PigLatinParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -145,8 +145,8 @@ public class LatinParser extends Parser {
 		public MainSectionContext mainSection() {
 			return getRuleContext(MainSectionContext.class,0);
 		}
-		public TerminalNode FINIS_PROGRAM() { return getToken(LatinParser.FINIS_PROGRAM, 0); }
-		public TerminalNode EOF() { return getToken(LatinParser.EOF, 0); }
+		public TerminalNode FINIS_PROGRAM() { return getToken(PigLatinParser.FINIS_PROGRAM, 0); }
+		public TerminalNode EOF() { return getToken(PigLatinParser.EOF, 0); }
 		public GlobalVariablesSectionContext globalVariablesSection() {
 			return getRuleContext(GlobalVariablesSectionContext.class,0);
 		}
@@ -159,15 +159,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_program; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterProgram(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterProgram(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitProgram(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitProgram(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitProgram(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitProgram(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -222,7 +222,7 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class GlobalVariablesSectionContext extends ParserRuleContext {
-		public TerminalNode VARIABLES_SECTION() { return getToken(LatinParser.VARIABLES_SECTION, 0); }
+		public TerminalNode VARIABLES_SECTION() { return getToken(PigLatinParser.VARIABLES_SECTION, 0); }
 		public List<DeclarationContext> declaration() {
 			return getRuleContexts(DeclarationContext.class);
 		}
@@ -235,15 +235,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_globalVariablesSection; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterGlobalVariablesSection(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterGlobalVariablesSection(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitGlobalVariablesSection(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitGlobalVariablesSection(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitGlobalVariablesSection(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitGlobalVariablesSection(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -286,7 +286,7 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class FunctionSectionContext extends ParserRuleContext {
-		public TerminalNode FUNCTIONS_SECTION() { return getToken(LatinParser.FUNCTIONS_SECTION, 0); }
+		public TerminalNode FUNCTIONS_SECTION() { return getToken(PigLatinParser.FUNCTIONS_SECTION, 0); }
 		public List<FunctionDeclarationContext> functionDeclaration() {
 			return getRuleContexts(FunctionDeclarationContext.class);
 		}
@@ -299,15 +299,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_functionSection; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterFunctionSection(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterFunctionSection(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitFunctionSection(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitFunctionSection(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitFunctionSection(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitFunctionSection(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -350,7 +350,7 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class MainSectionContext extends ParserRuleContext {
-		public TerminalNode MAIN_SECTION() { return getToken(LatinParser.MAIN_SECTION, 0); }
+		public TerminalNode MAIN_SECTION() { return getToken(PigLatinParser.MAIN_SECTION, 0); }
 		public List<StatementContext> statement() {
 			return getRuleContexts(StatementContext.class);
 		}
@@ -363,15 +363,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_mainSection; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterMainSection(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterMainSection(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitMainSection(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitMainSection(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitMainSection(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitMainSection(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -414,9 +414,9 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructDeclarationContext extends ParserRuleContext {
-		public TerminalNode STRUCTURA() { return getToken(LatinParser.STRUCTURA, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
-		public TerminalNode FINIS() { return getToken(LatinParser.FINIS, 0); }
+		public TerminalNode STRUCTURA() { return getToken(PigLatinParser.STRUCTURA, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
+		public TerminalNode FINIS() { return getToken(PigLatinParser.FINIS, 0); }
 		public List<StructFieldWithSemicolonContext> structFieldWithSemicolon() {
 			return getRuleContexts(StructFieldWithSemicolonContext.class);
 		}
@@ -435,15 +435,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_structDeclaration; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStructDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStructDeclaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStructDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStructDeclaration(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStructDeclaration(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStructDeclaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -545,67 +545,67 @@ public class LatinParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructArrayFieldSemicolonContext extends StructFieldWithSemicolonContext {
-		public TerminalNode SERIES() { return getToken(LatinParser.SERIES, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode SERIES() { return getToken(PigLatinParser.SERIES, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
 		public StructArrayFieldSemicolonContext(StructFieldWithSemicolonContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStructArrayFieldSemicolon(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStructArrayFieldSemicolon(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStructArrayFieldSemicolon(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStructArrayFieldSemicolon(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStructArrayFieldSemicolon(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStructArrayFieldSemicolon(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructVariableFieldSemicolonContext extends StructFieldWithSemicolonContext {
-		public TerminalNode ESTO() { return getToken(LatinParser.ESTO, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ESTO() { return getToken(PigLatinParser.ESTO, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
 		public StructVariableFieldSemicolonContext(StructFieldWithSemicolonContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStructVariableFieldSemicolon(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStructVariableFieldSemicolon(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStructVariableFieldSemicolon(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStructVariableFieldSemicolon(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStructVariableFieldSemicolon(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStructVariableFieldSemicolon(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructBooleanFieldSemicolonContext extends StructFieldWithSemicolonContext {
-		public TerminalNode ESTO() { return getToken(LatinParser.ESTO, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ESTO() { return getToken(PigLatinParser.ESTO, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public BooleanLiteralContext booleanLiteral() {
 			return getRuleContext(BooleanLiteralContext.class,0);
 		}
 		public StructBooleanFieldSemicolonContext(StructFieldWithSemicolonContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStructBooleanFieldSemicolon(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStructBooleanFieldSemicolon(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStructBooleanFieldSemicolon(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStructBooleanFieldSemicolon(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStructBooleanFieldSemicolon(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStructBooleanFieldSemicolon(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -725,67 +725,67 @@ public class LatinParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructBooleanFieldCommaContext extends StructFieldWithCommaContext {
-		public TerminalNode ESTO() { return getToken(LatinParser.ESTO, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ESTO() { return getToken(PigLatinParser.ESTO, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public BooleanLiteralContext booleanLiteral() {
 			return getRuleContext(BooleanLiteralContext.class,0);
 		}
 		public StructBooleanFieldCommaContext(StructFieldWithCommaContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStructBooleanFieldComma(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStructBooleanFieldComma(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStructBooleanFieldComma(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStructBooleanFieldComma(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStructBooleanFieldComma(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStructBooleanFieldComma(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructArrayFieldCommaContext extends StructFieldWithCommaContext {
-		public TerminalNode SERIES() { return getToken(LatinParser.SERIES, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode SERIES() { return getToken(PigLatinParser.SERIES, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
 		public StructArrayFieldCommaContext(StructFieldWithCommaContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStructArrayFieldComma(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStructArrayFieldComma(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStructArrayFieldComma(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStructArrayFieldComma(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStructArrayFieldComma(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStructArrayFieldComma(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructVariableFieldCommaContext extends StructFieldWithCommaContext {
-		public TerminalNode ESTO() { return getToken(LatinParser.ESTO, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ESTO() { return getToken(PigLatinParser.ESTO, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
 		public StructVariableFieldCommaContext(StructFieldWithCommaContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStructVariableFieldComma(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStructVariableFieldComma(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStructVariableFieldComma(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStructVariableFieldComma(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStructVariableFieldComma(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStructVariableFieldComma(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -905,15 +905,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_functionDeclaration; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterFunctionDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterFunctionDeclaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitFunctionDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitFunctionDeclaration(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitFunctionDeclaration(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitFunctionDeclaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -956,12 +956,12 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ProcedureDeclarationContext extends ParserRuleContext {
-		public TerminalNode ACTIO() { return getToken(LatinParser.ACTIO, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ACTIO() { return getToken(PigLatinParser.ACTIO, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public FunctionBodyContext functionBody() {
 			return getRuleContext(FunctionBodyContext.class,0);
 		}
-		public TerminalNode FINIS() { return getToken(LatinParser.FINIS, 0); }
+		public TerminalNode FINIS() { return getToken(PigLatinParser.FINIS, 0); }
 		public ParameterListContext parameterList() {
 			return getRuleContext(ParameterListContext.class,0);
 		}
@@ -971,15 +971,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_procedureDeclaration; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterProcedureDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterProcedureDeclaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitProcedureDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitProcedureDeclaration(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitProcedureDeclaration(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitProcedureDeclaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1030,15 +1030,15 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class FunctionWithReturnContext extends ParserRuleContext {
-		public TerminalNode RATIO() { return getToken(LatinParser.RATIO, 0); }
+		public TerminalNode RATIO() { return getToken(PigLatinParser.RATIO, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public FunctionBodyContext functionBody() {
 			return getRuleContext(FunctionBodyContext.class,0);
 		}
-		public TerminalNode FINIS() { return getToken(LatinParser.FINIS, 0); }
+		public TerminalNode FINIS() { return getToken(PigLatinParser.FINIS, 0); }
 		public ParameterListContext parameterList() {
 			return getRuleContext(ParameterListContext.class,0);
 		}
@@ -1048,15 +1048,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_functionWithReturn; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterFunctionWithReturn(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterFunctionWithReturn(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitFunctionWithReturn(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitFunctionWithReturn(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitFunctionWithReturn(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitFunctionWithReturn(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1123,15 +1123,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_parameterList; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterParameterList(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterParameterList(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitParameterList(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitParameterList(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitParameterList(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitParameterList(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1178,8 +1178,8 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ParameterContext extends ParserRuleContext {
-		public TerminalNode ESTO() { return getToken(LatinParser.ESTO, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ESTO() { return getToken(PigLatinParser.ESTO, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
@@ -1189,15 +1189,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_parameter; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterParameter(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterParameter(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitParameter(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitParameter(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitParameter(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitParameter(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1246,15 +1246,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_functionBody; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterFunctionBody(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterFunctionBody(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitFunctionBody(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitFunctionBody(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitFunctionBody(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitFunctionBody(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1324,15 +1324,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_declaration; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterDeclaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitDeclaration(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitDeclaration(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitDeclaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1382,7 +1382,7 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class LocalVariableSectionContext extends ParserRuleContext {
-		public TerminalNode VARIABILES() { return getToken(LatinParser.VARIABILES, 0); }
+		public TerminalNode VARIABILES() { return getToken(PigLatinParser.VARIABILES, 0); }
 		public List<DeclarationContext> declaration() {
 			return getRuleContexts(DeclarationContext.class);
 		}
@@ -1395,15 +1395,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_localVariableSection; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterLocalVariableSection(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterLocalVariableSection(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitLocalVariableSection(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitLocalVariableSection(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitLocalVariableSection(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitLocalVariableSection(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1462,30 +1462,30 @@ public class LatinParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class BooleanVarDeclarationContext extends VariableDeclarationContext {
-		public TerminalNode ESTO() { return getToken(LatinParser.ESTO, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ESTO() { return getToken(PigLatinParser.ESTO, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public BooleanLiteralContext booleanLiteral() {
 			return getRuleContext(BooleanLiteralContext.class,0);
 		}
 		public BooleanVarDeclarationContext(VariableDeclarationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterBooleanVarDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterBooleanVarDeclaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitBooleanVarDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitBooleanVarDeclaration(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitBooleanVarDeclaration(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitBooleanVarDeclaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class NormalVarDeclarationContext extends VariableDeclarationContext {
-		public TerminalNode ESTO() { return getToken(LatinParser.ESTO, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ESTO() { return getToken(PigLatinParser.ESTO, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
@@ -1495,15 +1495,15 @@ public class LatinParser extends Parser {
 		public NormalVarDeclarationContext(VariableDeclarationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterNormalVarDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterNormalVarDeclaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitNormalVarDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitNormalVarDeclaration(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitNormalVarDeclaration(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitNormalVarDeclaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1591,15 +1591,15 @@ public class LatinParser extends Parser {
 		public ExprInitContext(InitializerContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterExprInit(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterExprInit(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitExprInit(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitExprInit(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitExprInit(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitExprInit(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1611,15 +1611,15 @@ public class LatinParser extends Parser {
 		public StructInitContext(InitializerContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStructInit(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStructInit(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStructInit(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStructInit(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStructInit(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStructInit(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1685,15 +1685,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_structInitializer; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStructInitializer(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStructInitializer(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStructInitializer(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStructInitializer(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStructInitializer(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStructInitializer(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1742,7 +1742,7 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructFieldInitializerContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public InitializerContext initializer() {
 			return getRuleContext(InitializerContext.class,0);
 		}
@@ -1752,15 +1752,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_structFieldInitializer; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStructFieldInitializer(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStructFieldInitializer(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStructFieldInitializer(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStructFieldInitializer(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStructFieldInitializer(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStructFieldInitializer(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1804,15 +1804,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_arrayConstructor; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterArrayConstructor(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterArrayConstructor(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitArrayConstructor(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitArrayConstructor(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitArrayConstructor(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitArrayConstructor(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1846,23 +1846,23 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class BooleanLiteralContext extends ParserRuleContext {
-		public TerminalNode VERUM() { return getToken(LatinParser.VERUM, 0); }
-		public TerminalNode FALSUS() { return getToken(LatinParser.FALSUS, 0); }
+		public TerminalNode VERUM() { return getToken(PigLatinParser.VERUM, 0); }
+		public TerminalNode FALSUS() { return getToken(PigLatinParser.FALSUS, 0); }
 		public BooleanLiteralContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_booleanLiteral; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterBooleanLiteral(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterBooleanLiteral(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitBooleanLiteral(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitBooleanLiteral(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitBooleanLiteral(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitBooleanLiteral(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1899,8 +1899,8 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ArrayDeclarationContext extends ParserRuleContext {
-		public TerminalNode SERIES() { return getToken(LatinParser.SERIES, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode SERIES() { return getToken(PigLatinParser.SERIES, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -1916,15 +1916,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_arrayDeclaration; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterArrayDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterArrayDeclaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitArrayDeclaration(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitArrayDeclaration(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitArrayDeclaration(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitArrayDeclaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1999,15 +1999,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_arrayInitializer; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterArrayInitializer(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterArrayInitializer(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitArrayInitializer(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitArrayInitializer(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitArrayInitializer(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitArrayInitializer(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2058,26 +2058,26 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class TypeContext extends ParserRuleContext {
-		public TerminalNode NUMERUS() { return getToken(LatinParser.NUMERUS, 0); }
-		public TerminalNode DECIMALIS() { return getToken(LatinParser.DECIMALIS, 0); }
-		public TerminalNode TEXTUM() { return getToken(LatinParser.TEXTUM, 0); }
-		public TerminalNode LITTERA() { return getToken(LatinParser.LITTERA, 0); }
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode NUMERUS() { return getToken(PigLatinParser.NUMERUS, 0); }
+		public TerminalNode DECIMALIS() { return getToken(PigLatinParser.DECIMALIS, 0); }
+		public TerminalNode TEXTUM() { return getToken(PigLatinParser.TEXTUM, 0); }
+		public TerminalNode LITTERA() { return getToken(PigLatinParser.LITTERA, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public TypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_type; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterType(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterType(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitType(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitType(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitType(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitType(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2132,15 +2132,15 @@ public class LatinParser extends Parser {
 		public ContinueStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterContinueStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterContinueStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitContinueStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitContinueStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitContinueStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitContinueStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2152,15 +2152,15 @@ public class LatinParser extends Parser {
 		public IfStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterIfStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterIfStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitIfStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitIfStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitIfStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitIfStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2172,15 +2172,15 @@ public class LatinParser extends Parser {
 		public PrintStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterPrintStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterPrintStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitPrintStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitPrintStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitPrintStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitPrintStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2192,15 +2192,15 @@ public class LatinParser extends Parser {
 		public WhileStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterWhileStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterWhileStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitWhileStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitWhileStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitWhileStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitWhileStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2212,15 +2212,15 @@ public class LatinParser extends Parser {
 		public BreakStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterBreakStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterBreakStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitBreakStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitBreakStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitBreakStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitBreakStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2232,15 +2232,15 @@ public class LatinParser extends Parser {
 		public AssignmentStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterAssignmentStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterAssignmentStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitAssignmentStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitAssignmentStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitAssignmentStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitAssignmentStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2252,15 +2252,15 @@ public class LatinParser extends Parser {
 		public ReadStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterReadStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterReadStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitReadStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitReadStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitReadStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitReadStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2272,15 +2272,15 @@ public class LatinParser extends Parser {
 		public IncrementStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterIncrementStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterIncrementStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitIncrementStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitIncrementStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitIncrementStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitIncrementStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2292,15 +2292,15 @@ public class LatinParser extends Parser {
 		public DoWhileStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterDoWhileStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterDoWhileStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitDoWhileStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitDoWhileStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitDoWhileStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitDoWhileStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2312,15 +2312,15 @@ public class LatinParser extends Parser {
 		public ForStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterForStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterForStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitForStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitForStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitForStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitForStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2332,15 +2332,15 @@ public class LatinParser extends Parser {
 		public ReturnStmtContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterReturnStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterReturnStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitReturnStmt(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitReturnStmt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitReturnStmt(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitReturnStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2467,15 +2467,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_assignment; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterAssignment(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterAssignment(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitAssignment(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitAssignment(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitAssignment(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitAssignment(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2512,23 +2512,23 @@ public class LatinParser extends Parser {
 		public IncrementableExpressionContext incrementableExpression() {
 			return getRuleContext(IncrementableExpressionContext.class,0);
 		}
-		public TerminalNode PLUSPLUS() { return getToken(LatinParser.PLUSPLUS, 0); }
-		public TerminalNode MINUSMINUS() { return getToken(LatinParser.MINUSMINUS, 0); }
+		public TerminalNode PLUSPLUS() { return getToken(PigLatinParser.PLUSPLUS, 0); }
+		public TerminalNode MINUSMINUS() { return getToken(PigLatinParser.MINUSMINUS, 0); }
 		public IncrementStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_incrementStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterIncrementStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterIncrementStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitIncrementStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitIncrementStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitIncrementStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitIncrementStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2589,19 +2589,19 @@ public class LatinParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class IncrementVariableContext extends IncrementableExpressionContext {
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public IncrementVariableContext(IncrementableExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterIncrementVariable(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterIncrementVariable(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitIncrementVariable(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitIncrementVariable(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitIncrementVariable(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitIncrementVariable(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2610,19 +2610,19 @@ public class LatinParser extends Parser {
 		public PostfixExpressionContext postfixExpression() {
 			return getRuleContext(PostfixExpressionContext.class,0);
 		}
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public IncrementMemberAccessContext(IncrementableExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterIncrementMemberAccess(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterIncrementMemberAccess(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitIncrementMemberAccess(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitIncrementMemberAccess(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitIncrementMemberAccess(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitIncrementMemberAccess(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2637,15 +2637,15 @@ public class LatinParser extends Parser {
 		public IncrementArrayAccessContext(IncrementableExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterIncrementArrayAccess(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterIncrementArrayAccess(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitIncrementArrayAccess(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitIncrementArrayAccess(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitIncrementArrayAccess(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitIncrementArrayAccess(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2706,14 +2706,14 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class IfStatementContext extends ParserRuleContext {
-		public TerminalNode SI() { return getToken(LatinParser.SI, 0); }
+		public TerminalNode SI() { return getToken(PigLatinParser.SI, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
-		public TerminalNode FINIS() { return getToken(LatinParser.FINIS, 0); }
+		public TerminalNode FINIS() { return getToken(PigLatinParser.FINIS, 0); }
 		public List<ElseIfStatementContext> elseIfStatement() {
 			return getRuleContexts(ElseIfStatementContext.class);
 		}
@@ -2729,15 +2729,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_ifStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterIfStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterIfStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitIfStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitIfStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitIfStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitIfStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2805,7 +2805,7 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ElseIfStatementContext extends ParserRuleContext {
-		public TerminalNode ALITER() { return getToken(LatinParser.ALITER, 0); }
+		public TerminalNode ALITER() { return getToken(PigLatinParser.ALITER, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -2818,15 +2818,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_elseIfStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterElseIfStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterElseIfStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitElseIfStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitElseIfStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitElseIfStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitElseIfStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2862,7 +2862,7 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ElseStatementContext extends ParserRuleContext {
-		public TerminalNode ALITER() { return getToken(LatinParser.ALITER, 0); }
+		public TerminalNode ALITER() { return getToken(PigLatinParser.ALITER, 0); }
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
@@ -2872,15 +2872,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_elseStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterElseStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterElseStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitElseStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitElseStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitElseStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitElseStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2922,15 +2922,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_block; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterBlock(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterBlock(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitBlock(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitBlock(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitBlock(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitBlock(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2975,29 +2975,29 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class WhileStatementContext extends ParserRuleContext {
-		public TerminalNode DUM() { return getToken(LatinParser.DUM, 0); }
+		public TerminalNode DUM() { return getToken(PigLatinParser.DUM, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
-		public TerminalNode FINIS() { return getToken(LatinParser.FINIS, 0); }
+		public TerminalNode FINIS() { return getToken(PigLatinParser.FINIS, 0); }
 		public WhileStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_whileStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterWhileStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterWhileStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitWhileStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitWhileStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitWhileStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitWhileStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3037,11 +3037,11 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class DoWhileStatementContext extends ParserRuleContext {
-		public TerminalNode FACERE() { return getToken(LatinParser.FACERE, 0); }
+		public TerminalNode FACERE() { return getToken(PigLatinParser.FACERE, 0); }
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
-		public TerminalNode DUM() { return getToken(LatinParser.DUM, 0); }
+		public TerminalNode DUM() { return getToken(PigLatinParser.DUM, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -3051,15 +3051,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_doWhileStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterDoWhileStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterDoWhileStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitDoWhileStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitDoWhileStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitDoWhileStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitDoWhileStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3099,7 +3099,7 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ForStatementContext extends ParserRuleContext {
-		public TerminalNode PER() { return getToken(LatinParser.PER, 0); }
+		public TerminalNode PER() { return getToken(PigLatinParser.PER, 0); }
 		public VariableDeclarationContext variableDeclaration() {
 			return getRuleContext(VariableDeclarationContext.class,0);
 		}
@@ -3112,22 +3112,22 @@ public class LatinParser extends Parser {
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
-		public TerminalNode FINIS() { return getToken(LatinParser.FINIS, 0); }
+		public TerminalNode FINIS() { return getToken(PigLatinParser.FINIS, 0); }
 		public ForStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_forStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterForStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterForStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitForStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitForStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitForStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitForStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3173,7 +3173,7 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ReturnStatementContext extends ParserRuleContext {
-		public TerminalNode REDDERE() { return getToken(LatinParser.REDDERE, 0); }
+		public TerminalNode REDDERE() { return getToken(PigLatinParser.REDDERE, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -3183,15 +3183,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_returnStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterReturnStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterReturnStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitReturnStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitReturnStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitReturnStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitReturnStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3232,22 +3232,22 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ContinueStatementContext extends ParserRuleContext {
-		public TerminalNode PERGE() { return getToken(LatinParser.PERGE, 0); }
+		public TerminalNode PERGE() { return getToken(PigLatinParser.PERGE, 0); }
 		public ContinueStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_continueStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterContinueStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterContinueStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitContinueStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitContinueStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitContinueStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitContinueStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3277,22 +3277,22 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class BreakStatementContext extends ParserRuleContext {
-		public TerminalNode INTERRUMPE() { return getToken(LatinParser.INTERRUMPE, 0); }
+		public TerminalNode INTERRUMPE() { return getToken(PigLatinParser.INTERRUMPE, 0); }
 		public BreakStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_breakStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterBreakStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterBreakStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitBreakStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitBreakStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitBreakStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitBreakStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3322,7 +3322,7 @@ public class LatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ReadStatementContext extends ParserRuleContext {
-		public TerminalNode READ() { return getToken(LatinParser.READ, 0); }
+		public TerminalNode READ() { return getToken(PigLatinParser.READ, 0); }
 		public PostfixExpressionContext postfixExpression() {
 			return getRuleContext(PostfixExpressionContext.class,0);
 		}
@@ -3332,15 +3332,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_readStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterReadStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterReadStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitReadStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitReadStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitReadStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitReadStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3381,9 +3381,9 @@ public class LatinParser extends Parser {
 	public static class PrintStatementContext extends ParserRuleContext {
 		public ExpressionContext expression;
 		public List<ExpressionContext> expressions = new ArrayList<ExpressionContext>();
-		public List<TerminalNode> PRINT() { return getTokens(LatinParser.PRINT); }
+		public List<TerminalNode> PRINT() { return getTokens(PigLatinParser.PRINT); }
 		public TerminalNode PRINT(int i) {
-			return getToken(LatinParser.PRINT, i);
+			return getToken(PigLatinParser.PRINT, i);
 		}
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
@@ -3397,15 +3397,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_printStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterPrintStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterPrintStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitPrintStatement(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitPrintStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitPrintStatement(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitPrintStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3465,15 +3465,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_expression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterExpression(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitExpression(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitExpression(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitExpression(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitExpression(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3519,15 +3519,15 @@ public class LatinParser extends Parser {
 		public ToLogicalAndExprContext(LogicalOrExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterToLogicalAndExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterToLogicalAndExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitToLogicalAndExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitToLogicalAndExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitToLogicalAndExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitToLogicalAndExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3536,22 +3536,22 @@ public class LatinParser extends Parser {
 		public LogicalOrExpressionContext logicalOrExpression() {
 			return getRuleContext(LogicalOrExpressionContext.class,0);
 		}
-		public TerminalNode OR() { return getToken(LatinParser.OR, 0); }
+		public TerminalNode OR() { return getToken(PigLatinParser.OR, 0); }
 		public LogicalAndExpressionContext logicalAndExpression() {
 			return getRuleContext(LogicalAndExpressionContext.class,0);
 		}
 		public OrExprContext(LogicalOrExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterOrExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterOrExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitOrExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitOrExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitOrExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitOrExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3634,22 +3634,22 @@ public class LatinParser extends Parser {
 		public LogicalAndExpressionContext logicalAndExpression() {
 			return getRuleContext(LogicalAndExpressionContext.class,0);
 		}
-		public TerminalNode AND() { return getToken(LatinParser.AND, 0); }
+		public TerminalNode AND() { return getToken(PigLatinParser.AND, 0); }
 		public EqualityExpressionContext equalityExpression() {
 			return getRuleContext(EqualityExpressionContext.class,0);
 		}
 		public AndExprContext(LogicalAndExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterAndExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterAndExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitAndExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitAndExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitAndExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitAndExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3661,15 +3661,15 @@ public class LatinParser extends Parser {
 		public ToEqualityExprContext(LogicalAndExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterToEqualityExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterToEqualityExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitToEqualityExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitToEqualityExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitToEqualityExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitToEqualityExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3752,22 +3752,22 @@ public class LatinParser extends Parser {
 		public EqualityExpressionContext equalityExpression() {
 			return getRuleContext(EqualityExpressionContext.class,0);
 		}
-		public TerminalNode EQUAL() { return getToken(LatinParser.EQUAL, 0); }
+		public TerminalNode EQUAL() { return getToken(PigLatinParser.EQUAL, 0); }
 		public ComparisonExpressionContext comparisonExpression() {
 			return getRuleContext(ComparisonExpressionContext.class,0);
 		}
 		public EqualExprContext(EqualityExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterEqualExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterEqualExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitEqualExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitEqualExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitEqualExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitEqualExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3779,15 +3779,15 @@ public class LatinParser extends Parser {
 		public ToComparisonExprContext(EqualityExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterToComparisonExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterToComparisonExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitToComparisonExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitToComparisonExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitToComparisonExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitToComparisonExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3796,22 +3796,22 @@ public class LatinParser extends Parser {
 		public EqualityExpressionContext equalityExpression() {
 			return getRuleContext(EqualityExpressionContext.class,0);
 		}
-		public TerminalNode NOT_EQUAL() { return getToken(LatinParser.NOT_EQUAL, 0); }
+		public TerminalNode NOT_EQUAL() { return getToken(PigLatinParser.NOT_EQUAL, 0); }
 		public ComparisonExpressionContext comparisonExpression() {
 			return getRuleContext(ComparisonExpressionContext.class,0);
 		}
 		public NotEqualExprContext(EqualityExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterNotEqualExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterNotEqualExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitNotEqualExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitNotEqualExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitNotEqualExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitNotEqualExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3915,15 +3915,15 @@ public class LatinParser extends Parser {
 		public ToAdditiveExprContext(ComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterToAdditiveExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterToAdditiveExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitToAdditiveExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitToAdditiveExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitToAdditiveExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitToAdditiveExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3932,22 +3932,22 @@ public class LatinParser extends Parser {
 		public ComparisonExpressionContext comparisonExpression() {
 			return getRuleContext(ComparisonExpressionContext.class,0);
 		}
-		public TerminalNode GREATER() { return getToken(LatinParser.GREATER, 0); }
+		public TerminalNode GREATER() { return getToken(PigLatinParser.GREATER, 0); }
 		public AdditiveExpressionContext additiveExpression() {
 			return getRuleContext(AdditiveExpressionContext.class,0);
 		}
 		public GreaterExprContext(ComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterGreaterExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterGreaterExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitGreaterExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitGreaterExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitGreaterExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitGreaterExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3956,22 +3956,22 @@ public class LatinParser extends Parser {
 		public ComparisonExpressionContext comparisonExpression() {
 			return getRuleContext(ComparisonExpressionContext.class,0);
 		}
-		public TerminalNode GREATER_EQUAL() { return getToken(LatinParser.GREATER_EQUAL, 0); }
+		public TerminalNode GREATER_EQUAL() { return getToken(PigLatinParser.GREATER_EQUAL, 0); }
 		public AdditiveExpressionContext additiveExpression() {
 			return getRuleContext(AdditiveExpressionContext.class,0);
 		}
 		public GreaterEqualExprContext(ComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterGreaterEqualExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterGreaterEqualExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitGreaterEqualExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitGreaterEqualExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitGreaterEqualExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitGreaterEqualExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3980,22 +3980,22 @@ public class LatinParser extends Parser {
 		public ComparisonExpressionContext comparisonExpression() {
 			return getRuleContext(ComparisonExpressionContext.class,0);
 		}
-		public TerminalNode LESS() { return getToken(LatinParser.LESS, 0); }
+		public TerminalNode LESS() { return getToken(PigLatinParser.LESS, 0); }
 		public AdditiveExpressionContext additiveExpression() {
 			return getRuleContext(AdditiveExpressionContext.class,0);
 		}
 		public LessExprContext(ComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterLessExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterLessExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitLessExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitLessExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitLessExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitLessExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4004,22 +4004,22 @@ public class LatinParser extends Parser {
 		public ComparisonExpressionContext comparisonExpression() {
 			return getRuleContext(ComparisonExpressionContext.class,0);
 		}
-		public TerminalNode LESS_EQUAL() { return getToken(LatinParser.LESS_EQUAL, 0); }
+		public TerminalNode LESS_EQUAL() { return getToken(PigLatinParser.LESS_EQUAL, 0); }
 		public AdditiveExpressionContext additiveExpression() {
 			return getRuleContext(AdditiveExpressionContext.class,0);
 		}
 		public LessEqualExprContext(ComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterLessEqualExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterLessEqualExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitLessEqualExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitLessEqualExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitLessEqualExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitLessEqualExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4147,15 +4147,15 @@ public class LatinParser extends Parser {
 		public ToMultiplicativeExprContext(AdditiveExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterToMultiplicativeExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterToMultiplicativeExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitToMultiplicativeExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitToMultiplicativeExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitToMultiplicativeExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitToMultiplicativeExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4164,22 +4164,22 @@ public class LatinParser extends Parser {
 		public AdditiveExpressionContext additiveExpression() {
 			return getRuleContext(AdditiveExpressionContext.class,0);
 		}
-		public TerminalNode PLUS() { return getToken(LatinParser.PLUS, 0); }
+		public TerminalNode PLUS() { return getToken(PigLatinParser.PLUS, 0); }
 		public MultiplicativeExpressionContext multiplicativeExpression() {
 			return getRuleContext(MultiplicativeExpressionContext.class,0);
 		}
 		public AdditionExprContext(AdditiveExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterAdditionExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterAdditionExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitAdditionExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitAdditionExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitAdditionExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitAdditionExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4188,22 +4188,22 @@ public class LatinParser extends Parser {
 		public AdditiveExpressionContext additiveExpression() {
 			return getRuleContext(AdditiveExpressionContext.class,0);
 		}
-		public TerminalNode MINUS() { return getToken(LatinParser.MINUS, 0); }
+		public TerminalNode MINUS() { return getToken(PigLatinParser.MINUS, 0); }
 		public MultiplicativeExpressionContext multiplicativeExpression() {
 			return getRuleContext(MultiplicativeExpressionContext.class,0);
 		}
 		public SubtractionExprContext(AdditiveExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterSubtractionExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterSubtractionExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitSubtractionExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitSubtractionExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitSubtractionExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitSubtractionExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4307,15 +4307,15 @@ public class LatinParser extends Parser {
 		public ToUnaryExprContext(MultiplicativeExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterToUnaryExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterToUnaryExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitToUnaryExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitToUnaryExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitToUnaryExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitToUnaryExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4324,22 +4324,22 @@ public class LatinParser extends Parser {
 		public MultiplicativeExpressionContext multiplicativeExpression() {
 			return getRuleContext(MultiplicativeExpressionContext.class,0);
 		}
-		public TerminalNode DIV() { return getToken(LatinParser.DIV, 0); }
+		public TerminalNode DIV() { return getToken(PigLatinParser.DIV, 0); }
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}
 		public DivisionExprContext(MultiplicativeExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterDivisionExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterDivisionExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitDivisionExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitDivisionExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitDivisionExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitDivisionExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4348,22 +4348,22 @@ public class LatinParser extends Parser {
 		public MultiplicativeExpressionContext multiplicativeExpression() {
 			return getRuleContext(MultiplicativeExpressionContext.class,0);
 		}
-		public TerminalNode MULT() { return getToken(LatinParser.MULT, 0); }
+		public TerminalNode MULT() { return getToken(PigLatinParser.MULT, 0); }
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}
 		public MultiplicationExprContext(MultiplicativeExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterMultiplicationExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterMultiplicationExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitMultiplicationExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitMultiplicationExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitMultiplicationExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitMultiplicationExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4467,57 +4467,57 @@ public class LatinParser extends Parser {
 		public ToPostfixExprContext(UnaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterToPostfixExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterToPostfixExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitToPostfixExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitToPostfixExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitToPostfixExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitToPostfixExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class NotExprContext extends UnaryExpressionContext {
-		public TerminalNode NON() { return getToken(LatinParser.NON, 0); }
+		public TerminalNode NON() { return getToken(PigLatinParser.NON, 0); }
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}
 		public NotExprContext(UnaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterNotExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterNotExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitNotExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitNotExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitNotExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitNotExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class NegateExprContext extends UnaryExpressionContext {
-		public TerminalNode MINUS() { return getToken(LatinParser.MINUS, 0); }
+		public TerminalNode MINUS() { return getToken(PigLatinParser.MINUS, 0); }
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}
 		public NegateExprContext(UnaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterNegateExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterNegateExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitNegateExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitNegateExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitNegateExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitNegateExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4602,15 +4602,15 @@ public class LatinParser extends Parser {
 		public FunctionCallExprContext(PostfixExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterFunctionCallExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterFunctionCallExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitFunctionCallExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitFunctionCallExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitFunctionCallExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitFunctionCallExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4619,19 +4619,19 @@ public class LatinParser extends Parser {
 		public PostfixExpressionContext postfixExpression() {
 			return getRuleContext(PostfixExpressionContext.class,0);
 		}
-		public TerminalNode MINUSMINUS() { return getToken(LatinParser.MINUSMINUS, 0); }
+		public TerminalNode MINUSMINUS() { return getToken(PigLatinParser.MINUSMINUS, 0); }
 		public PostDecrementExprContext(PostfixExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterPostDecrementExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterPostDecrementExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitPostDecrementExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitPostDecrementExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitPostDecrementExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitPostDecrementExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4646,15 +4646,15 @@ public class LatinParser extends Parser {
 		public ArrayAccessExprContext(PostfixExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterArrayAccessExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterArrayAccessExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitArrayAccessExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitArrayAccessExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitArrayAccessExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitArrayAccessExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4663,19 +4663,19 @@ public class LatinParser extends Parser {
 		public PostfixExpressionContext postfixExpression() {
 			return getRuleContext(PostfixExpressionContext.class,0);
 		}
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public MemberAccessExprContext(PostfixExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterMemberAccessExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterMemberAccessExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitMemberAccessExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitMemberAccessExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitMemberAccessExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitMemberAccessExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4687,15 +4687,15 @@ public class LatinParser extends Parser {
 		public ToPrimaryExprContext(PostfixExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterToPrimaryExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterToPrimaryExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitToPrimaryExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitToPrimaryExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitToPrimaryExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitToPrimaryExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4704,19 +4704,19 @@ public class LatinParser extends Parser {
 		public PostfixExpressionContext postfixExpression() {
 			return getRuleContext(PostfixExpressionContext.class,0);
 		}
-		public TerminalNode PLUSPLUS() { return getToken(LatinParser.PLUSPLUS, 0); }
+		public TerminalNode PLUSPLUS() { return getToken(PigLatinParser.PLUSPLUS, 0); }
 		public PostIncrementExprContext(PostfixExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterPostIncrementExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterPostIncrementExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitPostIncrementExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitPostIncrementExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitPostIncrementExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitPostIncrementExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4843,15 +4843,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_functionArguments; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterFunctionArguments(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterFunctionArguments(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitFunctionArguments(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitFunctionArguments(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitFunctionArguments(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitFunctionArguments(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4906,15 +4906,15 @@ public class LatinParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_argumentList; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterArgumentList(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterArgumentList(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitArgumentList(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitArgumentList(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitArgumentList(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitArgumentList(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4973,109 +4973,109 @@ public class LatinParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class TrueLiteralExprContext extends PrimaryExpressionContext {
-		public TerminalNode VERUM() { return getToken(LatinParser.VERUM, 0); }
+		public TerminalNode VERUM() { return getToken(PigLatinParser.VERUM, 0); }
 		public TrueLiteralExprContext(PrimaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterTrueLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterTrueLiteralExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitTrueLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitTrueLiteralExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitTrueLiteralExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitTrueLiteralExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class NumberLiteralExprContext extends PrimaryExpressionContext {
-		public TerminalNode NUMBER() { return getToken(LatinParser.NUMBER, 0); }
+		public TerminalNode NUMBER() { return getToken(PigLatinParser.NUMBER, 0); }
 		public NumberLiteralExprContext(PrimaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterNumberLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterNumberLiteralExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitNumberLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitNumberLiteralExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitNumberLiteralExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitNumberLiteralExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class FalseLiteralExprContext extends PrimaryExpressionContext {
-		public TerminalNode FALSUS() { return getToken(LatinParser.FALSUS, 0); }
+		public TerminalNode FALSUS() { return getToken(PigLatinParser.FALSUS, 0); }
 		public FalseLiteralExprContext(PrimaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterFalseLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterFalseLiteralExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitFalseLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitFalseLiteralExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitFalseLiteralExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitFalseLiteralExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class StringLiteralExprContext extends PrimaryExpressionContext {
-		public TerminalNode STRING() { return getToken(LatinParser.STRING, 0); }
+		public TerminalNode STRING() { return getToken(PigLatinParser.STRING, 0); }
 		public StringLiteralExprContext(PrimaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterStringLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterStringLiteralExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitStringLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitStringLiteralExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitStringLiteralExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitStringLiteralExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CharLiteralExprContext extends PrimaryExpressionContext {
-		public TerminalNode CHAR() { return getToken(LatinParser.CHAR, 0); }
+		public TerminalNode CHAR() { return getToken(PigLatinParser.CHAR, 0); }
 		public CharLiteralExprContext(PrimaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterCharLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterCharLiteralExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitCharLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitCharLiteralExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitCharLiteralExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitCharLiteralExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class VariableExprContext extends PrimaryExpressionContext {
-		public TerminalNode ID() { return getToken(LatinParser.ID, 0); }
+		public TerminalNode ID() { return getToken(PigLatinParser.ID, 0); }
 		public VariableExprContext(PrimaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterVariableExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterVariableExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitVariableExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitVariableExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitVariableExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitVariableExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -5087,33 +5087,33 @@ public class LatinParser extends Parser {
 		public ParenthesizedExprContext(PrimaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterParenthesizedExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterParenthesizedExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitParenthesizedExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitParenthesizedExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitParenthesizedExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitParenthesizedExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class DecimalLiteralExprContext extends PrimaryExpressionContext {
-		public TerminalNode DECIMAL() { return getToken(LatinParser.DECIMAL, 0); }
+		public TerminalNode DECIMAL() { return getToken(PigLatinParser.DECIMAL, 0); }
 		public DecimalLiteralExprContext(PrimaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).enterDecimalLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).enterDecimalLiteralExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LatinListener ) ((LatinListener)listener).exitDecimalLiteralExpr(this);
+			if ( listener instanceof PigLatinListener ) ((PigLatinListener)listener).exitDecimalLiteralExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LatinVisitor) return ((LatinVisitor<? extends T>)visitor).visitDecimalLiteralExpr(this);
+			if ( visitor instanceof PigLatinVisitor) return ((PigLatinVisitor<? extends T>)visitor).visitDecimalLiteralExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
