@@ -1,0 +1,16 @@
+package com.navi.backend.ast.expressions.literals;
+
+import com.navi.backend.ast.expressions.Expression;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public class DecimalLiteral extends Expression {
+    private double value;
+
+    @Override
+    public void toPigLatin(StringBuilder sb, int indent) {
+        sb.append(value);
+    }
+}

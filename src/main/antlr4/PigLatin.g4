@@ -25,14 +25,12 @@ structDeclaration
 
 structFieldWithSemicolon
     : ESTO ID ':' type ';'?                 #StructVariableFieldSemicolon
-    | ESTO ID ':' booleanLiteral ';'?        #StructBooleanFieldSemicolon
-    | SERIES ID (':' type)? ';'?            #StructArrayFieldSemicolon
+    | SERIES ID ':' type ';'?               #StructArrayFieldSemicolon
     ;
 
 structFieldWithComma
     : ESTO ID ':' type ','?                 #StructVariableFieldComma
-    | ESTO ID ':' booleanLiteral ','?        #StructBooleanFieldComma
-    | SERIES ID (':' type)? ','?            #StructArrayFieldComma
+    | SERIES ID ':' type ','?               #StructArrayFieldComma
     ;
 
 functionDeclaration
@@ -73,7 +71,6 @@ localVariableSection
 
 variableDeclaration
     : ESTO ID ':' type initializer? ';'   #NormalVarDeclaration
-    | ESTO ID ':' booleanLiteral ';'       #BooleanVarDeclaration
     ;
 
 initializer
@@ -86,16 +83,11 @@ structInitializer
     ;
 
 structFieldInitializer
-    : ID ':' initializer                  // ¡Reutiliza el mismo inicializador simplificado!
+    : ID ':' initializer
     ;
 
 arrayConstructor
     : type '[' expression ']'
-    ;
-
-booleanLiteral
-    : VERUM
-    | FALSUS
     ;
 
 arrayDeclaration
@@ -110,6 +102,7 @@ type
     : NUMERUS
     | DECIMALIS
     | TEXTUM
+    | BOOL
     | LITTERA
     | ID
     ;
@@ -296,6 +289,7 @@ NUMERUS   : 'numerus';
 DECIMALIS : 'decimalis';
 TEXTUM    : 'textum';
 LITTERA   : 'littera';
+BOOL      : 'bool';
 VERUM     : 'verum';
 FALSUS    : 'falsus';
 

@@ -1,11 +1,18 @@
 package com.navi;
 
-import com.navi.ast.global.Program;
-import com.navi.ast.lexer_parser.PigLatinLexer;
-import com.navi.ast.lexer_parser.PigLatinParser;
-import com.navi.ast.visitors.ProgramVisitor;
-import com.navi.parser.*;
-import com.navi.semantic.*;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
+import com.navi.backend.ast.global.Program;
+import com.navi.backend.ast.lexer_parser.PigLatinLexer;
+import com.navi.backend.ast.lexer_parser.PigLatinParser;
+import com.navi.backend.ast.visitors.ProgramVisitor;
+import com.navi.backend.parser.ParserTrace;
+import com.navi.backend.parser.ParserTraceBuilder;
+import com.navi.backend.parser.SyntaxError;
+import com.navi.backend.parser.SyntaxErrorListener;
+import com.navi.backend.semantic.SemanticAnalyzer;
+import com.navi.backend.semantic.SymbolTable;
+import com.navi.backend.semantic.SymbolTableBuilder;
+import com.navi.ui.Dashboard;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -21,7 +28,7 @@ public class Main {
                 ##
                 VARIABILES>
                 esto edad : numerus 20;
-                esto cifrado : falsus;
+                esto cifrado : bool falsus;
                 esto comandante : textum "Estudiante X";
                 esto fuerza : numerus 10;
                 esto poder : numerus 0;
@@ -147,6 +154,10 @@ public class Main {
             }
             System.out.println("Log: " + state.log());
         }*/
+
+        FlatMaterialDarkerIJTheme.setup();
+        Dashboard dashboard = new Dashboard();
+        dashboard.setVisible(true);
     }
 
 }
