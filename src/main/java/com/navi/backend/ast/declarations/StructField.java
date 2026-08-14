@@ -5,12 +5,24 @@ import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 public class StructField extends AstNode {
     private String name;
     private String type;
     private boolean isArray;
+
+    @Override
+    public List<? extends AstNode> getChildren() {
+        return List.of();
+    }
+
+    @Override
+    public String getNodeLabel() {
+        return "StructField: " + name + " : " + type;
+    }
 
     @Override
     public void toPigLatin(StringBuilder sb, int indent) {

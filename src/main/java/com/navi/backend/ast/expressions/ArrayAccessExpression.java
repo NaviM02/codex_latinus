@@ -1,13 +1,21 @@
 package com.navi.backend.ast.expressions;
 
+import com.navi.backend.ast.AstNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
 public class ArrayAccessExpression extends Expression {
     private Expression array;
     private Expression index;
+
+    @Override
+    public List<? extends AstNode> getChildren() {
+        return List.of(array, index);
+    }
 
     @Override
     public void toPigLatin(StringBuilder sb, int indent) {

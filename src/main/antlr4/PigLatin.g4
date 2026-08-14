@@ -79,7 +79,7 @@ initializer
     ;
 
 structInitializer
-    : '{' structFieldInitializer (',' structFieldInitializer)* '}'
+    : '{' fields+=structFieldInitializer (',' fields+=structFieldInitializer)* '}'
     ;
 
 structFieldInitializer

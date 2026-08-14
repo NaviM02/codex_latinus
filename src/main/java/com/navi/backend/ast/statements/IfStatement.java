@@ -1,5 +1,6 @@
 package com.navi.backend.ast.statements;
 
+import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,24 @@ public class IfStatement extends Statement {
     private BlockStatement thenBlock;
     private List<ElseIfStatement> elseIfStatements;
     private BlockStatement elseBlock;
+
+    @Override
+    public List<? extends AstNode> getChildren() {
+        List<AstNode> children = new java.util.ArrayList<>();
+
+        children.add(condition);
+        children.add(thenBlock);
+
+        if (elseIfStatements != null) {
+            children.addAll(elseIfStatements);
+        }
+
+        if (elseBlock != null) {
+            children.add(elseBlock);
+        }
+
+        return children;
+    }
 
     @Override
     public void toPigLatin(StringBuilder sb, int indent) {

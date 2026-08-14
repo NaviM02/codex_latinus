@@ -1,5 +1,6 @@
 package com.navi.backend.ast.statements;
 
+import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 public class PrintStatement extends Statement {
     private List<Expression> expressions;
+
+    @Override
+    public List<? extends AstNode> getChildren() {
+        return expressions;
+    }
 
     @Override
     public void toPigLatin(StringBuilder sb, int indent) {

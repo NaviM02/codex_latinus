@@ -5,17 +5,16 @@ import com.navi.backend.ast.global.Program;
 import com.navi.backend.ast.lexer_parser.PigLatinLexer;
 import com.navi.backend.ast.lexer_parser.PigLatinParser;
 import com.navi.backend.ast.visitors.ProgramVisitor;
-import com.navi.backend.parser.ParserTrace;
-import com.navi.backend.parser.ParserTraceBuilder;
-import com.navi.backend.parser.SyntaxError;
-import com.navi.backend.parser.SyntaxErrorListener;
+import com.navi.backend.parser.*;
 import com.navi.backend.semantic.SemanticAnalyzer;
 import com.navi.backend.semantic.SymbolTable;
 import com.navi.backend.semantic.SymbolTableBuilder;
-import com.navi.ui.Dashboard;
+import com.navi.ui.CompilerWindow;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -140,7 +139,7 @@ public class Main {
         ParserTraceBuilder traceBuilder = new ParserTraceBuilder();
         ParserTrace trace = traceBuilder.build(tree);
 
-       /* System.out.println();
+        System.out.println();
         System.out.println("====== PARSER TRACE ======");
 
         for (ParserState state : trace.getStates()) {
@@ -153,11 +152,13 @@ public class Main {
                 System.out.println("  " + symbol);
             }
             System.out.println("Log: " + state.log());
-        }*/
+        }
 
         FlatMaterialDarkerIJTheme.setup();
-        Dashboard dashboard = new Dashboard();
-        dashboard.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            CompilerWindow window = new CompilerWindow();
+            window.setVisible(true);
+        });
     }
 
 }

@@ -1,13 +1,21 @@
 package com.navi.backend.ast.statements;
 
+import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
 public class ReadStatement extends Statement {
     private Expression target;
+
+    @Override
+    public List<? extends AstNode> getChildren() {
+        return List.of(target);
+    }
 
     @Override
     public void toPigLatin(StringBuilder sb, int indent) {

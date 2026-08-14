@@ -13,6 +13,11 @@ public class ArrayInitializer extends AstNode {
     private List<Expression> values;
 
     @Override
+    public List<? extends AstNode> getChildren() {
+        return values;
+    }
+
+    @Override
     public void toPigLatin(StringBuilder sb, int indent) {
         sb.append("{");
 

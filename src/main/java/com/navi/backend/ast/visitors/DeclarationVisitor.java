@@ -99,7 +99,7 @@ public class DeclarationVisitor extends StatementVisitor {
     public AstNode visitStructInitializer(PigLatinParser.StructInitializerContext ctx) {
         List<StructFieldInitializer> fields = new ArrayList<>();
 
-        for (PigLatinParser.StructFieldInitializerContext field : ctx.structFieldInitializer()) {
+        for (PigLatinParser.StructFieldInitializerContext field : ctx.fields) {
             fields.add((StructFieldInitializer) visit(field));
         }
 
@@ -193,7 +193,7 @@ public class DeclarationVisitor extends StatementVisitor {
         List<Parameter> parameters = new ArrayList<>();
 
         if (ctx.parameterList() != null) {
-            for (PigLatinParser.ParameterContext parameter : ctx.parameterList().parameter()) {
+            for (PigLatinParser.ParameterContext parameter : ctx.parameterList().parameters) {
                 parameters.add((Parameter) visit(parameter));
             }
         }

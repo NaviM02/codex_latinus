@@ -1,5 +1,6 @@
 package com.navi.backend.ast.expressions;
 
+import com.navi.backend.ast.AstNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import java.util.List;
@@ -9,6 +10,16 @@ import java.util.List;
 public class FunctionCallExpression extends Expression {
     private Expression callee;
     private List<Expression> arguments;
+
+    @Override
+    public List<? extends AstNode> getChildren() {
+        List<AstNode> children = new java.util.ArrayList<>();
+
+        children.add(callee);
+        children.addAll(arguments);
+
+        return children;
+    }
 
     @Override
     public void toPigLatin(StringBuilder sb, int indent) {

@@ -1,5 +1,6 @@
 package com.navi.backend.ast.declarations;
 
+import com.navi.backend.ast.AstNode;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +12,16 @@ import java.util.List;
 public class StructDeclaration extends Declaration {
     private String name;
     private List<StructField> fields;
+
+    @Override
+    public List<? extends AstNode> getChildren() {
+        return fields;
+    }
+
+    @Override
+    public String getNodeLabel() {
+        return "StructDeclaration: " + name;
+    }
 
     @Override
     public void toPigLatin(StringBuilder sb, int indent) {

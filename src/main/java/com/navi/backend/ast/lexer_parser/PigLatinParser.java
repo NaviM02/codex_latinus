@@ -1530,6 +1530,8 @@ public class PigLatinParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructInitializerContext extends ParserRuleContext {
+		public StructFieldInitializerContext structFieldInitializer;
+		public List<StructFieldInitializerContext> fields = new ArrayList<StructFieldInitializerContext>();
 		public List<StructFieldInitializerContext> structFieldInitializer() {
 			return getRuleContexts(StructFieldInitializerContext.class);
 		}
@@ -1565,7 +1567,8 @@ public class PigLatinParser extends Parser {
 			setState(272);
 			match(T__1);
 			setState(273);
-			structFieldInitializer();
+			((StructInitializerContext)_localctx).structFieldInitializer = structFieldInitializer();
+			((StructInitializerContext)_localctx).fields.add(((StructInitializerContext)_localctx).structFieldInitializer);
 			setState(278);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -1575,7 +1578,8 @@ public class PigLatinParser extends Parser {
 				setState(274);
 				match(T__4);
 				setState(275);
-				structFieldInitializer();
+				((StructInitializerContext)_localctx).structFieldInitializer = structFieldInitializer();
+				((StructInitializerContext)_localctx).fields.add(((StructInitializerContext)_localctx).structFieldInitializer);
 				}
 				}
 				setState(280);

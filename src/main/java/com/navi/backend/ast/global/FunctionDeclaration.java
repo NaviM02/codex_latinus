@@ -5,6 +5,7 @@ import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -14,6 +15,26 @@ public class FunctionDeclaration extends AstNode {
     private String returnType;
     private List<Parameter> parameters;
     private FunctionBody body;
+
+    @Override
+    public List<? extends AstNode> getChildren() {
+        List<AstNode> children = new ArrayList<>();
+
+        if (parameters != null) {
+            children.addAll(parameters);
+        }
+
+        if (body != null) {
+            children.add(body);
+        }
+
+        return children;
+    }
+
+    @Override
+    public String getNodeLabel() {
+        return "FunctionDeclaration: " + returnType + " " + name;
+    }
 
     @Override
     public void toPigLatin(StringBuilder sb, int indent) {

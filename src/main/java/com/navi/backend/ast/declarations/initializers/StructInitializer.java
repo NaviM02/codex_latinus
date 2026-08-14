@@ -1,5 +1,6 @@
 package com.navi.backend.ast.declarations.initializers;
 
+import com.navi.backend.ast.AstNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,6 +10,11 @@ import java.util.List;
 @AllArgsConstructor
 public class StructInitializer extends Initializer {
     private List<StructFieldInitializer> fields;
+
+    @Override
+    public List<? extends AstNode> getChildren() {
+        return fields;
+    }
 
     @Override
     public void toPigLatin(StringBuilder sb, int indent) {

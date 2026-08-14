@@ -14,6 +14,11 @@ public class GlobalVariableSection extends AstNode {
     private List<Declaration> declarations;
 
     @Override
+    public List<? extends AstNode> getChildren() {
+        return declarations;
+    }
+
+    @Override
     public void toPigLatin(StringBuilder sb, int indent) {
         sb.append(PigLatinRules.translateSectionKeyword("VARIABILES"));
         sb.append(">\n");

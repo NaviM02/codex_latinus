@@ -14,6 +14,11 @@ public class LocalVariableSection extends AstNode {
     private final List<Declaration> declarations;
 
     @Override
+    public List<? extends AstNode> getChildren() {
+        return declarations;
+    }
+
+    @Override
     public void toPigLatin(StringBuilder sb, int indent) {
         indent(sb, indent);
         sb.append(PigLatinRules.translateSectionKeyword("VARIABILES"));
