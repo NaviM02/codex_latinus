@@ -2,6 +2,7 @@ package com.navi.backend.ast.statements;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
+import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -60,5 +61,10 @@ public class IfStatement extends Statement {
         sb.append(" ");
         sb.append(PigLatinRules.translateKeyword("finis"));
         sb.append(";\n\n");
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

@@ -1,6 +1,7 @@
 package com.navi.backend.ast.declarations.initializers;
 
 import com.navi.backend.ast.AstNode;
+import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,5 +30,10 @@ public class StructFieldInitializer extends AstNode {
         sb.append(" : ");
 
         value.toPigLatin(sb, indent);
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

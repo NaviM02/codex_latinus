@@ -2,13 +2,13 @@ package com.navi;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
 import com.navi.backend.ast.global.Program;
-import com.navi.backend.ast.lexer_parser.PigLatinLexer;
-import com.navi.backend.ast.lexer_parser.PigLatinParser;
+import com.navi.backend.lexer_parser.PigLatinLexer;
+import com.navi.backend.lexer_parser.PigLatinParser;
 import com.navi.backend.ast.visitors.ProgramVisitor;
 import com.navi.backend.parser.*;
-import com.navi.backend.semantic.SemanticAnalyzer;
-import com.navi.backend.semantic.SymbolTable;
-import com.navi.backend.semantic.SymbolTableBuilder;
+import com.navi.backend.parser.errors.SyntaxError;
+import com.navi.backend.parser.errors.SyntaxErrorListener;
+import com.navi.backend.semantic.*;
 import com.navi.ui.CompilerWindow;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -105,10 +105,10 @@ public class Main {
 
         Program program = (Program) new ProgramVisitor().visit(tree);
         SymbolTable symbolTable = new SymbolTable();
-        SymbolTableBuilder symbolTableBuilder = new SymbolTableBuilder(symbolTable);
+        SymbolTableBuilderVisitor symbolTableBuilder = new SymbolTableBuilderVisitor(symbolTable);
         symbolTableBuilder.build(program);
 
-        SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer(symbolTable);
+        SemanticAnalyzerVisitor semanticAnalyzer = new SemanticAnalyzerVisitor(symbolTable);
 
         semanticAnalyzer.analyze(program);
 

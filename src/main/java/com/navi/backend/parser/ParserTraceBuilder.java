@@ -1,6 +1,6 @@
 package com.navi.backend.parser;
 
-import com.navi.backend.ast.lexer_parser.PigLatinParser;
+import com.navi.backend.lexer_parser.PigLatinParser;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class ParserTraceBuilder {

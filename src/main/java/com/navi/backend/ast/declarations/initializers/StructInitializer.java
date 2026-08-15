@@ -1,6 +1,7 @@
 package com.navi.backend.ast.declarations.initializers;
 
 import com.navi.backend.ast.AstNode;
+import com.navi.backend.ast.visitors.AstVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,5 +28,10 @@ public class StructInitializer extends Initializer {
         }
 
         sb.append("}");
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

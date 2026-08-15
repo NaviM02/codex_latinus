@@ -1,7 +1,7 @@
 package com.navi.backend.parser;
 
-import com.navi.backend.ast.lexer_parser.PigLatinBaseListener;
-import com.navi.backend.ast.lexer_parser.PigLatinParser;
+import com.navi.backend.lexer_parser.PigLatinBaseListener;
+import com.navi.backend.lexer_parser.PigLatinParser;
 import lombok.Getter;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

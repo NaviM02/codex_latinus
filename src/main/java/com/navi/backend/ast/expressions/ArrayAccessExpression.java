@@ -1,6 +1,7 @@
 package com.navi.backend.ast.expressions;
 
 import com.navi.backend.ast.AstNode;
+import com.navi.backend.ast.visitors.AstVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -23,5 +24,10 @@ public class ArrayAccessExpression extends Expression {
         sb.append("[");
         index.toPigLatin(sb, indent);
         sb.append("]");
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

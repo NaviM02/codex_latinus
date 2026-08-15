@@ -2,6 +2,7 @@ package com.navi.backend.ast.global;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.statements.BlockStatement;
+import com.navi.backend.ast.visitors.AstVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -42,5 +43,10 @@ public class FunctionBody extends AstNode {
         }
 
         sb.append("}");
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

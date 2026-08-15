@@ -1,4 +1,4 @@
-package com.navi.backend.ast.lexer_parser;// Generated from PigLatin.g4 by ANTLR 4.13.2
+package com.navi.backend.lexer_parser;// Generated from PigLatin.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**

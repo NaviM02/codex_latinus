@@ -1,6 +1,7 @@
 package com.navi.backend.ast.global;
 
 import com.navi.backend.ast.AstNode;
+import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,5 +31,10 @@ public class Parameter extends AstNode {
         sb.append(PigLatinRules.translateIdentifier(name));
         sb.append(" : ");
         sb.append(PigLatinRules.translateType(type));
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

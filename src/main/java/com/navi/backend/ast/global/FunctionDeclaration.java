@@ -1,6 +1,7 @@
 package com.navi.backend.ast.global;
 
 import com.navi.backend.ast.AstNode;
+import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -55,5 +56,10 @@ public class FunctionDeclaration extends AstNode {
 
         sb.append(PigLatinRules.translateKeyword(" finis"));
         sb.append(";\n");
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

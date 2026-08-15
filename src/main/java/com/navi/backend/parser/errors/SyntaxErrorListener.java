@@ -1,4 +1,4 @@
-package com.navi.backend.parser;
+package com.navi.backend.parser.errors;
 
 import lombok.Getter;
 import org.antlr.v4.runtime.BaseErrorListener;

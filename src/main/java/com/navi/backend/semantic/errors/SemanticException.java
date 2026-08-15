@@ -1,4 +1,4 @@
-package com.navi.backend.semantic;
+package com.navi.backend.semantic.errors;
 
 public class SemanticException extends RuntimeException {
 

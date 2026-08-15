@@ -1,6 +1,7 @@
 package com.navi.backend.ast.expressions;
 
 import com.navi.backend.ast.AstNode;
+import com.navi.backend.ast.visitors.AstVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -37,5 +38,10 @@ public class UnaryExpression extends Expression {
                 sb.append("--");
             }
         }
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

@@ -2,7 +2,6 @@ package com.navi.backend.ast.visitors;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.declarations.*;
-import com.navi.backend.ast.declarations.*;
 import com.navi.backend.ast.declarations.initializers.ExpressionInitializer;
 import com.navi.backend.ast.declarations.initializers.Initializer;
 import com.navi.backend.ast.declarations.initializers.StructFieldInitializer;
@@ -12,7 +11,7 @@ import com.navi.backend.ast.global.FunctionBody;
 import com.navi.backend.ast.global.FunctionDeclaration;
 import com.navi.backend.ast.global.LocalVariableSection;
 import com.navi.backend.ast.global.Parameter;
-import com.navi.backend.ast.lexer_parser.PigLatinParser;
+import com.navi.backend.lexer_parser.PigLatinParser;
 import com.navi.backend.ast.statements.BlockStatement;
 import com.navi.backend.ast.statements.Statement;
 

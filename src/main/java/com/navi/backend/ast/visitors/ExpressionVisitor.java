@@ -3,10 +3,8 @@ package com.navi.backend.ast.visitors;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.*;
 import com.navi.backend.ast.expressions.literals.*;
-import com.navi.backend.ast.expressions.*;
-import com.navi.backend.ast.expressions.literals.*;
-import com.navi.backend.ast.lexer_parser.PigLatinBaseVisitor;
-import com.navi.backend.ast.lexer_parser.PigLatinParser;
+import com.navi.backend.lexer_parser.PigLatinBaseVisitor;
+import com.navi.backend.lexer_parser.PigLatinParser;
 
 import java.util.ArrayList;
 import java.util.List;

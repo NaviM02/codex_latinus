@@ -1,6 +1,7 @@
 package com.navi.backend.ast.expressions;
 
 import com.navi.backend.ast.AstNode;
+import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +26,10 @@ public class VariableExpression extends Expression {
     @Override
     public void toPigLatin(StringBuilder sb, int indent) {
         sb.append(PigLatinRules.translateIdentifier(name));
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

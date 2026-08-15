@@ -1,4 +1,4 @@
-package com.navi.backend.parser;
+package com.navi.backend.parser.errors;
 
 public record SyntaxError(int line, int column, String message) {
     @Override

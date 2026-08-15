@@ -2,6 +2,7 @@ package com.navi.backend.ast.global;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.declarations.Declaration;
+import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,5 +31,10 @@ public class LocalVariableSection extends AstNode {
         }
         indent(sb, indent);
         sb.append("]\n");
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

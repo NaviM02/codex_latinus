@@ -1,6 +1,7 @@
 package com.navi.backend.ast.expressions;
 
 import com.navi.backend.ast.AstNode;
+import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,5 +29,10 @@ public class MemberAccessExpression extends Expression {
         object.toPigLatin(sb, indent);
         sb.append(".");
         sb.append(PigLatinRules.translateIdentifier(member));
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

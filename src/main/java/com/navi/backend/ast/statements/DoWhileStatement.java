@@ -2,6 +2,7 @@ package com.navi.backend.ast.statements;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
+import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,5 +32,10 @@ public class DoWhileStatement extends Statement {
         condition.toPigLatin(sb, indent);
         sb.append(");");
         sb.append("\n");
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 }

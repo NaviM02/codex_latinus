@@ -1,5 +1,6 @@
 package com.navi.backend.ast;
 
+import com.navi.backend.ast.visitors.AstVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,6 +14,7 @@ public abstract class AstNode {
         return getClass().getSimpleName();
     }
     public abstract void toPigLatin(StringBuilder sb, int indent);
+    public abstract <R> R accept(AstVisitor<R> visitor);
     protected void indent(StringBuilder sb, int indent) {
         sb.append("    ".repeat(indent));
     }

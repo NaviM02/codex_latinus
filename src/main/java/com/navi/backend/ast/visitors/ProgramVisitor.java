@@ -5,7 +5,7 @@ import com.navi.backend.ast.global.FunctionDeclaration;
 import com.navi.backend.ast.global.GlobalVariableSection;
 import com.navi.backend.ast.global.Program;
 import com.navi.backend.ast.declarations.Declaration;
-import com.navi.backend.ast.lexer_parser.PigLatinParser;
+import com.navi.backend.lexer_parser.PigLatinParser;
 import com.navi.backend.ast.statements.Statement;
 
 import java.util.ArrayList;

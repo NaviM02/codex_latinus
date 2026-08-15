@@ -1,6 +1,7 @@
 package com.navi.backend.ast.expressions;
 
 import com.navi.backend.ast.AstNode;
+import com.navi.backend.ast.visitors.AstVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -25,6 +26,11 @@ public class BinaryExpression extends Expression {
         sb.append(getOperatorText(operator));
         sb.append(" ");
         right.toPigLatin(sb, indent);
+    }
+
+    @Override
+    public <R> R accept(AstVisitor<R> visitor) {
+        return visitor.visit(this);
     }
 
     private String getOperatorText(BinaryOperator operator) {
