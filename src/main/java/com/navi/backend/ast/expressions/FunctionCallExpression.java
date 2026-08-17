@@ -2,6 +2,7 @@ package com.navi.backend.ast.expressions;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import java.util.List;
@@ -23,16 +24,16 @@ public class FunctionCallExpression extends Expression {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        callee.toPigLatin(sb, indent);
-        sb.append("(");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        callee.toPigLatin(writer, indent);
+        writer.append("(");
 
         for (int i = 0; i < arguments.size(); i++) {
-            if (i > 0) sb.append(", ");
-            arguments.get(i).toPigLatin(sb, indent);
+            if (i > 0) writer.append(", ");
+            arguments.get(i).toPigLatin(writer, indent);
         }
 
-        sb.append(")");
+        writer.append(")");
     }
 
     @Override

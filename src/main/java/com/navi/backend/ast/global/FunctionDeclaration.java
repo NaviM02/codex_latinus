@@ -2,6 +2,7 @@ package com.navi.backend.ast.global;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,24 +39,25 @@ public class FunctionDeclaration extends AstNode {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append(PigLatinRules.translateKeyword("ratio"));
-        sb.append(" ");
-        sb.append(PigLatinRules.translateType(returnType));
-        sb.append(" ");
-        sb.append(PigLatinRules.translateIdentifier(name));
-        sb.append("(");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.appendKeyword(PigLatinRules.translateKeyword("ratio"));
+        writer.append(" ");
+        writer.appendType(PigLatinRules.translateType(returnType));
+        writer.append(" ");
+        writer.appendIdentifier(PigLatinRules.translateIdentifier(name));
+        writer.append("(");
 
         for (int i = 0; i < parameters.size(); i++) {
-            if (i > 0) sb.append(", ");
-            parameters.get(i).toPigLatin(sb, indent);
+            if (i > 0) writer.append(", ");
+            parameters.get(i).toPigLatin(writer, indent);
         }
 
-        sb.append(") ");
-        body.toPigLatin(sb, indent);
+        writer.append(") ");
+        body.toPigLatin(writer, indent);
 
-        sb.append(PigLatinRules.translateKeyword(" finis"));
-        sb.append(";\n");
+        writer.append(" ");
+        writer.appendKeyword(PigLatinRules.translateKeyword("finis"));
+        writer.append(";\n");
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.navi.backend.ast.statements;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,9 +20,10 @@ public class ReadStatement extends Statement {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        target.toPigLatin(sb, indent);
-        sb.append(" %OINK_OINK\n");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        target.toPigLatin(writer, indent);
+        writer.append(" ");
+        writer.appendKeyword("%OINK_OINK\n");
     }
 
     @Override

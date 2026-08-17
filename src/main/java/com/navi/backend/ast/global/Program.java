@@ -4,6 +4,7 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.statements.*;
 import com.navi.backend.ast.statements.*;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,28 +39,28 @@ public class Program extends AstNode {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
+    public void toPigLatin(PigLatinWriter writer, int indent) {
         if (globalVariables != null) {
-            globalVariables.toPigLatin(sb, indent);
+            globalVariables.toPigLatin(writer, indent);
         }
 
         if (functions != null) {
-            sb.append(PigLatinRules.translateSectionKeyword("MUNERA"));
-            sb.append(">\n");
+            writer.appendKeyword(PigLatinRules.translateSectionKeyword("MUNERA"));
+            writer.appendKeyword(">\n");
             for (FunctionDeclaration function : functions) {
-                function.toPigLatin(sb, indent + 1);
+                function.toPigLatin(writer, indent + 1);
             }
         }
 
-        sb.append("\n");
-        sb.append(PigLatinRules.translateSectionKeyword("MAIOR"));
-        sb.append(">\n");
+        writer.append("\n");
+        writer.appendKeyword(PigLatinRules.translateSectionKeyword("MAIOR"));
+        writer.appendKeyword(">\n");
         for (Statement statement : mainStatements) {
             if (statement instanceof IfStatement || statement instanceof WhileStatement
                     || statement instanceof ForStatement || statement instanceof DoWhileStatement) {
-                sb.append("\n");
+                writer.append("\n");
             }
-            statement.toPigLatin(sb, indent);
+            statement.toPigLatin(writer, indent);
         }
     }
 

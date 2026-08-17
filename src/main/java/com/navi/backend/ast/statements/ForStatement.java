@@ -4,6 +4,7 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.declarations.VariableDeclaration;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,19 +25,19 @@ public class ForStatement extends Statement {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append(PigLatinRules.translateKeyword("per"));
-        sb.append(" (");
-        initializer.toPigLatin(sb, indent);
-        sb.append(" ");
-        condition.toPigLatin(sb, indent);
-        sb.append("; ");
-        update.toPigLatin(sb, indent);
-        sb.append(")");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.appendKeyword(PigLatinRules.translateKeyword("per"));
+        writer.append(" (");
+        initializer.toPigLatin(writer, indent);
+        writer.append(" ");
+        condition.toPigLatin(writer, indent);
+        writer.append("; ");
+        update.toPigLatin(writer, indent);
+        writer.append(")");
 
-        sb.append(" {\n");
-        block.toPigLatin(sb, indent + 1);
-        sb.append("\n}");
+        writer.append(" {\n");
+        block.toPigLatin(writer, indent + 1);
+        writer.append("\n}");
     }
 
     @Override

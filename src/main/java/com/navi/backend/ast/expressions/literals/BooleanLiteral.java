@@ -3,6 +3,7 @@ package com.navi.backend.ast.expressions.literals;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,9 +26,9 @@ public class BooleanLiteral extends Expression {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
+    public void toPigLatin(PigLatinWriter writer, int indent) {
         String valueText = value ? "verum" : "falsus";
-        sb.append(PigLatinRules.translateKeyword(valueText));
+        writer.appendBoolean(PigLatinRules.translateKeyword(valueText));
     }
 
     @Override

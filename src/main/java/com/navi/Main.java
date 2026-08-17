@@ -8,6 +8,7 @@ import com.navi.backend.ast.visitors.ProgramVisitor;
 import com.navi.backend.parser.*;
 import com.navi.backend.parser.errors.SyntaxError;
 import com.navi.backend.parser.errors.SyntaxErrorListener;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.semantic.*;
 import com.navi.ui.CompilerWindow;
 import org.antlr.v4.runtime.CharStream;
@@ -128,7 +129,7 @@ public class Main {
         System.out.println("No semantic errors found.");
 
         if (!semanticAnalyzer.hasErrors()) {
-            StringBuilder sb = new StringBuilder();
+            PigLatinWriter sb = new PigLatinWriter();
 
             program.toPigLatin(sb, 0);
 

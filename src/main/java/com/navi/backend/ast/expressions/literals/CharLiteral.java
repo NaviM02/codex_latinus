@@ -3,6 +3,7 @@ package com.navi.backend.ast.expressions.literals;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -24,8 +25,8 @@ public class CharLiteral extends Expression {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append("'").append(value).append("'");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.appendChar("'" + value + "'");
     }
 
     @Override

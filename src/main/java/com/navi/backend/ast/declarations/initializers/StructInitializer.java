@@ -2,6 +2,7 @@ package com.navi.backend.ast.declarations.initializers;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,16 +19,16 @@ public class StructInitializer extends Initializer {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append("{");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.append("{");
 
         for (int i = 0; i < fields.size(); i++) {
-            fields.get(i).toPigLatin(sb, indent);
+            fields.get(i).toPigLatin(writer, indent);
 
-            if (i < fields.size() - 1) sb.append(", ");
+            if (i < fields.size() - 1) writer.append(", ");
         }
 
-        sb.append("}");
+        writer.append("}");
     }
 
     @Override

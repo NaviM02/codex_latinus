@@ -1,10 +1,13 @@
 package com.navi.ui.editor;
 
 import com.navi.ui.utils.NumeroLinea;
+import lombok.Getter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.CaretListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class EditorPanel extends JPanel {
@@ -13,13 +16,22 @@ public class EditorPanel extends JPanel {
     private static final Color TEXT = new Color(224, 224, 224);
     private static final Color MIKU = new Color(57, 197, 187);
 
-    private final JTextArea editor;
+    @Getter
+    private final JTextPane editor;
     private final JScrollPane scrollPane;
+
+    private final SyntaxHighlighter highlighter;
+    private final Timer highlightTimer;
 
     public EditorPanel() {
         setLayout(new BorderLayout());
 
-        editor = new JTextArea();
+        editor = new JTextPane();
+        highlighter = new SyntaxHighlighter(editor);
+
+        highlightTimer = new Timer(200, e -> highlighter.highlight());
+        highlightTimer.setRepeats(false);
+
         scrollPane = new JScrollPane(editor);
 
         JLabel title = new JLabel("  Código fuente");
@@ -40,6 +52,7 @@ public class EditorPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
         style();
+        installSyntaxHighlighting();
     }
 
     private void style() {
@@ -47,11 +60,28 @@ public class EditorPanel extends JPanel {
         editor.setForeground(TEXT);
         editor.setCaretColor(MIKU);
         editor.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
-        editor.setTabSize(4);
     }
 
-    public JTextArea getEditor() {
-        return editor;
+    private void installSyntaxHighlighting() {
+        editor.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                scheduleHighlight();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                scheduleHighlight();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+    }
+
+    private void scheduleHighlight() {
+        highlightTimer.restart();
     }
 
     public String getText() {
@@ -60,6 +90,7 @@ public class EditorPanel extends JPanel {
 
     public void setText(String text) {
         editor.setText(text);
+        highlighter.highlight();
     }
 
     public void addCaretListener(CaretListener listener) {

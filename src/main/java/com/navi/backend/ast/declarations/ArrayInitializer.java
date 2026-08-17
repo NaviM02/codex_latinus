@@ -3,6 +3,7 @@ package com.navi.backend.ast.declarations;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,16 +20,16 @@ public class ArrayInitializer extends AstNode {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append("{");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.append("{");
 
         for (int i = 0; i < values.size(); i++) {
-            values.get(i).toPigLatin(sb, indent);
+            values.get(i).toPigLatin(writer, indent);
 
-            if (i < values.size() - 1) sb.append(", ");
+            if (i < values.size() - 1) writer.append(", ");
         }
 
-        sb.append("}");
+        writer.append("}");
     }
 
     @Override

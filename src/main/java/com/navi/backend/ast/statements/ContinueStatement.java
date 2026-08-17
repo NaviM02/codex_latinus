@@ -2,6 +2,7 @@ package com.navi.backend.ast.statements;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,9 +18,9 @@ public class ContinueStatement extends Statement {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append(PigLatinRules.translateKeyword("perge"));
-        sb.append(";\n");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.appendKeyword(PigLatinRules.translateKeyword("perge"));
+        writer.append(";\n");
     }
 
     @Override

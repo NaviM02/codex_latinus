@@ -4,6 +4,7 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.declarations.initializers.Initializer;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -21,11 +22,13 @@ public class AssignmentStatement extends Statement {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        target.toPigLatin(sb, indent);
-        sb.append(" = ");
-        initializer.toPigLatin(sb, indent);
-        sb.append(";\n");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        target.toPigLatin(writer, indent);
+        writer.append(" ");
+        writer.appendOperator("=");
+        writer.append(" ");
+        initializer.toPigLatin(writer, indent);
+        writer.append(";\n");
     }
 
     @Override

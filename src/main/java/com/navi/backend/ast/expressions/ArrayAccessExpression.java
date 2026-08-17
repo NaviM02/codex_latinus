@@ -2,6 +2,7 @@ package com.navi.backend.ast.expressions;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,11 +20,11 @@ public class ArrayAccessExpression extends Expression {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        array.toPigLatin(sb, indent);
-        sb.append("[");
-        index.toPigLatin(sb, indent);
-        sb.append("]");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        array.toPigLatin(writer, indent);
+        writer.append("[");
+        index.toPigLatin(writer, indent);
+        writer.append("]");
     }
 
     @Override

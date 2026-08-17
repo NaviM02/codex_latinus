@@ -3,6 +3,7 @@ package com.navi.backend.ast.global;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.declarations.Declaration;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,15 +21,15 @@ public class GlobalVariableSection extends AstNode {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append(PigLatinRules.translateSectionKeyword("VARIABILES"));
-        sb.append(">\n");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.appendKeyword(PigLatinRules.translateSectionKeyword("VARIABILES"));
+        writer.appendKeyword(">\n");
 
         for (Declaration declaration : declarations) {
-            declaration.toPigLatin(sb, indent);
+            declaration.toPigLatin(writer, indent);
         }
 
-        sb.append("\n");
+        writer.append("\n");
     }
 
     @Override

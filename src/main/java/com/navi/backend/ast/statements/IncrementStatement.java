@@ -4,6 +4,7 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.expressions.UnaryOperator;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -21,16 +22,16 @@ public class IncrementStatement extends Statement {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        target.toPigLatin(sb, indent);
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        target.toPigLatin(writer, indent);
 
         if (operator == UnaryOperator.POST_INCREMENT) {
-            sb.append("++");
+            writer.appendOperator("++");
         } else {
-            sb.append("--");
+            writer.appendOperator("--");
         }
 
-        sb.append(";\n");
+        writer.append(";\n");
     }
 
     @Override

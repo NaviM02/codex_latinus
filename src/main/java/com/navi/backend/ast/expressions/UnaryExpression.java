@@ -2,6 +2,7 @@ package com.navi.backend.ast.expressions;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,23 +20,24 @@ public class UnaryExpression extends Expression {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
+    public void toPigLatin(PigLatinWriter writer, int indent) {
         switch (operator) {
             case NOT -> {
-                sb.append("non ");
-                expression.toPigLatin(sb, indent);
+                writer.appendOperator("non");
+                writer.append(" ");
+                expression.toPigLatin(writer, indent);
             }
             case NEGATE -> {
-                sb.append("-");
-                expression.toPigLatin(sb, indent);
+                writer.appendOperator("-");
+                expression.toPigLatin(writer, indent);
             }
             case POST_INCREMENT -> {
-                expression.toPigLatin(sb, indent);
-                sb.append("++");
+                expression.toPigLatin(writer, indent);
+                writer.appendOperator("++");
             }
             case POST_DECREMENT -> {
-                expression.toPigLatin(sb, indent);
-                sb.append("--");
+                expression.toPigLatin(writer, indent);
+                writer.appendOperator("--");
             }
         }
     }

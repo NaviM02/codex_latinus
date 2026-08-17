@@ -2,6 +2,7 @@ package com.navi.backend.ast.declarations;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,17 +26,17 @@ public class StructDeclaration extends Declaration {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append(PigLatinRules.translateKeyword("estructura"));
-        sb.append(" ");
-        sb.append(PigLatinRules.translateIdentifier(name));
-        sb.append(" {\n");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.appendKeyword(PigLatinRules.translateKeyword("estructura"));
+        writer.append(" ");
+        writer.appendIdentifier(PigLatinRules.translateIdentifier(name));
+        writer.append(" {\n");
 
         for (StructField field : fields) {
-            field.toPigLatin(sb, indent);
+            field.toPigLatin(writer, indent);
         }
 
-        sb.append("}\n");
+        writer.append("}\n");
     }
 
     @Override

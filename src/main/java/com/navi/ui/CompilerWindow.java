@@ -157,7 +157,7 @@ public class CompilerWindow extends JFrame {
 
     private void updateCaretPosition() {
         try {
-            JTextArea editor = editorPanel.getEditor();
+            JTextPane editor = editorPanel.getEditor();
             int position = editor.getCaretPosition();
             javax.swing.text.Element root = editor.getDocument().getDefaultRootElement();
 
@@ -239,7 +239,7 @@ public class CompilerWindow extends JFrame {
         astPanel.setProgram(result.getProgram());
         symbolTablePanel.setSymbolTable(result.getSymbolTable());
         parserTracePanel.setParserTrace(result.getParserTrace());
-        pigLatinPanel.setText(result.getPigLatin());
+        pigLatinPanel.setPigLatin(result.getPigLatin(), result.getPigLatinTokens());
     }
 
     private JMenuBar createMenuBar() {

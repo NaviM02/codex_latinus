@@ -2,6 +2,7 @@ package com.navi.backend.ast.expressions;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -20,12 +21,12 @@ public class BinaryExpression extends Expression {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        left.toPigLatin(sb, indent);
-        sb.append(" ");
-        sb.append(getOperatorText(operator));
-        sb.append(" ");
-        right.toPigLatin(sb, indent);
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        left.toPigLatin(writer, indent);
+        writer.append(" ");
+        writer.appendOperator(getOperatorText(operator));
+        writer.append(" ");
+        right.toPigLatin(writer, indent);
     }
 
     @Override

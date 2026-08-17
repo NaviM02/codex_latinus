@@ -2,6 +2,7 @@ package com.navi.backend.ast.statements;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,15 +19,15 @@ public class BlockStatement extends Statement {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
+    public void toPigLatin(PigLatinWriter writer, int indent) {
         for (Statement statement : statements) {
             if (statement instanceof IfStatement || statement instanceof WhileStatement
                     || statement instanceof ForStatement || statement instanceof DoWhileStatement) {
-                sb.append("\n");
+                writer.append("\n");
             }
 
-            indent(sb, indent);
-            statement.toPigLatin(sb, indent);
+            indent(writer, indent);
+            statement.toPigLatin(writer, indent);
         }
     }
 

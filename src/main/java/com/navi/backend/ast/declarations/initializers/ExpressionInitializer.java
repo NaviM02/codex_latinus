@@ -3,6 +3,7 @@ package com.navi.backend.ast.declarations.initializers;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,8 +20,8 @@ public class ExpressionInitializer extends Initializer {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        expression.toPigLatin(sb, indent);
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        expression.toPigLatin(writer, indent);
     }
 
     @Override

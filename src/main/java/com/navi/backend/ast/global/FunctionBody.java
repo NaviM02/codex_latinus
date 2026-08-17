@@ -3,6 +3,7 @@ package com.navi.backend.ast.global;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.statements.BlockStatement;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -31,18 +32,18 @@ public class FunctionBody extends AstNode {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append("{\n");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.append("{\n");
 
         if (localVariables != null) {
-            localVariables.toPigLatin(sb, indent);
+            localVariables.toPigLatin(writer, indent);
         }
 
         if (body != null) {
-            body.toPigLatin(sb, indent);
+            body.toPigLatin(writer, indent);
         }
 
-        sb.append("}");
+        writer.append("}");
     }
 
     @Override

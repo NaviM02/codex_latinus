@@ -8,6 +8,7 @@ import com.navi.backend.parser.ParserTrace;
 import com.navi.backend.parser.ParserTraceBuilder;
 import com.navi.backend.parser.errors.SyntaxError;
 import com.navi.backend.parser.errors.SyntaxErrorListener;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.semantic.*;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -52,12 +53,12 @@ public class CompilerService {
             return CompilationResult.semanticError(program, symbolTable, semanticAnalyzer.getErrors());
         }
 
-        StringBuilder pigLatin = new StringBuilder();
-        program.toPigLatin(pigLatin, 0);
+        PigLatinWriter pigLatinWriter = new PigLatinWriter();
+        program.toPigLatin(pigLatinWriter, 0);
 
         ParserTraceBuilder traceBuilder = new ParserTraceBuilder();
         ParserTrace trace = traceBuilder.build(tree);
 
-        return CompilationResult.success(program, symbolTable, trace, pigLatin.toString());
+        return CompilationResult.success(program, symbolTable, trace, pigLatinWriter.getText(), pigLatinWriter.getTokens());
     }
 }

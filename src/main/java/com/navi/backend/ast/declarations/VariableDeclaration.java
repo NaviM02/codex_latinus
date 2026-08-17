@@ -3,6 +3,7 @@ package com.navi.backend.ast.declarations;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.declarations.initializers.Initializer;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,19 +32,19 @@ public class VariableDeclaration extends Declaration {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append(PigLatinRules.translateKeyword("esto"));
-        sb.append(" ");
-        sb.append(PigLatinRules.translateIdentifier(name));
-        sb.append(" : ");
-        sb.append(PigLatinRules.translateType(type));
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.appendKeyword(PigLatinRules.translateKeyword("esto"));
+        writer.append(" ");
+        writer.appendIdentifier(PigLatinRules.translateIdentifier(name));
+        writer.append(" : ");
+        writer.appendType(PigLatinRules.translateType(type));
 
         if (initializer != null) {
-            sb.append(" ");
-            initializer.toPigLatin(sb, indent);
+            writer.append(" ");
+            initializer.toPigLatin(writer, indent);
         }
 
-        sb.append(";\n");
+        writer.append(";\n");
     }
 
     @Override

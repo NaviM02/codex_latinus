@@ -3,6 +3,7 @@ package com.navi.backend.ast.statements;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,20 +22,18 @@ public class ElseIfStatement extends AstNode {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append(" ");
-        sb.append(PigLatinRules.translateKeyword("aliter"));
-        sb.append(" ");
-        sb.append(PigLatinRules.translateKeyword("si"));
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.append(" ");
+        writer.appendKeyword(PigLatinRules.translateKeyword("aliter"));
 
-        sb.append(" (");
-        condition.toPigLatin(sb, indent);
-        sb.append(")");
+        writer.append(" (");
+        condition.toPigLatin(writer, indent);
+        writer.append(")");
 
-        sb.append(" {\n");
-        block.toPigLatin(sb, indent + 1);
-        indent(sb, indent);
-        sb.append("\n} ");
+        writer.append(" {\n");
+        block.toPigLatin(writer, indent + 1);
+        indent(writer, indent);
+        writer.append("\n} ");
     }
 
     @Override

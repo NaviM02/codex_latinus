@@ -2,6 +2,7 @@ package com.navi.backend.ast.expressions;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,10 +26,10 @@ public class MemberAccessExpression extends Expression {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        object.toPigLatin(sb, indent);
-        sb.append(".");
-        sb.append(PigLatinRules.translateIdentifier(member));
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        object.toPigLatin(writer, indent);
+        writer.append(".");
+        writer.appendIdentifier(PigLatinRules.translateIdentifier(member));
     }
 
     @Override

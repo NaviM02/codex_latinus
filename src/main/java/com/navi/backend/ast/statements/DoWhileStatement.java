@@ -3,6 +3,7 @@ package com.navi.backend.ast.statements;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,17 +22,17 @@ public class DoWhileStatement extends Statement {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append(PigLatinRules.translateKeyword("facere"));
-        sb.append(" {\n");
-        block.toPigLatin(sb, indent + 1);
-        sb.append("\n}");
-        sb.append(PigLatinRules.translateKeyword("dum"));
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.appendKeyword(PigLatinRules.translateKeyword("facere"));
+        writer.append(" {\n");
+        block.toPigLatin(writer, indent + 1);
+        writer.append("\n}");
+        writer.appendKeyword(PigLatinRules.translateKeyword("dum"));
 
-        sb.append(" (");
-        condition.toPigLatin(sb, indent);
-        sb.append(");");
-        sb.append("\n");
+        writer.append(" (");
+        condition.toPigLatin(writer, indent);
+        writer.append(");");
+        writer.append("\n");
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.navi.backend.ast.statements;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.pig_latin.PigLatinWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,15 +20,20 @@ public class PrintStatement extends Statement {
     }
 
     @Override
-    public void toPigLatin(StringBuilder sb, int indent) {
-        sb.append("%OINK ");
+    public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.appendKeyword("%OINK");
+        writer.append(" ");
 
         for (int i = 0; i < expressions.size(); i++) {
-            if (i > 0) sb.append(" %OINK ");
-            expressions.get(i).toPigLatin(sb, indent);
+            if (i > 0) {
+                writer.append(" ");
+                writer.appendKeyword("%OINK");
+                writer.append(" ");
+            }
+            expressions.get(i).toPigLatin(writer, indent);
         }
 
-        sb.append(";\n");
+        writer.append(";\n");
     }
 
     @Override
