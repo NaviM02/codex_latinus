@@ -10,7 +10,7 @@ import java.util.List;
 public class ParserTrace {
     private final List<ParserState> states = new ArrayList<>();
 
-    public void addState(ParserOperation operation, String symbol, List<String> stack, String log) {
+    public void addState(ParserOperation operation, String symbol, List<ParserStackItem> stack, String log) {
         String completeLog = log;
         if (!states.isEmpty()) {
             completeLog = states.get(states.size() - 1).log() + System.lineSeparator() + log;

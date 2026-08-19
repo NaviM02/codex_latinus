@@ -21,6 +21,7 @@ public class CompilerWindow extends JFrame {
     private static final Color MIKU_BORDER = new Color(39, 111, 107);
     private static final Color MIKU_HOVER = new Color(47, 156, 149);
     private static final Color BACKGROUND = new Color(28, 28, 28);
+    private static final Color ERROR = new Color(255, 82, 82);
 
     private final CompilerService compilerService;
 
@@ -75,7 +76,7 @@ public class CompilerWindow extends JFrame {
         lineLabel = new JLabel("Línea: 1");
         columnLabel = new JLabel("Columna: 1");
         fileLabel = new JLabel("Sin archivo");
-        statusLabel = new JLabel("● Listo");
+        statusLabel = new JLabel("Listo");
 
         setJMenuBar(createMenuBar());
 
@@ -90,27 +91,19 @@ public class CompilerWindow extends JFrame {
     }
 
     private JPanel createMainContent() {
-        JPanel content = new JPanel(new BorderLayout(8, 8));
-        JSplitPane mainSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, editorPanel, createBottomPanel());
+        JPanel content = new JPanel(new BorderLayout());
+        JSplitPane editorResultsSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, editorPanel, resultTabs);
 
-        mainSplit.setResizeWeight(0.68);
+        editorResultsSplit.setResizeWeight(0.65);
+        editorResultsSplit.setDividerSize(8);
+
+        JSplitPane mainSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, editorResultsSplit, consolePanel);
+        mainSplit.setResizeWeight(0.75);
         mainSplit.setDividerSize(8);
 
         content.add(mainSplit, BorderLayout.CENTER);
 
         return content;
-    }
-
-    private JPanel createBottomPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
-        JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, resultTabs, consolePanel);
-
-        split.setResizeWeight(0.68);
-        split.setDividerSize(8);
-
-        panel.add(split, BorderLayout.CENTER);
-
-        return panel;
     }
 
     private JPanel createToolbar() {
@@ -172,14 +165,13 @@ public class CompilerWindow extends JFrame {
     }
 
     private void compile() {
-        consolePanel.clear();
         consolePanel.append("Analizando código fuente...\n");
 
         String source = editorPanel.getText();
 
         if (source.isBlank()) {
-            consolePanel.append("El código fuente está vacío.\n");
-            statusLabel.setText("Error");
+            consolePanel.appendError("El código fuente está vacío.\n");
+            setErrorStatus("Código vacío");
             return;
         }
 
@@ -191,47 +183,47 @@ public class CompilerWindow extends JFrame {
                 return;
             }
 
+            consolePanel.append("Analizando código fuente...\n");
             consolePanel.append("Análisis léxico completado.\n");
             consolePanel.append("Análisis sintáctico completado.\n");
-            consolePanel.append("AST generado correctamente.\n");
-            consolePanel.append("Tabla de símbolos generada.\n");
-            consolePanel.append("Análisis semántico completado.\n");
-            consolePanel.append("Parser Trace generado.\n");
-            consolePanel.append("Traducción PigLatin generada.\n");
-            consolePanel.append("\nCOMPILACIÓN EXITOSA\n");
+            consolePanel.appendSuccess("AST generado correctamente.\n");
+            consolePanel.appendSuccess("Tabla de símbolos generada.\n");
+            consolePanel.appendSuccess("Análisis semántico completado.\n");
+            consolePanel.appendSuccess("\nCOMPILACIÓN EXITOSA\n");
 
             updateCompilationResults(result);
 
-            statusLabel.setText("Compilación exitosa");
+            setSuccessStatus("Compilación exitosa");
             resultTabs.setSelectedIndex(0);
         } catch (Exception e) {
-            consolePanel.append("\nError inesperado durante la compilación.\n");
+            consolePanel.appendError("\nError inesperado durante la compilación.\n");
             consolePanel.append(e.getMessage() + "\n");
-            statusLabel.setText("Error");
+            setErrorStatus("Error");
             e.printStackTrace();
         }
     }
 
     private void showCompilationErrors(CompilationResult result) {
+
         if (!result.getSyntaxErrors().isEmpty()) {
-            consolePanel.append("\nERRORES SINTÁCTICOS\n\n");
+            consolePanel.appendErrorHeader("\nERRORES SINTÁCTICOS\n\n");
 
             for (String error : result.getSyntaxErrors()) {
-                consolePanel.append("ERROR: " + error + "\n");
+                consolePanel.appendError("ERROR: " + error + "\n");
             }
 
-            statusLabel.setText("Error sintáctico");
+            setErrorStatus("Error sintáctico");
             return;
         }
 
         if (!result.getSemanticErrors().isEmpty()) {
-            consolePanel.append("\nERRORES SEMÁNTICOS\n\n");
+            consolePanel.appendErrorHeader("\nERRORES SEMÁNTICOS\n\n");
 
             for (String error : result.getSemanticErrors()) {
-                consolePanel.append("ERROR: " + error + "\n");
+                consolePanel.appendError("ERROR: " + error + "\n");
             }
 
-            statusLabel.setText("Error semántico");
+            setErrorStatus("Error semántico");
         }
     }
 
@@ -351,7 +343,7 @@ public class CompilerWindow extends JFrame {
             fileLabel.setText(file.getName());
             statusLabel.setText("Archivo abierto");
 
-            consolePanel.setText("Archivo abierto: " + file.getAbsolutePath() + "\n");
+            consolePanel.appendSuccess("Archivo abierto: " + file.getAbsolutePath() + "\n");
         } catch (IOException e) {
             showError("No se pudo abrir el archivo.\n" + e.getMessage());
         }
@@ -488,6 +480,16 @@ public class CompilerWindow extends JFrame {
 
     private void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
-        statusLabel.setText("● Error");
+        setErrorStatus("Error");
+    }
+
+    private void setErrorStatus(String message) {
+        statusLabel.setText(message);
+        statusLabel.setForeground(ERROR);
+    }
+
+    private void setSuccessStatus(String message) {
+        statusLabel.setText(message);
+        statusLabel.setForeground(MIKU);
     }
 }

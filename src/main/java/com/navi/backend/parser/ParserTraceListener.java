@@ -14,21 +14,24 @@ import java.util.Deque;
 public class ParserTraceListener extends PigLatinBaseListener {
     @Getter
     private final ParserTrace trace = new ParserTrace();
-    private final Deque<String> stack = new ArrayDeque<>();
+    private final Deque<ParserStackItem> stack = new ArrayDeque<>();
     private final Deque<Integer> ruleStackSizes = new ArrayDeque<>();
 
     @Override
     public void enterEveryRule(ParserRuleContext ctx) {
         String ruleName = getRuleName(ctx);
         ruleStackSizes.push(stack.size());
-        stack.addLast(ruleName);
+
+        ParserStackItem item = new ParserStackItem(ruleName, ParserStackItemType.PRODUCTION);
+        stack.addLast(item);
         trace.addState(ParserOperation.ENTER_RULE, ruleName, new ArrayList<>(stack), "enter " + ruleName);
     }
 
     @Override
     public void visitTerminal(TerminalNode node) {
         String tokenText = node.getText();
-        stack.addLast(tokenText);
+        ParserStackItem item = new ParserStackItem(tokenText, ParserStackItemType.TOKEN);
+        stack.addLast(item);
         trace.addState(ParserOperation.SHIFT, tokenText, new ArrayList<>(stack), "shift " + tokenText);
     }
 
@@ -41,7 +44,8 @@ public class ParserTraceListener extends PigLatinBaseListener {
             stack.removeLast();
         }
 
-        stack.addLast(ruleName);
+        ParserStackItem item = new ParserStackItem(ruleName, ParserStackItemType.PRODUCTION);
+        stack.addLast(item);
 
         if (ctx instanceof PigLatinParser.ProgramContext) {
             trace.addState(ParserOperation.ACCEPT, "EOF", new ArrayList<>(stack), "accept");
@@ -54,7 +58,9 @@ public class ParserTraceListener extends PigLatinBaseListener {
     @Override
     public void visitErrorNode(ErrorNode node) {
         String tokenText = node.getText();
-        stack.addLast(tokenText);
+
+        ParserStackItem item = new ParserStackItem(tokenText, ParserStackItemType.TOKEN);
+        stack.addLast(item);
         trace.addState(ParserOperation.SHIFT, tokenText, new ArrayList<>(stack), "error token " + tokenText);
     }
 

@@ -1,5 +1,7 @@
 package com.navi.ui.parser;
 
+import com.navi.backend.parser.ParserStackItem;
+import com.navi.backend.parser.ParserStackItemType;
 import com.navi.backend.parser.ParserState;
 import com.navi.backend.parser.ParserTrace;
 
@@ -15,7 +17,13 @@ public class ParserTracePanel extends JPanel {
     private static final Color MIKU = new Color(57, 197, 187);
     private static final Color MIKU_LIGHT = new Color(161, 244, 240);
     private static final Color MIKU_BORDER = new Color(39, 111, 107);
-    private static final Color STACK_ITEM_BACKGROUND = new Color(40, 56, 56);
+    private static final Color MIKU_BACKGROUND = new Color(40, 56, 56);
+    private static final Color MIKU_BUTTON_HOVER = new Color(47, 156, 149);
+
+    private static final Color LUKA = new Color(255, 179, 222);
+    private static final Color LUKA_BORDER = new Color(192, 163, 110);
+    private static final Color LUKA_BACKGROUND = new Color(52, 47, 46);
+    private static final Color LUKA_HOVER = new Color(186, 126, 160);
 
     private ParserTrace parserTrace;
     private int currentTraceState;
@@ -28,23 +36,23 @@ public class ParserTracePanel extends JPanel {
     private final JTextArea stackLogArea;
 
     public ParserTracePanel() {
-        // Main layout uses BorderLayout to accommodate the split screen panel structure
         setLayout(new BorderLayout(10, 10));
         setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // 1. Header Section Setup
         JPanel headerPanel = new JPanel(new BorderLayout());
+
         JLabel titleLabel = new JLabel("Pila de llamadas del parser");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        titleLabel.setForeground(MIKU);
 
         stackStateLabel = new JLabel("Estado 0 / 0");
         stackStateLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        stackStateLabel.setForeground(MIKU);
 
         headerPanel.add(titleLabel, BorderLayout.WEST);
         headerPanel.add(stackStateLabel, BorderLayout.EAST);
         add(headerPanel, BorderLayout.NORTH);
 
-        // 2. Left Component: The Visual Parsing Stack Container
         stackPanel = new JPanel();
         stackPanel.setLayout(new BoxLayout(stackPanel, BoxLayout.Y_AXIS));
         stackPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
@@ -52,39 +60,41 @@ public class ParserTracePanel extends JPanel {
         JScrollPane stackScrollPane = new JScrollPane(stackPanel);
         stackScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         stackScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        stackScrollPane.getVerticalScrollBar().setUnitIncrement(20);
+        stackScrollPane.getVerticalScrollBar().setBlockIncrement(130);
 
-        // 3. Right Component: Split details panel containing text metadata & user navigation
         JPanel detailsPanel = new JPanel(new BorderLayout(10, 10));
 
-        // Metadata information segment (Operation and Symbol fields)
         JPanel metadataPanel = new JPanel();
         metadataPanel.setLayout(new BoxLayout(metadataPanel, BoxLayout.Y_AXIS));
         metadataPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         stackOperationLabel = new JLabel("Operación: -");
         stackOperationLabel.setFont(new Font("Arial", Font.BOLD, 13));
+        stackOperationLabel.setForeground(MIKU);
+
         stackSymbolLabel = new JLabel("Símbolo: -");
         stackSymbolLabel.setFont(new Font("Arial", Font.BOLD, 13));
+        stackSymbolLabel.setForeground(MIKU);
 
         metadataPanel.add(stackOperationLabel);
         metadataPanel.add(Box.createVerticalStrut(8));
         metadataPanel.add(stackSymbolLabel);
         detailsPanel.add(metadataPanel, BorderLayout.NORTH);
 
-        // Dynamic System Log Area for parser state inspection
         stackLogArea = new JTextArea();
         stackLogArea.setEditable(false);
         stackLogArea.setLineWrap(true);
         stackLogArea.setWrapStyleWord(true);
         stackLogArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        stackLogArea.setForeground(MIKU_LIGHT);
+        stackLogArea.setCaretColor(MIKU);
 
         JScrollPane logScrollPane = new JScrollPane(stackLogArea);
         detailsPanel.add(logScrollPane, BorderLayout.CENTER);
-
-        // Navigation controls block (Action buttons)
         JPanel navigationPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
-        JButton previousButton = new JButton("◀ Anterior");
-        JButton nextButton = new JButton("Siguiente ▶");
+        JButton previousButton = createNavigationButton("◀ Anterior", true);
+        JButton nextButton = createNavigationButton("Siguiente ▶", false);
 
         previousButton.addActionListener(e -> showPreviousState());
         nextButton.addActionListener(e -> showNextState());
@@ -93,9 +103,8 @@ public class ParserTracePanel extends JPanel {
         navigationPanel.add(nextButton);
         detailsPanel.add(navigationPanel, BorderLayout.SOUTH);
 
-        // 4. Split Layout Integrator (Merges Left and Right Views seamlessly)
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, stackScrollPane, detailsPanel);
-        splitPane.setDividerLocation(300); // Set fixed starting pixel boundary allocation for the stack
+        splitPane.setDividerLocation(300);
         splitPane.setContinuousLayout(true);
         splitPane.setBorder(null);
 
@@ -128,19 +137,18 @@ public class ParserTracePanel extends JPanel {
         stackStateLabel.setText("Estado " + state.step() + " / " + parserTrace.size());
         stackOperationLabel.setText("Operación: " + state.operation());
         stackSymbolLabel.setText("Símbolo: " + state.symbol());
-        stackLogArea.setText(state.log());
 
-        // Refresh UI stack execution stack frame content
+        stackLogArea.setText(state.log());
         stackPanel.removeAll();
 
-        List<String> stack = state.stack();
+        List<ParserStackItem> stack = state.stack();
 
-        // Render compilation stack from top to bottom
+        // Render from top to bottom.
         for (int i = stack.size() - 1; i >= 0; i--) {
-            JLabel stackItem = createStackItem(stack.get(i));
+            ParserStackItem item = stack.get(i);
+            JLabel stackItem = createStackItem(item);
             stackPanel.add(stackItem);
 
-            // Print the execution path arrow trace indicator pointing downwards
             if (i > 0) {
                 JLabel arrowLabel = new JLabel("▼");
                 arrowLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -154,23 +162,63 @@ public class ParserTracePanel extends JPanel {
         stackPanel.repaint();
     }
 
-    private JLabel createStackItem(String symbol) {
-        JLabel item = new JLabel(" " + symbol + " ");
-        item.setAlignmentX(Component.CENTER_ALIGNMENT);
+    private JLabel createStackItem(ParserStackItem item) {
+        boolean isToken = item.type() == ParserStackItemType.TOKEN;
+        Color foreground = isToken ? LUKA : MIKU;
+        Color background = isToken ? LUKA_BACKGROUND : MIKU_BACKGROUND;
+        Color border = isToken ? LUKA_BORDER : MIKU_BORDER;
 
-        // Force Maximum horizontal alignment inside the BoxLayout structure
-        item.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
-        item.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel label = new JLabel(" " + item.symbol() + " ");
 
-        item.setOpaque(true);
-        item.setBackground(STACK_ITEM_BACKGROUND);
-        item.setForeground(MIKU_LIGHT);
-        item.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
-        item.setBorder(
-            BorderFactory.createCompoundBorder(new LineBorder(MIKU_BORDER, 1), new EmptyBorder(6, 10, 6, 10))
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+
+        label.setOpaque(true);
+        label.setBackground(background);
+        label.setForeground(foreground);
+        label.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
+
+        label.setBorder(BorderFactory.createCompoundBorder(new LineBorder(border, 1), new EmptyBorder(6, 10, 6, 10)));
+
+        return label;
+    }
+
+    private JButton createNavigationButton(String text, boolean luka) {
+        JButton button = new JButton(text);
+        if (luka) {
+            button.setBackground(LUKA_BACKGROUND);
+            button.setForeground(LUKA);
+            button.setBorder(BorderFactory.createLineBorder(LUKA_BORDER, 2));
+        } else {
+            button.setBackground(MIKU_BACKGROUND);
+            button.setForeground(MIKU_LIGHT);
+            button.setBorder(BorderFactory.createLineBorder(MIKU_BORDER, 2));
+        }
+
+        button.setFont(new Font("Arial", Font.BOLD, 13));
+        button.setFocusPainted(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        Color normalBackground = button.getBackground();
+        Color hoverBackground = luka ? LUKA_HOVER : MIKU_BUTTON_HOVER;
+
+        button.addMouseListener(
+            new java.awt.event.MouseAdapter() {
+
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent e) {
+                    button.setBackground(hoverBackground);
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent e) {
+                    button.setBackground(normalBackground);
+                }
+            }
         );
 
-        return item;
+        return button;
     }
 
     private void showPreviousState() {
