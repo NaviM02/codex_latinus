@@ -25,9 +25,13 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     private Scope currentScope;
     private int loopDepth = 0;
 
+    // execution(?
+    private final ValueEvaluator valueEvaluator;
+
     public SemanticAnalyzerVisitor(SymbolTable symbolTable) {
         this.symbolTable = symbolTable;
         this.currentScope = symbolTable.getGlobalScope();
+        this.valueEvaluator = new ValueEvaluator(currentScope);
     }
 
     public void analyze(Program program) {
@@ -75,6 +79,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         }
 
         currentScope = symbolTable.getGlobalScope();
+        valueEvaluator.setCurrentScope(currentScope);
 
         if (node.getMainStatements() != null) {
             for (Statement statement : node.getMainStatements()) {
@@ -125,6 +130,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
         currentFunction = node;
         currentScope = functionScope;
+        valueEvaluator.setCurrentScope(currentScope);
 
         try {
             if (node.getBody() != null) {
@@ -133,6 +139,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         } finally {
             currentFunction = null;
             currentScope = previousScope;
+            valueEvaluator.setCurrentScope(currentScope);
         }
 
         return null;
@@ -166,6 +173,10 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             if (!TypeSystem.canAssign(node.getType(), valueType)) {
                 throw new SemanticException("Cannot assign " + valueType + " to variable '" + node.getName() + "' of type " + node.getType());
             }
+
+            Object value = valueEvaluator.evaluateInitializer(node.getInitializer());
+            Symbol symbol = currentScope.resolve(node.getName());
+            if (symbol != null) symbol.setValue(value);
         }
         return null;
     }
@@ -237,6 +248,9 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             throw new SemanticException("Cannot assign " + valueType + " to " + targetType);
         }
 
+        Object value = valueEvaluator.evaluateInitializer(node.getInitializer());
+        valueEvaluator.assignValue(node.getTarget(), value);
+
         return null;
     }
 
@@ -299,6 +313,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     public String visit(ForStatement node) {
         Scope previousScope = currentScope;
         currentScope = new Scope(previousScope);
+        valueEvaluator.setCurrentScope(currentScope);
 
         try {
             node.getInitializer().accept(this);
@@ -314,6 +329,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
         } finally {
             currentScope = previousScope;
+            valueEvaluator.setCurrentScope(currentScope);
         }
 
         return null;
@@ -628,17 +644,9 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     }
 
     private String analyzeAssignmentTarget(Expression expression) {
-        if (expression instanceof VariableExpression) {
-            return expression.accept(this);
-        }
-
-        if (expression instanceof ArrayAccessExpression arrayAccess) {
-            return arrayAccess.accept(this);
-        }
-
-        if (expression instanceof MemberAccessExpression memberAccess) {
-            return memberAccess.accept(this);
-        }
+        if (expression instanceof VariableExpression) return expression.accept(this);
+        if (expression instanceof ArrayAccessExpression arrayAccess) return arrayAccess.accept(this);
+        if (expression instanceof MemberAccessExpression memberAccess) return memberAccess.accept(this);
 
         throw new SemanticException("Expression cannot be used as assignment target.");
     }
@@ -650,10 +658,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     private Symbol resolveArraySymbol(Expression expression) {
         if (expression instanceof VariableExpression variable) {
             Symbol symbol = currentScope.resolve(variable.getName());
-
-            if (symbol != null && symbol.getKind() == SymbolKind.ARRAY) {
-                return symbol;
-            }
+            if (symbol != null && symbol.getKind() == SymbolKind.ARRAY) return symbol;
         }
 
         return null;
@@ -663,19 +668,12 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         String objectType = node.getObject().accept(this);
         StructDeclaration struct = structs.get(objectType);
 
-        if (struct == null) {
-            throw new SemanticException("Type '" + objectType + "' is not a struct.");
-        }
+        if (struct == null) throw new SemanticException("Type '" + objectType + "' is not a struct.");
 
         StructField field = findStructField(struct, node.getMember());
 
-        if (field == null) {
-            throw new SemanticException("Struct '" + objectType + "' has no field '" + node.getMember() + "'.");
-        }
-
-        if (!field.isArray()) {
-            throw new SemanticException("Field '" + node.getMember() + "' is not an array.");
-        }
+        if (field == null) throw new SemanticException("Struct '" + objectType + "' has no field '" + node.getMember() + "'.");
+        if (!field.isArray()) throw new SemanticException("Field '" + node.getMember() + "' is not an array.");
 
         return field.getType();
     }
@@ -691,51 +689,35 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     }
 
     private String analyzeBinaryExpression(BinaryOperator operator, String left, String right) {
-        if (!TypeSystem.isPrimitive(left) || !TypeSystem.isPrimitive(right)) {
-            throw new SemanticException("Only primitive values can be operated.");
-        }
+        if (!TypeSystem.isPrimitive(left) || !TypeSystem.isPrimitive(right)) throw new SemanticException("Only primitive values can be operated.");
 
         boolean hasStringType = left.equals(TypeSystem.TEXTUM) || right.equals(TypeSystem.TEXTUM);
         boolean hasBooleanType = left.equals(TypeSystem.BOOLEAN) || right.equals(TypeSystem.BOOLEAN);
         return switch (operator) {
             case ADD -> {
-                if (hasStringType) {
-                    yield TypeSystem.TEXTUM;
-                }
+                if (hasStringType) yield TypeSystem.TEXTUM;
                 yield TypeSystem.promote(left, right);
             }
 
             case SUBTRACT, MULTIPLY, DIVIDE -> {
-                if (hasStringType) {
-                    throw new SemanticException("Operator " + operator + " cannot be used with textum.");
-                }
-                if (hasBooleanType) {
-                    throw new SemanticException("Arithmetic operators require numeric values.");
-                }
+                if (hasStringType) throw new SemanticException("Operator " + operator + " cannot be used with textum.");
+                if (hasBooleanType) throw new SemanticException("Arithmetic operators require numeric values.");
                 yield TypeSystem.promote(left, right);
             }
 
             case LESS, LESS_EQUAL, GREATER, GREATER_EQUAL -> {
-                if (hasStringType) {
-                    throw new SemanticException("Relational operators cannot be used with textum.");
-                }
-                if (hasBooleanType) {
-                    throw new SemanticException("Relational operators require numeric values.");
-                }
+                if (hasStringType) throw new SemanticException("Relational operators cannot be used with textum.");
+                if (hasBooleanType) throw new SemanticException("Relational operators require numeric values.");
                 yield TypeSystem.BOOLEAN;
             }
 
             case EQUAL, NOT_EQUAL -> {
-                if (!areComparable(left, right)) {
-                    throw new SemanticException("Cannot compare " + left + " with " + right);
-                }
+                if (!areComparable(left, right)) throw new SemanticException("Cannot compare " + left + " with " + right);
                 yield TypeSystem.BOOLEAN;
             }
 
             case AND, OR -> {
-                if (!left.equals(TypeSystem.BOOLEAN) || !right.equals(TypeSystem.BOOLEAN)) {
-                    throw new SemanticException("Logical operators require boolean operands.");
-                }
+                if (!left.equals(TypeSystem.BOOLEAN) || !right.equals(TypeSystem.BOOLEAN)) throw new SemanticException("Logical operators require boolean operands.");
                 yield TypeSystem.BOOLEAN;
             }
         };
@@ -743,11 +725,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     private boolean areComparable(String left, String right) {
         if (left.equals(right)) return true;
-
-        if (TypeSystem.isPrimitive(left) && TypeSystem.isPrimitive(right)) {
-            return TypeSystem.canAssign(left, right) || TypeSystem.canAssign(right, left);
-        }
-
+        if (TypeSystem.isPrimitive(left) && TypeSystem.isPrimitive(right)) return TypeSystem.canAssign(left, right) || TypeSystem.canAssign(right, left);
         return false;
     }
 
@@ -755,23 +733,17 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         boolean isNotNumeric = !TypeSystem.NUMERUS.equals(type) && !TypeSystem.DECIMALIS.equals(type);
         return switch (operator) {
             case NOT -> {
-                if (!TypeSystem.BOOLEAN.equals(type)) {
-                    throw new SemanticException("Operator 'non' requires a boolean.");
-                }
+                if (!TypeSystem.BOOLEAN.equals(type)) throw new SemanticException("Operator 'non' requires a boolean.");
                 yield TypeSystem.BOOLEAN;
             }
 
             case NEGATE -> {
-                if (isNotNumeric) {
-                    throw new SemanticException("Unary '-' requires a numeric value.");
-                }
+                if (isNotNumeric) throw new SemanticException("Unary '-' requires a numeric value.");
                 yield type;
             }
 
             case POST_INCREMENT, POST_DECREMENT -> {
-                if (isNotNumeric) {
-                    throw new SemanticException("Increment/decrement requires a numeric value.");
-                }
+                if (isNotNumeric) throw new SemanticException("Increment/decrement requires a numeric value.");
                 yield type;
             }
         };
@@ -779,10 +751,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     private void requireBoolean(Expression expression, String context) {
         String type = expression.accept(this);
-
-        if (!TypeSystem.BOOLEAN.equals(type)) {
-            throw new SemanticException(context + " condition must be boolean, found " + type);
-        }
+        if (!TypeSystem.BOOLEAN.equals(type)) throw new SemanticException(context + " condition must be boolean, found " + type);
     }
 
     private void validateTypeExists(String type) {
@@ -792,9 +761,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     }
 
     private Integer evaluateConstantInteger(Expression expression) {
-        if (expression instanceof NumberLiteral number) {
-            return number.getValue();
-        }
+        if (expression instanceof NumberLiteral number) return number.getValue();
         return null;
     }
 }

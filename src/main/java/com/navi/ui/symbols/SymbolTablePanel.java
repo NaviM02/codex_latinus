@@ -26,7 +26,7 @@ public class SymbolTablePanel extends JPanel {
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        model = new DefaultTableModel(new Object[]{"Nombre", "Tipo", "Clase", "Ámbito"}, 0) {
+        model = new DefaultTableModel(new Object[]{"Nombre", "Tipo", "Clase", "Ámbito", "Valor"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -82,7 +82,18 @@ public class SymbolTablePanel extends JPanel {
     }
 
     private void addSymbol(Symbol symbol, String scopeName) {
-        model.addRow(new Object[]{symbol.getName(), symbol.getType(), symbol.getKind(), scopeName});
+        Object val = symbol.getValue();
+        String displayValue;
+
+        if (val == null) {
+            displayValue = "—";
+        } else if (val instanceof String) {
+            displayValue = "\"" + val + "\"";
+        } else {
+            displayValue = val.toString();
+        }
+
+        model.addRow(new Object[]{symbol.getName(), symbol.getType(), symbol.getKind(), scopeName, displayValue});
     }
 
     public void clear() {

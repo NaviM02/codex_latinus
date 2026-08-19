@@ -2,6 +2,7 @@ package com.navi.backend.semantic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
@@ -14,9 +15,15 @@ public class Symbol {
     private SymbolKind kind;
     private String type;
     private List<String> parameterTypes;
+    @Setter
+    private Object value;
 
-    // constructor without parameterTypes
     public Symbol(String name, SymbolKind kind, String type) {
-        this(name, kind, type, List.of());
+        this(name, kind, type, List.of(), null);
     }
+
+    public Symbol(String name, SymbolKind kind, String type, List<String> parameterTypes) {
+        this(name, kind, type, parameterTypes, null);
+    }
+
 }

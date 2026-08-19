@@ -15,10 +15,12 @@ public class ParserTraceListener extends PigLatinBaseListener {
     @Getter
     private final ParserTrace trace = new ParserTrace();
     private final Deque<String> stack = new ArrayDeque<>();
+    private final Deque<Integer> ruleStackSizes = new ArrayDeque<>();
 
     @Override
     public void enterEveryRule(ParserRuleContext ctx) {
         String ruleName = getRuleName(ctx);
+        ruleStackSizes.push(stack.size());
         stack.addLast(ruleName);
         trace.addState(ParserOperation.ENTER_RULE, ruleName, new ArrayList<>(stack), "enter " + ruleName);
     }
@@ -26,32 +28,34 @@ public class ParserTraceListener extends PigLatinBaseListener {
     @Override
     public void visitTerminal(TerminalNode node) {
         String tokenText = node.getText();
-        ArrayList<String> stackSnapshot = new ArrayList<>(stack);
-
-        stackSnapshot.add(tokenText);
-        trace.addState(ParserOperation.SHIFT, tokenText, stackSnapshot, "shift " + tokenText);
+        stack.addLast(tokenText);
+        trace.addState(ParserOperation.SHIFT, tokenText, new ArrayList<>(stack), "shift " + tokenText);
     }
 
     @Override
     public void exitEveryRule(ParserRuleContext ctx) {
         String ruleName = getRuleName(ctx);
+        int initialSize = ruleStackSizes.pop();
+
+        while (stack.size() > initialSize) {
+            stack.removeLast();
+        }
+
+        stack.addLast(ruleName);
 
         if (ctx instanceof PigLatinParser.ProgramContext) {
             trace.addState(ParserOperation.ACCEPT, "EOF", new ArrayList<>(stack), "accept");
-            stack.removeLast();
             return;
         }
 
         trace.addState(ParserOperation.REDUCE, ruleName, new ArrayList<>(stack), "reduce " + ruleName);
-        stack.removeLast();
     }
 
     @Override
     public void visitErrorNode(ErrorNode node) {
         String tokenText = node.getText();
-        ArrayList<String> stackSnapshot = new ArrayList<>(stack);
-        stackSnapshot.add(tokenText);
-        trace.addState(ParserOperation.SHIFT, tokenText, stackSnapshot, "error token " + tokenText);
+        stack.addLast(tokenText);
+        trace.addState(ParserOperation.SHIFT, tokenText, new ArrayList<>(stack), "error token " + tokenText);
     }
 
     private String getRuleName(ParserRuleContext ctx) {
