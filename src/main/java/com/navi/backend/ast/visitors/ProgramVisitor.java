@@ -32,7 +32,7 @@ public class ProgramVisitor extends DeclarationVisitor {
             mainStatements.add((Statement) visit(statement));
         }
 
-        return new Program(globalVariables, functions, mainStatements);
+        return new Program(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), globalVariables, functions, mainStatements);
     }
 
     @Override
@@ -43,6 +43,6 @@ public class ProgramVisitor extends DeclarationVisitor {
             declarations.add((Declaration) visit(declaration));
         }
 
-        return new GlobalVariableSection(declarations);
+        return new GlobalVariableSection(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), declarations);
     }
 }

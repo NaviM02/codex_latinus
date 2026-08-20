@@ -4,15 +4,18 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class ExpressionInitializer extends Initializer {
-    private Expression expression;
+    private final Expression expression;
+
+    public ExpressionInitializer(int line, int column, Expression expression) {
+        super(line, column);
+        this.expression = expression;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

@@ -5,16 +5,20 @@ import com.navi.backend.ast.declarations.initializers.Initializer;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class AssignmentStatement extends Statement {
-    private Expression target;
-    private Initializer initializer;
+    private final Expression target;
+    private final Initializer initializer;
+
+    public AssignmentStatement(int line, int column, Expression target, Initializer initializer) {
+        super(line, column);
+        this.target = target;
+        this.initializer = initializer;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

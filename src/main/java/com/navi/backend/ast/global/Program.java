@@ -6,18 +6,23 @@ import com.navi.backend.ast.statements.*;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class Program extends AstNode {
     private final GlobalVariableSection globalVariables;
     private final List<FunctionDeclaration> functions;
     private final List<Statement> mainStatements;
+
+    public Program(int line, int column, GlobalVariableSection globalVariables, List<FunctionDeclaration> functions, List<Statement> mainStatements) {
+        super(line, column);
+        this.globalVariables = globalVariables;
+        this.functions = functions;
+        this.mainStatements = mainStatements;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

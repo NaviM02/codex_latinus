@@ -5,17 +5,22 @@ import com.navi.backend.ast.declarations.initializers.Initializer;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class VariableDeclaration extends Declaration {
-    private String name;
-    private String type;
-    private Initializer initializer;
+    private final String name;
+    private final String type;
+    private final Initializer initializer;
+
+    public VariableDeclaration(int line, int column, String name, String type, Initializer initializer) {
+        super(line, column);
+        this.name = name;
+        this.type = type;
+        this.initializer = initializer;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

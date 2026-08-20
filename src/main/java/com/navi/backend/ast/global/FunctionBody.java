@@ -4,17 +4,21 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.statements.BlockStatement;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class FunctionBody extends AstNode {
-    private LocalVariableSection localVariables;
-    private BlockStatement body;
+    private final LocalVariableSection localVariables;
+    private final BlockStatement body;
+
+    public FunctionBody(int line, int column, LocalVariableSection localVariables, BlockStatement body) {
+        super(line, column);
+        this.localVariables = localVariables;
+        this.body = body;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

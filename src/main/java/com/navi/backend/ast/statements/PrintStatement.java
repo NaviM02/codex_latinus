@@ -4,15 +4,18 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class PrintStatement extends Statement {
-    private List<Expression> expressions;
+    private final List<Expression> expressions;
+
+    public PrintStatement(int line, int column, List<Expression> expressions) {
+        super(line, column);
+        this.expressions = expressions;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

@@ -4,16 +4,20 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class StructDeclaration extends Declaration {
-    private String name;
-    private List<StructField> fields;
+    private final String name;
+    private final List<StructField> fields;
+
+    public StructDeclaration(int line, int column, String name, List<StructField> fields) {
+        super(line, column);
+        this.name = name;
+        this.fields = fields;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

@@ -5,16 +5,20 @@ import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class ElseIfStatement extends AstNode {
-    private Expression condition;
-    private BlockStatement block;
+    private final Expression condition;
+    private final BlockStatement block;
+
+    public ElseIfStatement(int line, int column, Expression condition, BlockStatement block) {
+        super(line, column);
+        this.condition = condition;
+        this.block = block;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

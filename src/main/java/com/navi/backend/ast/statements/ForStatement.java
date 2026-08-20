@@ -6,18 +6,24 @@ import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class ForStatement extends Statement {
-    private VariableDeclaration initializer;
-    private Expression condition;
-    private Expression update;
-    private BlockStatement block;
+    private final VariableDeclaration initializer;
+    private final Expression condition;
+    private final Expression update;
+    private final BlockStatement block;
+
+    public ForStatement(int line, int column, VariableDeclaration initializer, Expression condition, Expression update, BlockStatement block) {
+        super(line, column);
+        this.initializer = initializer;
+        this.condition = condition;
+        this.update = update;
+        this.block = block;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

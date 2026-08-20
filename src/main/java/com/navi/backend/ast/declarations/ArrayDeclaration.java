@@ -5,18 +5,24 @@ import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class ArrayDeclaration extends Declaration {
-    private String name;
-    private Expression size;
-    private String type;
-    private ArrayInitializer initializer;
+    private final String name;
+    private final Expression size;
+    private final String type;
+    private final ArrayInitializer initializer;
+
+    public ArrayDeclaration(int line, int column, String name, Expression size, String type, ArrayInitializer initializer) {
+        super(line, column);
+        this.name = name;
+        this.size = size;
+        this.type = type;
+        this.initializer = initializer;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

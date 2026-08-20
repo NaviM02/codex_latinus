@@ -3,15 +3,18 @@ package com.navi.backend.ast.statements;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class BlockStatement extends Statement {
     private final List<Statement> statements;
+
+    public BlockStatement(int line, int column, List<Statement> statements) {
+        super(line, column);
+        this.statements = statements;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

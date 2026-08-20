@@ -4,15 +4,18 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class NumberLiteral extends Expression {
-    private int value;
+    private final int value;
+
+    public NumberLiteral(int line, int column, int value) {
+        super(line, column);
+        this.value = value;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

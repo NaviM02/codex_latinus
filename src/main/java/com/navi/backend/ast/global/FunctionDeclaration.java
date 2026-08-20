@@ -4,19 +4,25 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class FunctionDeclaration extends AstNode {
-    private String name;
-    private String returnType;
-    private List<Parameter> parameters;
-    private FunctionBody body;
+    private final String name;
+    private final String returnType;
+    private final List<Parameter> parameters;
+    private final FunctionBody body;
+
+    public FunctionDeclaration(int line, int column, String name, String returnType, List<Parameter> parameters, FunctionBody body) {
+        super(line, column);
+        this.name = name;
+        this.returnType = returnType;
+        this.parameters = parameters;
+        this.body = body;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

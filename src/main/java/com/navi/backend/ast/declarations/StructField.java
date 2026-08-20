@@ -4,17 +4,22 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class StructField extends AstNode {
-    private String name;
-    private String type;
-    private boolean isArray;
+    private final String name;
+    private final String type;
+    private final boolean isArray;
+
+    public StructField(int line, int column, String name, String type, boolean isArray) {
+        super(line, column);
+        this.name = name;
+        this.type = type;
+        this.isArray = isArray;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

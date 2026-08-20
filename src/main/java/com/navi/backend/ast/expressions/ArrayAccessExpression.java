@@ -3,16 +3,20 @@ package com.navi.backend.ast.expressions;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class ArrayAccessExpression extends Expression {
-    private Expression array;
-    private Expression index;
+    private final Expression array;
+    private final Expression index;
+
+    public ArrayAccessExpression(int line, int column, Expression array, Expression index) {
+        super(line, column);
+        this.array = array;
+        this.index = index;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

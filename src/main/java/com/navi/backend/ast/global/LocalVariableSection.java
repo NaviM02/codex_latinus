@@ -5,15 +5,18 @@ import com.navi.backend.ast.declarations.Declaration;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class LocalVariableSection extends AstNode {
     private final List<Declaration> declarations;
+
+    public LocalVariableSection(int line, int column, List<Declaration> declarations) {
+        super(line, column);
+        this.declarations = declarations;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

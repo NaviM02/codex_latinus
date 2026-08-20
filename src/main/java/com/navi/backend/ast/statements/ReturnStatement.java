@@ -5,15 +5,18 @@ import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class ReturnStatement extends Statement {
-    private Expression expression;
+    private final Expression expression;
+
+    public ReturnStatement(int line, int column, Expression expression) {
+        super(line, column);
+        this.expression = expression;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

@@ -125,7 +125,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         Scope functionScope = symbolTable.getFunctionScope(node.getName());
 
         if (functionScope == null) {
-            throw new SemanticException("Scope not found for function '" + node.getName() + "'.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Scope not found for function '" + node.getName() + "'.");
         }
 
         currentFunction = node;
@@ -165,13 +165,13 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     @Override
     public String visit(VariableDeclaration node) {
-        validateTypeExists(node.getType());
+        validateTypeExists(node.getType(), node.getLine(), node.getColumn());
 
         if (node.getInitializer() != null) {
             String valueType = analyzeInitializer(node.getInitializer(), node.getType());
 
             if (!TypeSystem.canAssign(node.getType(), valueType)) {
-                throw new SemanticException("Cannot assign " + valueType + " to variable '" + node.getName() + "' of type " + node.getType());
+                throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Cannot assign " + valueType + " to variable '" + node.getName() + "' of type " + node.getType());
             }
 
             Object value = valueEvaluator.evaluateInitializer(node.getInitializer());
@@ -183,11 +183,11 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     @Override
     public String visit(ArrayDeclaration node) {
-        validateTypeExists(node.getType());
+        validateTypeExists(node.getType(), node.getLine(), node.getColumn());
         String sizeType = node.getSize().accept(this);
 
         if (!TypeSystem.NUMERUS.equals(sizeType)) {
-            throw new SemanticException("Array size must be numerus.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Array size must be numerus.");
         }
 
         if (node.getInitializer() != null) {
@@ -195,14 +195,14 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
                 String valueType = expression.accept(this);
 
                 if (!TypeSystem.canAssign(node.getType(), valueType)) {
-                    throw new SemanticException("Invalid value in array '" + node.getName() + "'. Expected " + node.getType() + " but found " + valueType);
+                    throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Invalid value in array '" + node.getName() + "'. Expected " + node.getType() + " but found " + valueType);
                 }
             }
 
             Integer size = evaluateConstantInteger(node.getSize());
 
             if (size != null && node.getInitializer().getValues().size() > size) {
-                throw new SemanticException("Array '" + node.getName() + "' has " + node.getInitializer().getValues().size() + " initializers but its size is " + size);
+                throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Array '" + node.getName() + "' has " + node.getInitializer().getValues().size() + " initializers but its size is " + size);
             }
         }
 
@@ -245,7 +245,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         String valueType = analyzeInitializer(node.getInitializer(), targetType);
 
         if (!TypeSystem.canAssign(targetType, valueType)) {
-            throw new SemanticException("Cannot assign " + valueType + " to " + targetType);
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Cannot assign " + valueType + " to " + targetType);
         }
 
         Object value = valueEvaluator.evaluateInitializer(node.getInitializer());
@@ -270,7 +270,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     @Override
     public String visit(BreakStatement node) {
         if (loopDepth == 0) {
-            throw new SemanticException("'break' can only be used inside a loop.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " 'break' can only be used inside a loop.");
         }
         return null;
     }
@@ -278,7 +278,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     @Override
     public String visit(ContinueStatement node) {
         if (loopDepth == 0) {
-            throw new SemanticException("'continue' can only be used inside a loop.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " 'continue' can only be used inside a loop.");
         }
         return null;
     }
@@ -365,7 +365,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         String targetType = analyzeAssignmentTarget(node.getTarget());
 
         if (!targetType.equals(TypeSystem.NUMERUS) && !targetType.equals(TypeSystem.DECIMALIS)) {
-            throw new SemanticException("Increment/decrement requires a numeric target.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Increment/decrement requires a numeric target.");
         }
 
         return null;
@@ -391,7 +391,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     @Override
     public String visit(ReturnStatement node) {
         if (currentFunction == null) {
-            throw new SemanticException("Return statement outside a function.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Return statement outside a function.");
         }
 
         String expectedType = currentFunction.getReturnType();
@@ -399,20 +399,20 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
         if (TypeSystem.VOID.equals(expectedType)) {
             if (expression != null) {
-                throw new SemanticException("Void function cannot return a value.");
+                throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Void function cannot return a value.");
             }
 
             return null;
         }
 
         if (expression == null) {
-            throw new SemanticException("Function '" + currentFunction.getName() + "' must return a value of type " + expectedType);
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Function '" + currentFunction.getName() + "' must return a value of type " + expectedType);
         }
 
         String actualType = expression.accept(this);
 
         if (!TypeSystem.canAssign(expectedType, actualType)) {
-            throw new SemanticException("Function '" + currentFunction.getName() + "' must return " + expectedType + " but found " + actualType);
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Function '" + currentFunction.getName() + "' must return " + expectedType + " but found " + actualType);
         }
 
         return null;
@@ -441,7 +441,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         String indexType = node.getIndex().accept(this);
 
         if (!TypeSystem.NUMERUS.equals(indexType)) {
-            throw new SemanticException("Array index must be numerus.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Array index must be numerus.");
         }
 
         Expression arrayExpression = node.getArray();
@@ -454,7 +454,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
         if (arraySymbol != null) {
             if (arraySymbol.getKind() != SymbolKind.ARRAY) {
-                throw new SemanticException("'" + arraySymbol.getName() + "' is not an array.");
+                throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " '" + arraySymbol.getName() + "' is not an array.");
             }
 
             return arraySymbol.getType();
@@ -472,7 +472,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             if (structs.containsKey(variable.getName())) {
                 return variable.getName();
             }
-            throw new SemanticException("Variable '" + variable.getName() + "' is not declared.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Variable '" + variable.getName() + "' is not declared.");
         }
 
         /*
@@ -483,7 +483,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             return analyzeArrayMemberAccess(member);
         }
 
-        throw new SemanticException("Expression is not an array.");
+        throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Expression is not an array.");
     }
 
     @Override
@@ -491,27 +491,27 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         String left = node.getLeft().accept(this);
         String right = node.getRight().accept(this);
 
-        return analyzeBinaryExpression(node.getOperator(), left, right);
+        return analyzeBinaryExpression(node, left, right);
     }
 
     @Override
     public String visit(FunctionCallExpression node) {
         if (!(node.getCallee() instanceof VariableExpression variable)) {
-            throw new SemanticException("Invalid function call.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Invalid function call.");
         }
 
         String functionName = variable.getName();
         Symbol function = currentScope.resolve(functionName);
 
         if (function == null || function.getKind() != SymbolKind.FUNCTION) {
-            throw new SemanticException("Function '" + functionName + "' is not declared.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Function '" + functionName + "' is not declared.");
         }
 
         List<Expression> arguments = node.getArguments();
         List<String> parameters = function.getParameterTypes();
 
         if (arguments.size() != parameters.size()) {
-            throw new SemanticException("Function '" + functionName + "' expects " + parameters.size() + " arguments but got " + arguments.size());
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Function '" + functionName + "' expects " + parameters.size() + " arguments but got " + arguments.size());
         }
 
         for (int i = 0; i < arguments.size(); i++) {
@@ -519,7 +519,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             String parameterType = parameters.get(i);
 
             if (!TypeSystem.canAssign(parameterType, argumentType)) {
-                throw new SemanticException("Invalid argument " + (i + 1) + " in function '" + functionName + "'. Expected " + parameterType + " but found " + argumentType);
+                throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Invalid argument " + (i + 1) + " in function '" + functionName + "'. Expected " + parameterType + " but found " + argumentType);
             }
         }
 
@@ -532,13 +532,13 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         StructDeclaration struct = structs.get(objectType);
 
         if (struct == null) {
-            throw new SemanticException("Type '" + objectType + "' is not a struct.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Type '" + objectType + "' is not a struct.");
         }
 
         StructField field = findStructField(struct, node.getMember());
 
         if (field == null) {
-            throw new SemanticException("Struct '" + objectType + "' has no field '" + node.getMember() + "'.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Struct '" + objectType + "' has no field '" + node.getMember() + "'.");
         }
 
         return field.getType();
@@ -552,7 +552,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             validateAssignmentTarget(node.getExpression());
         }
 
-        return analyzeUnaryExpression(node.getOperator(), type);
+        return analyzeUnaryExpression(node, type);
     }
 
     @Override
@@ -560,7 +560,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         Symbol symbol = currentScope.resolve(node.getName());
 
         if (symbol == null) {
-            throw new SemanticException("Variable '" + node.getName() + "' is not declared.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Variable '" + node.getName() + "' is not declared.");
         }
 
         return symbol.getType();
@@ -595,19 +595,19 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     // HELPERS
     private void collectStruct(StructDeclaration struct) {
         if (structs.containsKey(struct.getName())) {
-            throw new SemanticException("Struct '" + struct.getName() + "' is already declared.");
+            throw new SemanticException("Line " + struct.getLine() + ":" + struct.getColumn() + " Struct '" + struct.getName() + "' is already declared.");
         }
         Set<String> fieldNames = new HashSet<>();
 
         for (StructField field : struct.getFields()) {
             if (!fieldNames.add(field.getName())) {
-                throw new SemanticException("Struct '" + struct.getName() + "' has duplicated field '" + field.getName() + "'.");
+                throw new SemanticException("Line " + struct.getLine() + ":" + struct.getColumn() + " Struct '" + struct.getName() + "' has duplicated field '" + field.getName() + "'.");
             }
 
             String fieldType = field.getType();
 
             if (!TypeSystem.isPrimitive(fieldType) && !structs.containsKey(fieldType)) {
-                throw new SemanticException("Unknown type '" + fieldType + "' in field '" + field.getName() + "' of struct '" + struct.getName() + "'.");
+                throw new SemanticException("Line " + struct.getLine() + ":" + struct.getColumn() + " Unknown type '" + fieldType + "' in field '" + field.getName() + "' of struct '" + struct.getName() + "'.");
             }
         }
 
@@ -624,14 +624,14 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             return expectedType;
         }
 
-        throw new SemanticException("Unsupported initializer: " + initializer.getClass().getSimpleName());
+        throw new SemanticException("Line " + initializer.getLine() + ":" + initializer.getColumn() + " Unsupported initializer: " + initializer.getClass().getSimpleName());
     }
 
     private void analyzeStructInitializer(StructInitializer initializer, String structType) {
         StructDeclaration struct = structs.get(structType);
 
         if (struct == null) {
-            throw new SemanticException("Struct '" + structType + "' does not exist.");
+            throw new SemanticException("Line " + initializer.getLine() + ":" + initializer.getColumn() + " Struct '" + structType + "' does not exist.");
         }
 
         Map<String, StructField> fields = new HashMap<>();
@@ -647,22 +647,22 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             StructField field = fields.get(fieldName);
 
             if (field == null) {
-                throw new SemanticException("Field '" + fieldName + "' does not exist in struct '" + structType + "'.");
+                throw new SemanticException("Line " + fieldInitializer.getLine() + ":" + fieldInitializer.getColumn() + " Field '" + fieldName + "' does not exist in struct '" + structType + "'.");
             }
 
             if (!initialized.add(fieldName)) {
-                throw new SemanticException("Field '" + fieldName + "' is initialized more than once.");
+                throw new SemanticException("Line " + fieldInitializer.getLine() + ":" + fieldInitializer.getColumn() + " Field '" + fieldName + "' is initialized more than once.");
             }
 
             String valueType = analyzeInitializer(fieldInitializer.getValue(), field.getType());
 
             if (!TypeSystem.canAssign(field.getType(), valueType)) {
-                throw new SemanticException("Invalid type for field '" + fieldName + "'. Expected " + field.getType() + " but found " + valueType);
+                throw new SemanticException("Line " + fieldInitializer.getLine() + ":" + fieldInitializer.getColumn() + " Invalid type for field '" + fieldName + "'. Expected " + field.getType() + " but found " + valueType);
             }
         }
 
         if (initialized.size() != fields.size()) {
-            throw new SemanticException("Not all fields of struct '" + structType + "' were initialized.");
+            throw new SemanticException("Line " + initializer.getLine() + ":" + initializer.getColumn() + " Not all fields of struct '" + structType + "' were initialized.");
         }
     }
 
@@ -671,7 +671,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         if (expression instanceof ArrayAccessExpression arrayAccess) return arrayAccess.accept(this);
         if (expression instanceof MemberAccessExpression memberAccess) return memberAccess.accept(this);
 
-        throw new SemanticException("Expression cannot be used as assignment target.");
+        throw new SemanticException("Line " + expression.getLine() + ":" + expression.getColumn() + " Expression cannot be used as assignment target.");
     }
 
     private void validateAssignmentTarget(Expression expression) {
@@ -691,12 +691,12 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         String objectType = node.getObject().accept(this);
         StructDeclaration struct = structs.get(objectType);
 
-        if (struct == null) throw new SemanticException("Type '" + objectType + "' is not a struct.");
+        if (struct == null) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Type '" + objectType + "' is not a struct.");
 
         StructField field = findStructField(struct, node.getMember());
 
-        if (field == null) throw new SemanticException("Struct '" + objectType + "' has no field '" + node.getMember() + "'.");
-        if (!field.isArray()) throw new SemanticException("Field '" + node.getMember() + "' is not an array.");
+        if (field == null) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Struct '" + objectType + "' has no field '" + node.getMember() + "'.");
+        if (!field.isArray()) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Field '" + node.getMember() + "' is not an array.");
 
         return field.getType();
     }
@@ -711,8 +711,9 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         return null;
     }
 
-    private String analyzeBinaryExpression(BinaryOperator operator, String left, String right) {
-        if (!TypeSystem.isPrimitive(left) || !TypeSystem.isPrimitive(right)) throw new SemanticException("Only primitive values can be operated.");
+    private String analyzeBinaryExpression(BinaryExpression node, String left, String right) {
+        BinaryOperator operator = node.getOperator();
+        if (!TypeSystem.isPrimitive(left) || !TypeSystem.isPrimitive(right)) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Only primitive values can be operated.");
 
         boolean hasStringType = left.equals(TypeSystem.TEXTUM) || right.equals(TypeSystem.TEXTUM);
         boolean hasBooleanType = left.equals(TypeSystem.BOOLEAN) || right.equals(TypeSystem.BOOLEAN);
@@ -723,24 +724,24 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             }
 
             case SUBTRACT, MULTIPLY, DIVIDE -> {
-                if (hasStringType) throw new SemanticException("Operator " + operator + " cannot be used with textum.");
-                if (hasBooleanType) throw new SemanticException("Arithmetic operators require numeric values.");
+                if (hasStringType) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Operator " + operator + " cannot be used with textum.");
+                if (hasBooleanType) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Arithmetic operators require numeric values.");
                 yield TypeSystem.promote(left, right);
             }
 
             case LESS, LESS_EQUAL, GREATER, GREATER_EQUAL -> {
-                if (hasStringType) throw new SemanticException("Relational operators cannot be used with textum.");
-                if (hasBooleanType) throw new SemanticException("Relational operators require numeric values.");
+                if (hasStringType) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Relational operators cannot be used with textum.");
+                if (hasBooleanType) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Relational operators require numeric values.");
                 yield TypeSystem.BOOLEAN;
             }
 
             case EQUAL, NOT_EQUAL -> {
-                if (!areComparable(left, right)) throw new SemanticException("Cannot compare " + left + " with " + right);
+                if (!areComparable(left, right)) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Cannot compare " + left + " with " + right);
                 yield TypeSystem.BOOLEAN;
             }
 
             case AND, OR -> {
-                if (!left.equals(TypeSystem.BOOLEAN) || !right.equals(TypeSystem.BOOLEAN)) throw new SemanticException("Logical operators require boolean operands.");
+                if (!left.equals(TypeSystem.BOOLEAN) || !right.equals(TypeSystem.BOOLEAN)) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Logical operators require boolean operands.");
                 yield TypeSystem.BOOLEAN;
             }
         };
@@ -752,21 +753,22 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         return false;
     }
 
-    private String analyzeUnaryExpression(UnaryOperator operator, String type) {
+    private String analyzeUnaryExpression(UnaryExpression node, String type) {
+        UnaryOperator operator = node.getOperator();
         boolean isNotNumeric = !TypeSystem.NUMERUS.equals(type) && !TypeSystem.DECIMALIS.equals(type);
         return switch (operator) {
             case NOT -> {
-                if (!TypeSystem.BOOLEAN.equals(type)) throw new SemanticException("Operator 'non' requires a boolean.");
+                if (!TypeSystem.BOOLEAN.equals(type)) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Operator 'non' requires a boolean.");
                 yield TypeSystem.BOOLEAN;
             }
 
             case NEGATE -> {
-                if (isNotNumeric) throw new SemanticException("Unary '-' requires a numeric value.");
+                if (isNotNumeric) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Unary '-' requires a numeric value.");
                 yield type;
             }
 
             case POST_INCREMENT, POST_DECREMENT -> {
-                if (isNotNumeric) throw new SemanticException("Increment/decrement requires a numeric value.");
+                if (isNotNumeric) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Increment/decrement requires a numeric value.");
                 yield type;
             }
         };
@@ -774,13 +776,13 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     private void requireBoolean(Expression expression, String context) {
         String type = expression.accept(this);
-        if (!TypeSystem.BOOLEAN.equals(type)) throw new SemanticException(context + " condition must be boolean, found " + type);
+        if (!TypeSystem.BOOLEAN.equals(type)) throw new SemanticException("Line " + expression.getLine() + ":" + expression.getColumn() + " " + context + " condition must be boolean, found " + type);
     }
 
-    private void validateTypeExists(String type) {
+    private void validateTypeExists(String type, int line, int column) {
         if (TypeSystem.isPrimitive(type)) return;
         if (structs.containsKey(type)) return;
-        throw new SemanticException("Unknown type '" + type + "'.");
+        throw new SemanticException("Line " + line + ":" + column + " Unknown type '" + type + "'.");
     }
 
     private Integer evaluateConstantInteger(Expression expression) {

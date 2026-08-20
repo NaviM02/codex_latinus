@@ -4,15 +4,18 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class VariableExpression extends Expression {
-    private String name;
+    private final String name;
+
+    public VariableExpression(int line, int column, String name) {
+        super(line, column);
+        this.name = name;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

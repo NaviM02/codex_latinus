@@ -2,14 +2,20 @@ package com.navi.backend.ast;
 
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public abstract class AstNode {
+    private final int line;
+    private final int column;
+
+    protected AstNode(int line, int column) {
+        this.line = line;
+        this.column = column;
+    }
+
     public abstract List<? extends AstNode> getChildren();
     public String getNodeLabel() {
         return getClass().getSimpleName();

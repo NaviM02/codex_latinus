@@ -3,16 +3,20 @@ package com.navi.backend.ast.expressions;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class UnaryExpression extends Expression {
-    private UnaryOperator operator;
-    private Expression expression;
+    private final UnaryOperator operator;
+    private final Expression expression;
+
+    public UnaryExpression(int line, int column, UnaryOperator operator, Expression expression) {
+        super(line, column);
+        this.operator = operator;
+        this.expression = expression;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

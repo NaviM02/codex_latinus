@@ -3,17 +3,22 @@ package com.navi.backend.ast.expressions;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class BinaryExpression extends Expression {
-    private Expression left;
-    private BinaryOperator operator;
-    private Expression right;
+    private final Expression left;
+    private final BinaryOperator operator;
+    private final Expression right;
+
+    public BinaryExpression(int line, int column, Expression left, BinaryOperator operator, Expression right) {
+        super(line, column);
+        this.left = left;
+        this.operator = operator;
+        this.right = right;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

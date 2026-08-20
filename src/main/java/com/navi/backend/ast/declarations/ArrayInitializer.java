@@ -4,15 +4,18 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class ArrayInitializer extends AstNode {
-    private List<Expression> values;
+    private final List<Expression> values;
+
+    public ArrayInitializer(int line, int column, List<Expression> values) {
+        super(line, column);
+        this.values = values;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

@@ -24,12 +24,12 @@ public class StatementVisitor extends ExpressionVisitor {
 
         if (ctx.expression() != null) {
             Expression expr = (Expression) visit(ctx.expression());
-            right = new ExpressionInitializer(expr);
+            right = new ExpressionInitializer(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), expr);
         } else if (ctx.structInitializer() != null) {
             right = (Initializer) visit(ctx.structInitializer());
         }
 
-        return new AssignmentStatement(left, right);
+        return new AssignmentStatement(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), left, right);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class StatementVisitor extends ExpressionVisitor {
             statements.add((Statement) visit(statement));
         }
 
-        return new BlockStatement(statements);
+        return new BlockStatement(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), statements);
     }
 
     @Override
@@ -51,19 +51,20 @@ public class StatementVisitor extends ExpressionVisitor {
     public AstNode visitIncrementStatement(PigLatinParser.IncrementStatementContext ctx) {
         Expression target = (Expression) visit(ctx.incrementableExpression());
         if (ctx.PLUSPLUS() != null) {
-            return new IncrementStatement(target, UnaryOperator.POST_INCREMENT);
+            return new IncrementStatement(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), target, UnaryOperator.POST_INCREMENT);
         }
-        return new IncrementStatement(target, UnaryOperator.POST_DECREMENT);
+        return new IncrementStatement(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), target, UnaryOperator.POST_DECREMENT);
     }
 
     @Override
     public AstNode visitIncrementVariable(PigLatinParser.IncrementVariableContext ctx) {
-        return new VariableExpression(ctx.ID().getText());
+        return new VariableExpression(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText());
     }
 
     @Override
     public AstNode visitIncrementArrayAccess(PigLatinParser.IncrementArrayAccessContext ctx) {
         return new ArrayAccessExpression(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             (Expression) visit(ctx.postfixExpression()),
             (Expression) visit(ctx.expression())
         );
@@ -72,6 +73,7 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitIncrementMemberAccess(PigLatinParser.IncrementMemberAccessContext ctx) {
         return new MemberAccessExpression(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             (Expression) visit(ctx.postfixExpression()),
             ctx.ID().getText()
         );
@@ -97,6 +99,7 @@ public class StatementVisitor extends ExpressionVisitor {
         }
 
         return new IfStatement(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             (Expression) visit(ctx.expression()),
             (BlockStatement) visit(ctx.block()),
             elseIfs,
@@ -107,6 +110,7 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitElseIfStatement(PigLatinParser.ElseIfStatementContext ctx) {
         return new ElseIfStatement(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             (Expression) visit(ctx.expression()),
             (BlockStatement) visit(ctx.block())
         );
@@ -125,6 +129,7 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitWhileStatement(PigLatinParser.WhileStatementContext ctx) {
         return new WhileStatement(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             (Expression) visit(ctx.expression()),
             (BlockStatement) visit(ctx.block())
         );
@@ -138,6 +143,7 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitDoWhileStatement(PigLatinParser.DoWhileStatementContext ctx) {
         return new DoWhileStatement(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             (BlockStatement) visit(ctx.block()),
             (Expression) visit(ctx.expression())
         );
@@ -151,6 +157,7 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitForStatement(PigLatinParser.ForStatementContext ctx) {
         return new ForStatement(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             (VariableDeclaration) visit(ctx.variableDeclaration()),
             (Expression) visit(ctx.expression(0)),
             (Expression) visit(ctx.expression(1)),
@@ -161,18 +168,19 @@ public class StatementVisitor extends ExpressionVisitor {
     @Override
     public AstNode visitReturnStmt(PigLatinParser.ReturnStmtContext ctx) {
         return new ReturnStatement(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             (Expression) visit(ctx.returnStatement().expression())
         );
     }
 
     @Override
     public AstNode visitBreakStmt(PigLatinParser.BreakStmtContext ctx) {
-        return new BreakStatement();
+        return new BreakStatement(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
     }
 
     @Override
     public AstNode visitContinueStmt(PigLatinParser.ContinueStmtContext ctx) {
-        return new ContinueStatement();
+        return new ContinueStatement(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
     }
 
     @Override
@@ -183,7 +191,7 @@ public class StatementVisitor extends ExpressionVisitor {
             expressions.add((Expression) visit(expr));
         }
 
-        return new PrintStatement(expressions);
+        return new PrintStatement(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), expressions);
     }
 
     @Override
@@ -194,6 +202,6 @@ public class StatementVisitor extends ExpressionVisitor {
             target = (Expression) visit(ctx.postfixExpression());
         }
 
-        return new ReadStatement(target);
+        return new ReadStatement(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), target);
     }
 }

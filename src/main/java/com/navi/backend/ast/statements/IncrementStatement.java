@@ -5,16 +5,20 @@ import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.expressions.UnaryOperator;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class IncrementStatement extends Statement {
-    private Expression target;
-    private UnaryOperator operator;
+    private final Expression target;
+    private final UnaryOperator operator;
+
+    public IncrementStatement(int line, int column, Expression target, UnaryOperator operator) {
+        super(line, column);
+        this.target = target;
+        this.operator = operator;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

@@ -4,16 +4,20 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class MemberAccessExpression extends Expression {
-    private Expression object;
-    private String member;
+    private final Expression object;
+    private final String member;
+
+    public MemberAccessExpression(int line, int column, Expression object, String member) {
+        super(line, column);
+        this.object = object;
+        this.member = member;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

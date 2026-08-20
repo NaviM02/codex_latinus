@@ -5,17 +5,23 @@ import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class IfStatement extends Statement {
-    private Expression condition;
-    private BlockStatement thenBlock;
-    private List<ElseIfStatement> elseIfStatements;
-    private BlockStatement elseBlock;
+    private final Expression condition;
+    private final BlockStatement thenBlock;
+    private final List<ElseIfStatement> elseIfStatements;
+    private final BlockStatement elseBlock;
+
+    public IfStatement(int line, int column, Expression condition, BlockStatement thenBlock, List<ElseIfStatement> elseIfStatements, BlockStatement elseBlock) {
+        super(line, column);
+        this.condition = condition;
+        this.thenBlock = thenBlock;
+        this.elseIfStatements = elseIfStatements;
+        this.elseBlock = elseBlock;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

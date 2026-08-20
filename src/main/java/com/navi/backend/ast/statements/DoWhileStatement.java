@@ -5,16 +5,20 @@ import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class DoWhileStatement extends Statement {
-    private BlockStatement block;
-    private Expression condition;
+    private final BlockStatement block;
+    private final Expression condition;
+
+    public DoWhileStatement(int line, int column, BlockStatement block, Expression condition) {
+        super(line, column);
+        this.block = block;
+        this.condition = condition;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

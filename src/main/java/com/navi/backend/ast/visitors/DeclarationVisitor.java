@@ -42,12 +42,12 @@ public class DeclarationVisitor extends StatementVisitor {
 
         if (ctx.expression() != null) {
             Expression expr = (Expression) visit(ctx.expression());
-            initializer = new ExpressionInitializer(expr);
+            initializer = new ExpressionInitializer(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), expr);
         } else if (ctx.structInitializer() != null) {
             initializer = (Initializer) visit(ctx.structInitializer());
         }
 
-        return new VariableDeclaration(ctx.ID().getText(), ctx.type().getText(), initializer);
+        return new VariableDeclaration(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), ctx.type().getText(), initializer);
     }
 
     @Override
@@ -65,6 +65,7 @@ public class DeclarationVisitor extends StatementVisitor {
         }
 
         return new ArrayDeclaration(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             ctx.ID().getText(),
             (Expression) visit(ctx.expression()),
             type,
@@ -80,12 +81,12 @@ public class DeclarationVisitor extends StatementVisitor {
             values.add((Expression) visit(expression));
         }
 
-        return new ArrayInitializer(values);
+        return new ArrayInitializer(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), values);
     }
 
     @Override
     public AstNode visitExprInit(PigLatinParser.ExprInitContext ctx) {
-        return new ExpressionInitializer((Expression) visit(ctx.expression()));
+        return new ExpressionInitializer(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), (Expression) visit(ctx.expression()));
     }
 
     @Override
@@ -101,12 +102,13 @@ public class DeclarationVisitor extends StatementVisitor {
             fields.add((StructFieldInitializer) visit(field));
         }
 
-        return new StructInitializer(fields);
+        return new StructInitializer(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), fields);
     }
 
     @Override
     public AstNode visitStructFieldInitializer(PigLatinParser.StructFieldInitializerContext ctx) {
         return new StructFieldInitializer(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             ctx.ID().getText(),
             (Initializer) visit(ctx.initializer())
         );
@@ -124,12 +126,12 @@ public class DeclarationVisitor extends StatementVisitor {
             fields.add((StructField) visit(field));
         }
 
-        return new StructDeclaration(ctx.ID().getText(), fields);
+        return new StructDeclaration(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), fields);
     }
 
     @Override
     public AstNode visitStructVariableFieldSemicolon(PigLatinParser.StructVariableFieldSemicolonContext ctx) {
-        return new StructField(ctx.ID().getText(), ctx.type().getText(), false);
+        return new StructField(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), ctx.type().getText(), false);
     }
 
     @Override
@@ -140,12 +142,12 @@ public class DeclarationVisitor extends StatementVisitor {
             type = ctx.type().getText();
         }
 
-        return new StructField(ctx.ID().getText(), type, true);
+        return new StructField(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), type, true);
     }
 
     @Override
     public AstNode visitStructVariableFieldComma(PigLatinParser.StructVariableFieldCommaContext ctx) {
-        return new StructField(ctx.ID().getText(), ctx.type().getText(), false);
+        return new StructField(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), ctx.type().getText(), false);
     }
 
     @Override
@@ -156,7 +158,7 @@ public class DeclarationVisitor extends StatementVisitor {
             type = ctx.type().getText();
         }
 
-        return new StructField(ctx.ID().getText(), type, true);
+        return new StructField(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), type, true);
     }
 
     @Override
@@ -179,6 +181,7 @@ public class DeclarationVisitor extends StatementVisitor {
         }
 
         return new FunctionDeclaration(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             ctx.ID().getText(),
             null,
             parameters,
@@ -197,6 +200,7 @@ public class DeclarationVisitor extends StatementVisitor {
         }
 
         return new FunctionDeclaration(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             ctx.ID().getText(),
             ctx.type().getText(),
             parameters,
@@ -206,7 +210,7 @@ public class DeclarationVisitor extends StatementVisitor {
 
     @Override
     public AstNode visitParameter(PigLatinParser.ParameterContext ctx) {
-        return new Parameter(ctx.ID().getText(), ctx.type().getText());
+        return new Parameter(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), ctx.type().getText());
     }
 
     @Override
@@ -224,8 +228,9 @@ public class DeclarationVisitor extends StatementVisitor {
         }
 
         return new FunctionBody(
+            ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             localVariables,
-            new BlockStatement(statements)
+            new BlockStatement(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), statements)
         );
     }
 
@@ -237,6 +242,6 @@ public class DeclarationVisitor extends StatementVisitor {
             declarations.add((Declaration) visit(declaration));
         }
 
-        return new LocalVariableSection(declarations);
+        return new LocalVariableSection(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), declarations);
     }
 }

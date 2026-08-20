@@ -4,16 +4,20 @@ import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class StructFieldInitializer extends AstNode {
-    private String name;
-    private Initializer value;
+    private final String name;
+    private final Initializer value;
+
+    public StructFieldInitializer(int line, int column, String name, Initializer value) {
+        super(line, column);
+        this.name = name;
+        this.value = value;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

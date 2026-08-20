@@ -5,15 +5,18 @@ import com.navi.backend.ast.expressions.Expression;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.translator.PigLatinRules;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class BooleanLiteral extends Expression {
-    private boolean value;
+    private final boolean value;
+
+    public BooleanLiteral(int line, int column, boolean value) {
+        super(line, column);
+        this.value = value;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {

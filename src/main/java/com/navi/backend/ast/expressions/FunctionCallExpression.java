@@ -3,15 +3,19 @@ package com.navi.backend.ast.expressions;
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.visitors.AstVisitor;
 import com.navi.backend.pig_latin.PigLatinWriter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class FunctionCallExpression extends Expression {
-    private Expression callee;
-    private List<Expression> arguments;
+    private final Expression callee;
+    private final List<Expression> arguments;
+
+    public FunctionCallExpression(int line, int column, Expression callee, List<Expression> arguments) {
+        super(line, column);
+        this.callee = callee;
+        this.arguments = arguments;
+    }
 
     @Override
     public List<? extends AstNode> getChildren() {
