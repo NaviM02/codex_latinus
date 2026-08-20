@@ -40,15 +40,14 @@ public class DeclarationVisitor extends StatementVisitor {
     public AstNode visitNormalVarDeclaration(PigLatinParser.NormalVarDeclarationContext ctx) {
         Initializer initializer = null;
 
-        if (ctx.initializer() != null) {
-            initializer = (Initializer) visit(ctx.initializer());
+        if (ctx.expression() != null) {
+            Expression expr = (Expression) visit(ctx.expression());
+            initializer = new ExpressionInitializer(expr);
+        } else if (ctx.structInitializer() != null) {
+            initializer = (Initializer) visit(ctx.structInitializer());
         }
 
-        return new VariableDeclaration(
-            ctx.ID().getText(),
-            ctx.type().getText(),
-            initializer
-        );
+        return new VariableDeclaration(ctx.ID().getText(), ctx.type().getText(), initializer);
     }
 
     @Override

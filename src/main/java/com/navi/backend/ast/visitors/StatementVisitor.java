@@ -2,6 +2,7 @@ package com.navi.backend.ast.visitors;
 
 import com.navi.backend.ast.AstNode;
 import com.navi.backend.ast.declarations.VariableDeclaration;
+import com.navi.backend.ast.declarations.initializers.ExpressionInitializer;
 import com.navi.backend.ast.declarations.initializers.Initializer;
 import com.navi.backend.ast.expressions.*;
 import com.navi.backend.lexer_parser.PigLatinParser;
@@ -18,10 +19,17 @@ public class StatementVisitor extends ExpressionVisitor {
 
     @Override
     public AstNode visitAssignment(PigLatinParser.AssignmentContext ctx) {
-        return new AssignmentStatement(
-            (Expression) visit(ctx.postfixExpression()),
-            (Initializer) visit(ctx.initializer())
-        );
+        Expression left = (Expression) visit(ctx.postfixExpression());
+        Initializer right = null;
+
+        if (ctx.expression() != null) {
+            Expression expr = (Expression) visit(ctx.expression());
+            right = new ExpressionInitializer(expr);
+        } else if (ctx.structInitializer() != null) {
+            right = (Initializer) visit(ctx.structInitializer());
+        }
+
+        return new AssignmentStatement(left, right);
     }
 
     @Override

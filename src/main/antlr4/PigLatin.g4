@@ -70,7 +70,9 @@ localVariableSection
     ;
 
 variableDeclaration
-    : ESTO ID ':' type initializer? ';'   #NormalVarDeclaration
+    : ESTO ID ':' type ';'                               #NormalVarDeclaration
+    | ESTO ID ':' type '='? expression ';'                #NormalVarDeclaration
+    | ESTO ID ':' type '='? structInitializer ';'?        #NormalVarDeclaration
     ;
 
 initializer
@@ -123,7 +125,8 @@ statement
     ;
 
 assignment
-    : postfixExpression '=' initializer ';'
+    : postfixExpression '=' expression ';'
+    | postfixExpression '=' structInitializer ';'?
     ;
 
 incrementStatement

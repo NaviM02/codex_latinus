@@ -168,7 +168,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         validateTypeExists(node.getType());
 
         if (node.getInitializer() != null) {
-            String valueType = node.getInitializer().accept(this);
+            String valueType = analyzeInitializer(node.getInitializer(), node.getType());
 
             if (!TypeSystem.canAssign(node.getType(), valueType)) {
                 throw new SemanticException("Cannot assign " + valueType + " to variable '" + node.getName() + "' of type " + node.getType());
@@ -445,22 +445,45 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         }
 
         Expression arrayExpression = node.getArray();
+
+        /*
+         * Normal case:
+         * variableArray[1]
+         */
         Symbol arraySymbol = resolveArraySymbol(arrayExpression);
 
-        if (arraySymbol == null) {
-
-            if (arrayExpression instanceof MemberAccessExpression member) {
-                return analyzeArrayMemberAccess(member);
+        if (arraySymbol != null) {
+            if (arraySymbol.getKind() != SymbolKind.ARRAY) {
+                throw new SemanticException("'" + arraySymbol.getName() + "' is not an array.");
             }
 
-            throw new SemanticException("Expression is not an array.");
+            return arraySymbol.getType();
         }
 
-        if (arraySymbol.getKind() != SymbolKind.ARRAY) {
-            throw new SemanticException("'" + arraySymbol.getName() + "' is not an array.");
+        /*
+         * Case of an array used inside an initializer:
+         * series animales : Animal
+         * animales: Animal[7]
+         *
+         * Here "Animal[7]" represents a structure of type Animal
+         * with size 7, not an access to an existing array.
+         */
+        if (arrayExpression instanceof VariableExpression variable) {
+            if (structs.containsKey(variable.getName())) {
+                return variable.getName();
+            }
+            throw new SemanticException("Variable '" + variable.getName() + "' is not declared.");
         }
 
-        return arraySymbol.getType();
+        /*
+         * Array that belongs to a structure:
+         * mi_selva.animales[1]
+         */
+        if (arrayExpression instanceof MemberAccessExpression member) {
+            return analyzeArrayMemberAccess(member);
+        }
+
+        throw new SemanticException("Expression is not an array.");
     }
 
     @Override
