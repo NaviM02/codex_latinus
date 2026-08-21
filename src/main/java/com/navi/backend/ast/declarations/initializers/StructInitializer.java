@@ -23,15 +23,14 @@ public class StructInitializer extends Initializer {
 
     @Override
     public void toPigLatin(PigLatinWriter writer, int indent) {
-        writer.append("{");
+        writer.append("{\n");
 
         for (int i = 0; i < fields.size(); i++) {
-            fields.get(i).toPigLatin(writer, indent);
-
-            if (i < fields.size() - 1) writer.append(", ");
+            fields.get(i).toPigLatin(writer, indent + 1);
+            if (i < fields.size() - 1) writer.append(",\n");
         }
 
-        writer.append("}");
+        writer.append("\n}");
     }
 
     @Override

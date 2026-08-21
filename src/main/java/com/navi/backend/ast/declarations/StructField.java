@@ -33,6 +33,7 @@ public class StructField extends AstNode {
 
     @Override
     public void toPigLatin(PigLatinWriter writer, int indent) {
+        indent(writer, indent);
         writer.appendKeyword(PigLatinRules.translateKeyword("esto"));
         writer.append(" ");
         writer.appendIdentifier(PigLatinRules.translateIdentifier(name));

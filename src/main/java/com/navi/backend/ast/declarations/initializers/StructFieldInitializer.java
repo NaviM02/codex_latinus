@@ -31,6 +31,7 @@ public class StructFieldInitializer extends AstNode {
 
     @Override
     public void toPigLatin(PigLatinWriter writer, int indent) {
+        indent(writer, indent);
         writer.appendIdentifier(PigLatinRules.translateIdentifier(name));
         writer.append(" : ");
 

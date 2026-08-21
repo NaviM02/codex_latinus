@@ -31,13 +31,14 @@ public class StructDeclaration extends Declaration {
 
     @Override
     public void toPigLatin(PigLatinWriter writer, int indent) {
+        writer.append("\n");
         writer.appendKeyword(PigLatinRules.translateKeyword("estructura"));
         writer.append(" ");
         writer.appendIdentifier(PigLatinRules.translateIdentifier(name));
         writer.append(" {\n");
 
         for (StructField field : fields) {
-            field.toPigLatin(writer, indent);
+            field.toPigLatin(writer, indent + 1);
         }
 
         writer.append("}\n");
