@@ -305,6 +305,18 @@ public interface PigLatinListener extends ParseTreeListener {
 	 */
 	void exitIncrementStmt(PigLatinParser.IncrementStmtContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code FunctionCallStatementStmt}
+	 * labeled alternative in {@link PigLatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCallStatementStmt(PigLatinParser.FunctionCallStatementStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FunctionCallStatementStmt}
+	 * labeled alternative in {@link PigLatinParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCallStatementStmt(PigLatinParser.FunctionCallStatementStmtContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code IfStmt}
 	 * labeled alternative in {@link PigLatinParser#statement}.
 	 * @param ctx the parse tree
@@ -468,6 +480,52 @@ public interface PigLatinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIncrementMemberAccess(PigLatinParser.IncrementMemberAccessContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PigLatinParser#functionCallStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCallStatement(PigLatinParser.FunctionCallStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PigLatinParser#functionCallStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCallStatement(PigLatinParser.FunctionCallStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CallVariable}
+	 * labeled alternative in {@link PigLatinParser#callableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCallVariable(PigLatinParser.CallVariableContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CallVariable}
+	 * labeled alternative in {@link PigLatinParser#callableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCallVariable(PigLatinParser.CallVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CallArrayAccess}
+	 * labeled alternative in {@link PigLatinParser#callableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCallArrayAccess(PigLatinParser.CallArrayAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CallArrayAccess}
+	 * labeled alternative in {@link PigLatinParser#callableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCallArrayAccess(PigLatinParser.CallArrayAccessContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CallMemberAccess}
+	 * labeled alternative in {@link PigLatinParser#callableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCallMemberAccess(PigLatinParser.CallMemberAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CallMemberAccess}
+	 * labeled alternative in {@link PigLatinParser#callableExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCallMemberAccess(PigLatinParser.CallMemberAccessContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PigLatinParser#ifStatement}.
 	 * @param ctx the parse tree

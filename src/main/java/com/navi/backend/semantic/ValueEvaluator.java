@@ -1,6 +1,5 @@
 package com.navi.backend.semantic;
 
-import com.navi.backend.ast.declarations.ArrayInitializer;
 import com.navi.backend.ast.declarations.initializers.Initializer;
 import com.navi.backend.ast.declarations.initializers.ExpressionInitializer;
 import com.navi.backend.ast.declarations.initializers.StructInitializer;
@@ -8,10 +7,6 @@ import com.navi.backend.ast.expressions.*;
 import com.navi.backend.ast.expressions.literals.*;
 import com.navi.backend.semantic.errors.SemanticException;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Setter
 public class ValueEvaluator {

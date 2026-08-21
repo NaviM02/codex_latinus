@@ -352,6 +352,18 @@ public class PigLatinBaseListener implements PigLatinListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunctionCallStatementStmt(PigLatinParser.FunctionCallStatementStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionCallStatementStmt(PigLatinParser.FunctionCallStatementStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIfStmt(PigLatinParser.IfStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -515,6 +527,54 @@ public class PigLatinBaseListener implements PigLatinListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIncrementMemberAccess(PigLatinParser.IncrementMemberAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunctionCallStatement(PigLatinParser.FunctionCallStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionCallStatement(PigLatinParser.FunctionCallStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCallVariable(PigLatinParser.CallVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCallVariable(PigLatinParser.CallVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCallArrayAccess(PigLatinParser.CallArrayAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCallArrayAccess(PigLatinParser.CallArrayAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCallMemberAccess(PigLatinParser.CallMemberAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCallMemberAccess(PigLatinParser.CallMemberAccessContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

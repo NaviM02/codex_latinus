@@ -70,9 +70,9 @@ localVariableSection
     ;
 
 variableDeclaration
-    : ESTO ID ':' type ';'                               #NormalVarDeclaration
-    | ESTO ID ':' type '='? expression ';'                #NormalVarDeclaration
-    | ESTO ID ':' type '='? structInitializer ';'?        #NormalVarDeclaration
+    : ESTO ID ':' type ';'                           #NormalVarDeclaration
+    | ESTO ID ':' type expression ';'                #NormalVarDeclaration
+    | ESTO ID ':' type structInitializer ';'?        #NormalVarDeclaration
     ;
 
 initializer
@@ -113,6 +113,7 @@ type
 statement
     : assignment         #AssignmentStmt
     | incrementStatement  #IncrementStmt
+    | functionCallStatement #FunctionCallStatementStmt
     | ifStatement        #IfStmt
     | whileStatement     #WhileStmt
     | doWhileStatement   #DoWhileStmt
@@ -138,6 +139,16 @@ incrementableExpression
     : ID                                     #IncrementVariable
     | postfixExpression '[' expression ']'   #IncrementArrayAccess
     | postfixExpression '.' ID               #IncrementMemberAccess
+    ;
+
+functionCallStatement
+    : callableExpression functionArguments ';'
+    ;
+
+callableExpression
+    : ID                                     #CallVariable
+    | postfixExpression '[' expression ']'   #CallArrayAccess
+    | postfixExpression '.' ID               #CallMemberAccess
     ;
 
 ifStatement

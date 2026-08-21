@@ -187,6 +187,13 @@ public interface PigLatinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIncrementStmt(PigLatinParser.IncrementStmtContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code FunctionCallStatementStmt}
+	 * labeled alternative in {@link PigLatinParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCallStatementStmt(PigLatinParser.FunctionCallStatementStmtContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code IfStmt}
 	 * labeled alternative in {@link PigLatinParser#statement}.
 	 * @param ctx the parse tree
@@ -282,6 +289,33 @@ public interface PigLatinVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIncrementMemberAccess(PigLatinParser.IncrementMemberAccessContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PigLatinParser#functionCallStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCallStatement(PigLatinParser.FunctionCallStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CallVariable}
+	 * labeled alternative in {@link PigLatinParser#callableExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCallVariable(PigLatinParser.CallVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CallArrayAccess}
+	 * labeled alternative in {@link PigLatinParser#callableExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCallArrayAccess(PigLatinParser.CallArrayAccessContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CallMemberAccess}
+	 * labeled alternative in {@link PigLatinParser#callableExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCallMemberAccess(PigLatinParser.CallMemberAccessContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PigLatinParser#ifStatement}.
 	 * @param ctx the parse tree

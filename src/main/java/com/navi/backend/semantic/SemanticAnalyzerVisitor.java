@@ -22,7 +22,6 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     private final Map<String, StructDeclaration> structs = new HashMap<>();
     private final List<String> errors = new ArrayList<>();
     private FunctionDeclaration currentFunction;
-    private Scope currentScope;
     private int loopDepth = 0;
 
     // execution(?
@@ -30,8 +29,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     public SemanticAnalyzerVisitor(SymbolTable symbolTable) {
         this.symbolTable = symbolTable;
-        this.currentScope = symbolTable.getGlobalScope();
-        this.valueEvaluator = new ValueEvaluator(currentScope);
+        this.valueEvaluator = new ValueEvaluator(symbolTable.getCurrentScope());
     }
 
     public void analyze(Program program) {
@@ -78,8 +76,8 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             }
         }
 
-        currentScope = symbolTable.getGlobalScope();
-        valueEvaluator.setCurrentScope(currentScope);
+        symbolTable.setCurrentScope(symbolTable.getGlobalScope());
+        valueEvaluator.setCurrentScope(symbolTable.getCurrentScope());
 
         if (node.getMainStatements() != null) {
             for (Statement statement : node.getMainStatements()) {
@@ -121,7 +119,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     @Override
     public String visit(FunctionDeclaration node) {
-        Scope previousScope = currentScope;
+        Scope previousScope = symbolTable.getCurrentScope();
         Scope functionScope = symbolTable.getFunctionScope(node.getName());
 
         if (functionScope == null) {
@@ -129,8 +127,8 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         }
 
         currentFunction = node;
-        currentScope = functionScope;
-        valueEvaluator.setCurrentScope(currentScope);
+        symbolTable.setCurrentScope(functionScope);
+        valueEvaluator.setCurrentScope(symbolTable.getCurrentScope());
 
         try {
             if (node.getBody() != null) {
@@ -138,8 +136,8 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             }
         } finally {
             currentFunction = null;
-            currentScope = previousScope;
-            valueEvaluator.setCurrentScope(currentScope);
+            symbolTable.setCurrentScope(previousScope);
+            valueEvaluator.setCurrentScope(symbolTable.getCurrentScope());
         }
 
         return null;
@@ -175,7 +173,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             }
 
             Object value = valueEvaluator.evaluateInitializer(node.getInitializer());
-            Symbol symbol = currentScope.resolve(node.getName());
+            Symbol symbol = symbolTable.resolve(node.getName());
             if (symbol != null) symbol.setValue(value);
         }
         return null;
@@ -311,7 +309,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     @Override
     public String visit(ForStatement node) {
-        Scope previousScope = currentScope;
+        Scope previousScope = symbolTable.getCurrentScope();
         String forName = node.getLine() + ":" + node.getColumn();
         Scope forScope = symbolTable.getBlockScope(forName);
 
@@ -319,8 +317,8 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Scope not found for 'per' statement.");
         }
 
-        currentScope = forScope;
-        valueEvaluator.setCurrentScope(currentScope);
+        symbolTable.setCurrentScope(forScope);
+        valueEvaluator.setCurrentScope(symbolTable.getCurrentScope());
 
         try {
             if (node.getInitializer() != null) node.getInitializer().accept(this);
@@ -335,11 +333,50 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             }
 
         } finally {
-            currentScope = previousScope;
-            valueEvaluator.setCurrentScope(currentScope);
+            symbolTable.setCurrentScope(previousScope);
+            valueEvaluator.setCurrentScope(symbolTable.getCurrentScope());
         }
 
         return null;
+    }
+
+    @Override
+    public String visit(FunctionCallStatement node) {
+        String functionName = "";
+
+        if (node.getCallee() instanceof VariableExpression varExpr) {
+            functionName = varExpr.getName();
+        } else {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Expression is not a callable function.");
+        }
+
+        Symbol functionSymbol = symbolTable.resolve(functionName);
+
+        if (functionSymbol == null || functionSymbol.getKind() != SymbolKind.FUNCTION) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Function '" + functionName + "' is not declared.");
+        }
+
+        List<String> expectedParamTypes = functionSymbol.getParameterTypes();
+        List<Expression> providedArguments = node.getArguments();
+
+        if (expectedParamTypes.size() != providedArguments.size()) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() +
+                    " Function '" + functionName + "' expects " + expectedParamTypes.size() +
+                    " arguments, but " + providedArguments.size() + " were provided.");
+        }
+
+        for (int i = 0; i < providedArguments.size(); i++) {
+            String expectedType = expectedParamTypes.get(i);
+            String actualType = providedArguments.get(i).accept(this);
+
+            if (!expectedType.equals(actualType)) {
+                throw new SemanticException("Line " + providedArguments.get(i).getLine() + ":" + providedArguments.get(i).getColumn() +
+                        " Type mismatch in function '" + functionName + "' at argument " + (i + 1) +
+                        ". Expected '" + expectedType + "', but got '" + actualType + "'.");
+            }
+        }
+
+        return TypeSystem.VOID;
     }
 
     @Override
@@ -508,7 +545,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         }
 
         String functionName = variable.getName();
-        Symbol function = currentScope.resolve(functionName);
+        Symbol function = symbolTable.resolve(functionName);
 
         if (function == null || function.getKind() != SymbolKind.FUNCTION) {
             throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Function '" + functionName + "' is not declared.");
@@ -564,7 +601,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     @Override
     public String visit(VariableExpression node) {
-        Symbol symbol = currentScope.resolve(node.getName());
+        Symbol symbol = symbolTable.resolve(node.getName());
 
         if (symbol == null) {
             throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Variable '" + node.getName() + "' is not declared.");
@@ -687,7 +724,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     private Symbol resolveArraySymbol(Expression expression) {
         if (expression instanceof VariableExpression variable) {
-            Symbol symbol = currentScope.resolve(variable.getName());
+            Symbol symbol = symbolTable.resolve(variable.getName());
             if (symbol != null && symbol.getKind() == SymbolKind.ARRAY) return symbol;
         }
 

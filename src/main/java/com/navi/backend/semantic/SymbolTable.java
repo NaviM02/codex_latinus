@@ -1,12 +1,14 @@
 package com.navi.backend.semantic;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.*;
 
 @Getter
 public class SymbolTable {
     private final Scope globalScope;
+    @Setter
     private Scope currentScope;
     private final Map<String, Scope> functionScopes = new LinkedHashMap<>();
     private final Map<String, Scope> structScopes = new LinkedHashMap<>();

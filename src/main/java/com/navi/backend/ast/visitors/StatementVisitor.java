@@ -80,6 +80,60 @@ public class StatementVisitor extends ExpressionVisitor {
     }
 
     @Override
+    public AstNode visitFunctionCallStatementStmt(PigLatinParser.FunctionCallStatementStmtContext ctx) {
+        return visit(ctx.functionCallStatement());
+    }
+
+    @Override
+    public AstNode visitFunctionCallStatement(PigLatinParser.FunctionCallStatementContext ctx) {
+        Expression callee = (Expression) visit(ctx.callableExpression());
+
+        List<Expression> arguments = new ArrayList<>();
+        if (ctx.functionArguments().argumentList() != null) {
+            for (PigLatinParser.ExpressionContext exprCtx : ctx.functionArguments().argumentList().arguments) {
+                arguments.add((Expression) visit(exprCtx));
+            }
+        }
+
+        return new FunctionCallStatement(
+            ctx.getStart().getLine(),
+            ctx.getStart().getCharPositionInLine(),
+            callee,
+            arguments
+        );
+    }
+
+    @Override
+    public AstNode visitCallVariable(PigLatinParser.CallVariableContext ctx) {
+        return new VariableExpression(
+            ctx.getStart().getLine(),
+            ctx.getStart().getCharPositionInLine(),
+            ctx.ID().getText()
+        );
+    }
+
+    @Override
+    public AstNode visitCallArrayAccess(PigLatinParser.CallArrayAccessContext ctx) {
+        return new ArrayAccessExpression(
+            ctx.getStart().getLine(),
+            ctx.getStart().getCharPositionInLine(),
+            (Expression) visit(ctx.postfixExpression()),
+            (Expression) visit(ctx.expression())
+        );
+    }
+
+    @Override
+    public AstNode visitCallMemberAccess(PigLatinParser.CallMemberAccessContext ctx) {
+        return new MemberAccessExpression(
+            ctx.getStart().getLine(),
+            ctx.getStart().getCharPositionInLine(),
+            (Expression) visit(ctx.postfixExpression()),
+            ctx.ID().getText()
+        );
+    }
+
+
+    @Override
     public AstNode visitIfStmt(PigLatinParser.IfStmtContext ctx) {
         return visit(ctx.ifStatement());
     }

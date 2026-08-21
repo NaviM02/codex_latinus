@@ -213,8 +213,20 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
     }
 
     @Override
+    public Void visit(FunctionCallStatement node) {
+        if (node.getCallee() != null) node.getCallee().accept(this);
+
+        if (node.getArguments() != null) {
+            for (Expression argument : node.getArguments()) {
+                argument.accept(this);
+            }
+        }
+        return null;
+    }
+
+    @Override
     public Void visit(IfStatement node) {
-        if (node.getThenBlock() != null) node.getThenBlock().accept(this);
+           if (node.getThenBlock() != null) node.getThenBlock().accept(this);
 
         if (node.getElseIfStatements() != null) {
             for (ElseIfStatement elseIf : node.getElseIfStatements()) {

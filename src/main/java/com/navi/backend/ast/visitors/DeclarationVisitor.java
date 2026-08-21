@@ -183,7 +183,7 @@ public class DeclarationVisitor extends StatementVisitor {
         return new FunctionDeclaration(
             ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(),
             ctx.ID().getText(),
-            null,
+            "void",
             parameters,
             (FunctionBody) visit(ctx.functionBody())
         );

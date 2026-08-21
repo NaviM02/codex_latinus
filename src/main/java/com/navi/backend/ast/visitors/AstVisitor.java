@@ -34,6 +34,7 @@ public interface AstVisitor<R> {
     R visit(DoWhileStatement node);
     R visit(ElseIfStatement node);
     R visit(ForStatement node);
+    R visit(FunctionCallStatement node);
     R visit(IfStatement node);
     R visit(IncrementStatement node);
     R visit(PrintStatement node);
