@@ -183,6 +183,14 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             }
         }
 
+        if (node.getSize() instanceof NumberLiteral sizeLiteral && node.getInitializer() != null) {
+            int expectedSize = sizeLiteral.getValue();
+            int actualSize = node.getInitializer().getValues().size();
+
+            if (expectedSize != actualSize) {
+                throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Array initializer size mismatch. Expected " + expectedSize + " elements, but found " + actualSize + ".");
+            }
+        }
         return null;
     }
 
@@ -490,11 +498,12 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
          */
         if (arrayExpression instanceof VariableExpression variable) {
             if (symbolTable.getStructScope(variable.getName()) != null) {
+                Integer indexValue = evaluateConstantInteger(node.getIndex());
+                if (indexValue != null && indexValue < 0) {
+                    throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Array size cannot be negative (" + indexValue + ").");
+                }
                 return variable.getName();
             }
-
-            Symbol symbol = symbolTable.resolve(variable.getName());
-            if (symbol != null) return symbol.getType();
         }
 
         /*
@@ -506,6 +515,20 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         if (arraySymbol != null) {
             if (arraySymbol.getKind() != SymbolKind.ARRAY) {
                 throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " '" + arraySymbol.getName() + "' is not an array.");
+            }
+
+            Integer indexValue = evaluateConstantInteger(node.getIndex());
+            if (indexValue != null) {
+                Integer maxSize = arraySymbol.getArraySize();
+
+                if (indexValue < 0) {
+                    throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Array index cannot be negative (" + indexValue + ").");
+                }
+
+                if (maxSize != null && indexValue >= maxSize) {
+                    throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() +
+                            " Array index out of bounds. Index " + indexValue + " is invalid for size " + maxSize + ".");
+                }
             }
             return arraySymbol.getType();
         }
@@ -807,7 +830,15 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     }
 
     private Integer evaluateConstantInteger(Expression expression) {
+        if (expression == null) return null;
         if (expression instanceof NumberLiteral number) return number.getValue();
+
+        if (expression instanceof UnaryExpression unary) {
+            if (unary.getOperator() == UnaryOperator.NEGATE) {
+                Integer innerValue = evaluateConstantInteger(unary.getExpression());
+                if (innerValue != null) return -innerValue;
+            }
+        }
         return null;
     }
 }

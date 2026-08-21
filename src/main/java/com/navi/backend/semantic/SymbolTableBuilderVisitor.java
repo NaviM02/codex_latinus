@@ -158,6 +158,12 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
     @Override
     public Void visit(ArrayDeclaration node) {
         Symbol symbol = new Symbol(node.getName(), SymbolKind.ARRAY, node.getType());
+
+        if (node.getSize() instanceof NumberLiteral sizeLiteral) {
+            int size = sizeLiteral.getValue();
+            symbol.setArraySize(size);
+        }
+
         if (!symbolTable.define(symbol)) {
             throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " ERROR: Array '" + node.getName() + "' is already declared.");
         }

@@ -17,13 +17,15 @@ public class Symbol {
     private List<String> parameterTypes;
     @Setter
     private Object value;
+    @Setter
+    private Integer arraySize;
 
     public Symbol(String name, SymbolKind kind, String type) {
-        this(name, kind, type, List.of(), null);
+        this(name, kind, type, List.of(), null, null);
     }
 
     public Symbol(String name, SymbolKind kind, String type, List<String> parameterTypes) {
-        this(name, kind, type, parameterTypes, null);
+        this(name, kind, type, parameterTypes, null, null);
     }
 
 }
