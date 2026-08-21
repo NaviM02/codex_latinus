@@ -164,7 +164,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         String sizeType = node.getSize().accept(this);
 
         if (!TypeSystem.NUMERUS.equals(sizeType)) {
-            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Array size must be numerus.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Array size must be " + TypeSystem.NUMERUS + ".");
         }
 
         if (node.getInitializer() != null) {
@@ -475,7 +475,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         String indexType = node.getIndex().accept(this);
 
         if (!TypeSystem.NUMERUS.equals(indexType)) {
-            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Array index must be numerus.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Array index must be " + TypeSystem.NUMERUS + ".");
         }
 
         Expression arrayExpression = node.getArray();
@@ -486,7 +486,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
          * animales: Animal[7]
          *
          * Here "Animal[7]" represents a structure type initialization
-         * with size 7, not an access to an existing array variable.
+         * with size 7, not access to an existing array variable.
          */
         if (arrayExpression instanceof VariableExpression variable) {
             if (symbolTable.getStructScope(variable.getName()) != null) {
@@ -745,13 +745,13 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             }
 
             case SUBTRACT, MULTIPLY, DIVIDE -> {
-                if (hasStringType) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Operator " + operator + " cannot be used with textum.");
+                if (hasStringType) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Operator " + operator + " cannot be used with " + TypeSystem.TEXTUM + ".");
                 if (hasBooleanType) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Arithmetic operators require numeric values.");
                 yield TypeSystem.promote(left, right);
             }
 
             case LESS, LESS_EQUAL, GREATER, GREATER_EQUAL -> {
-                if (hasStringType) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Relational operators cannot be used with textum.");
+                if (hasStringType) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Relational operators cannot be used with " + TypeSystem.TEXTUM + ".");
                 if (hasBooleanType) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Relational operators require numeric values.");
                 yield TypeSystem.BOOLEAN;
             }
