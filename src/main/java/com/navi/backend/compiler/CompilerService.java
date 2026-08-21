@@ -12,6 +12,7 @@ import com.navi.backend.parser.errors.SyntaxError;
 import com.navi.backend.parser.errors.SyntaxErrorListener;
 import com.navi.backend.pig_latin.PigLatinWriter;
 import com.navi.backend.semantic.*;
+import com.navi.backend.semantic.errors.SemanticErrors;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -21,6 +22,7 @@ import java.util.List;
 public class CompilerService {
 
     public CompilationResult compile(String source) {
+        SemanticErrors.cleanErrors();
         LexicalErrorListener lexicalErrorListener = new LexicalErrorListener();
         SyntaxErrorListener syntaxErrorListener = new SyntaxErrorListener();
 
@@ -54,8 +56,8 @@ public class CompilerService {
         SemanticAnalyzerVisitor semanticAnalyzer = new SemanticAnalyzerVisitor(symbolTable);
         semanticAnalyzer.analyze(program);
 
-        if (semanticAnalyzer.hasErrors()) {
-            return CompilationResult.semanticError(program, symbolTable, semanticAnalyzer.getErrors());
+        if (SemanticErrors.hasErrors()) {
+            return CompilationResult.semanticError(program, symbolTable, SemanticErrors.getErrors());
         }
 
         PigLatinWriter pigLatinWriter = new PigLatinWriter();

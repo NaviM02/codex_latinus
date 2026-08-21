@@ -136,13 +136,7 @@ public class DeclarationVisitor extends StatementVisitor {
 
     @Override
     public AstNode visitStructArrayFieldSemicolon(PigLatinParser.StructArrayFieldSemicolonContext ctx) {
-        String type = "boolean";
-
-        if (ctx.type() != null) {
-            type = ctx.type().getText();
-        }
-
-        return new StructField(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), type, true);
+        return new StructField(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), ctx.type().getText(), true);
     }
 
     @Override
@@ -152,13 +146,7 @@ public class DeclarationVisitor extends StatementVisitor {
 
     @Override
     public AstNode visitStructArrayFieldComma(PigLatinParser.StructArrayFieldCommaContext ctx) {
-        String type = "boolean";
-
-        if (ctx.type() != null) {
-            type = ctx.type().getText();
-        }
-
-        return new StructField(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), type, true);
+        return new StructField(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine(), ctx.ID().getText(), ctx.type().getText(), true);
     }
 
     @Override

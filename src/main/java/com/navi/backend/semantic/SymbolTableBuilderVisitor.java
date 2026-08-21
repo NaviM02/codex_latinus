@@ -9,6 +9,7 @@ import com.navi.backend.ast.expressions.literals.*;
 import com.navi.backend.ast.global.*;
 import com.navi.backend.ast.statements.*;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.semantic.errors.SemanticErrors;
 import com.navi.backend.semantic.errors.SemanticException;
 
 import java.util.List;
@@ -25,18 +26,42 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
     @Override
     public Void visit(Program node) {
         if (node.getGlobalVariables() != null) {
-            node.getGlobalVariables().accept(this);
+            for (Declaration declaration : node.getGlobalVariables().getDeclarations()) {
+                if (declaration instanceof StructDeclaration struct) {
+                    Symbol symbol = new Symbol(struct.getName(), SymbolKind.STRUCT, null);
+
+                    if (!symbolTable.define(symbol)) {
+                        SemanticErrors.reportError(new SemanticException("Line " + struct.getLine() + ":" + struct.getColumn() + " ERROR: Struct '" + struct.getName() + "' is already declared."));
+                    }
+                }
+            }
+        }
+
+        if (node.getGlobalVariables() != null) {
+            try {
+                node.getGlobalVariables().accept(this);
+            } catch (SemanticException e) {
+                SemanticErrors.reportError(e);
+            }
         }
 
         if (node.getFunctions() != null) {
             for (FunctionDeclaration function : node.getFunctions()) {
-                function.accept(this);
+                try {
+                    function.accept(this);
+                } catch (SemanticException e) {
+                    SemanticErrors.reportError(e);
+                }
             }
         }
 
         if (node.getMainStatements() != null) {
             for (Statement statement : node.getMainStatements()) {
-                statement.accept(this);
+                try {
+                    statement.accept(this);
+                } catch (SemanticException e) {
+                    SemanticErrors.reportError(e);
+                }
             }
         }
 
@@ -46,7 +71,11 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
     @Override
     public Void visit(GlobalVariableSection node) {
         for (Declaration declaration : node.getDeclarations()) {
-            declaration.accept(this);
+            try {
+                declaration.accept(this);
+            } catch (SemanticException e) {
+                SemanticErrors.reportError(e);
+            }
         }
         return null;
     }
@@ -63,19 +92,27 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
         Symbol functionSymbol = new Symbol(node.getName(), SymbolKind.FUNCTION, returnType, parameterTypes);
 
         if (!symbolTable.define(functionSymbol)) {
-            throw new SemanticException("Function '" + node.getName() + "' is already declared.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " ERROR: Function '" + node.getName() + "' is already declared.");
         }
 
         symbolTable.enterScope();
 
         if (node.getParameters() != null) {
             for (Parameter parameter : node.getParameters()) {
-                parameter.accept(this);
+                try {
+                    parameter.accept(this);
+                } catch (SemanticException e) {
+                    SemanticErrors.reportError(e);
+                }
             }
         }
 
         if (node.getBody() != null && node.getBody().getLocalVariables() != null) {
-            node.getBody().getLocalVariables().accept(this);
+            try {
+                node.getBody().getLocalVariables().accept(this);
+            } catch (SemanticException e) {
+                SemanticErrors.reportError(e);
+            }
         }
 
         symbolTable.registerFunctionScope(node.getName());
@@ -91,14 +128,20 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
     @Override
     public Void visit(Parameter node) {
         Symbol symbol = new Symbol(node.getName(), SymbolKind.PARAMETER, node.getType());
-        symbolTable.define(symbol);
+        if (!symbolTable.define(symbol)) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " ERROR: Parameter '" + node.getName() + "' is already defined.");
+        }
         return null;
     }
 
     @Override
     public Void visit(LocalVariableSection node) {
         for (Declaration declaration : node.getDeclarations()) {
-            declaration.accept(this);
+            try {
+                declaration.accept(this);
+            } catch (SemanticException e) {
+                SemanticErrors.reportError(e);
+            }
         }
         return null;
     }
@@ -106,14 +149,18 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
     @Override
     public Void visit(VariableDeclaration node) {
         Symbol symbol = new Symbol(node.getName(), SymbolKind.VARIABLE, node.getType());
-        symbolTable.define(symbol);
+        if (!symbolTable.define(symbol)) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " ERROR: Variable '" + node.getName() + "' is already declared.");
+        }
         return null;
     }
 
     @Override
     public Void visit(ArrayDeclaration node) {
         Symbol symbol = new Symbol(node.getName(), SymbolKind.ARRAY, node.getType());
-        symbolTable.define(symbol);
+        if (!symbolTable.define(symbol)) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " ERROR: Array '" + node.getName() + "' is already declared.");
+        }
         return null;
     }
 
@@ -124,14 +171,22 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
 
     @Override
     public Void visit(StructDeclaration node) {
-        Symbol symbol = new Symbol(node.getName(), SymbolKind.STRUCT, null);
-        if (!symbolTable.define(symbol)) throw new SemanticException("Struct '" + node.getName() + "' is already declared.");
-
         Scope structScope = new Scope(symbolTable.getGlobalScope());
 
         for (StructField field : node.getFields()) {
-            Symbol fieldSymbol = new Symbol(field.getName(), SymbolKind.FIELD, field.getType());
-            if (!structScope.define(fieldSymbol)) throw new SemanticException("Field '" + field.getName() + "' is already declared in struct '" + node.getName() + "'.");
+            String fieldType = field.getType();
+
+            if (!TypeSystem.isPrimitive(fieldType) && symbolTable.getStructScope(fieldType) == null) {
+                SemanticErrors.reportError(new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " ERROR: Unknown type '" + fieldType + "' in field '" + field.getName() + "' of struct '" + node.getName() + "'."));
+                continue;
+            }
+
+            SymbolKind kind = field.isArray() ? SymbolKind.ARRAY : SymbolKind.FIELD;
+            Symbol fieldSymbol = new Symbol(field.getName(), kind, fieldType);
+
+            if (!structScope.define(fieldSymbol)) {
+                SemanticErrors.reportError(new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " ERROR: Field '" + field.getName() + "' is already declared in struct '" + node.getName() + "'."));
+            }
         }
 
         symbolTable.registerStructScope(node.getName(), structScope);

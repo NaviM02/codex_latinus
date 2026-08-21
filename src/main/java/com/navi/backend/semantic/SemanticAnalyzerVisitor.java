@@ -13,14 +13,13 @@ import com.navi.backend.ast.global.FunctionBody;
 import com.navi.backend.ast.global.FunctionDeclaration;
 import com.navi.backend.ast.global.Program;
 import com.navi.backend.ast.visitors.AstVisitor;
+import com.navi.backend.semantic.errors.SemanticErrors;
 import com.navi.backend.semantic.errors.SemanticException;
 
 import java.util.*;
 
 public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     private final SymbolTable symbolTable;
-    private final Map<String, StructDeclaration> structs = new HashMap<>();
-    private final List<String> errors = new ArrayList<>();
     private FunctionDeclaration currentFunction;
     private int loopDepth = 0;
 
@@ -36,34 +35,14 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         program.accept(this);
     }
 
-    // for errors
-    public boolean hasErrors() {
-        return !errors.isEmpty();
-    }
-
-    public List<String> getErrors() {
-        return List.copyOf(errors);
-    }
-
-    private void reportError(SemanticException exception) {
-        errors.add(exception.getMessage());
-    }
-
     @Override
     public String visit(Program node) {
         if (node.getGlobalVariables() != null) {
-            for (Declaration declaration : node.getGlobalVariables().getDeclarations()) {
-                if (declaration instanceof StructDeclaration struct) {
-                    try {
-                        collectStruct(struct);
-                    } catch (SemanticException e) {
-                        reportError(e);
-                    }
-                }
+            try {
+                node.getGlobalVariables().accept(this);
+            } catch (SemanticException e) {
+                SemanticErrors.reportError(e);
             }
-        }
-        if (node.getGlobalVariables() != null) {
-            node.getGlobalVariables().accept(this);
         }
 
         if (node.getFunctions() != null) {
@@ -71,7 +50,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
                 try {
                     function.accept(this);
                 } catch (SemanticException e) {
-                    reportError(e);
+                    SemanticErrors.reportError(e);
                 }
             }
         }
@@ -84,7 +63,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
                 try {
                     statement.accept(this);
                 } catch (SemanticException e) {
-                    reportError(e);
+                    SemanticErrors.reportError(e);
                 }
             }
         }
@@ -98,7 +77,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             try {
                 declaration.accept(this);
             } catch (SemanticException e) {
-                reportError(e);
+                SemanticErrors.reportError(e);
             }
         }
         return null;
@@ -110,7 +89,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             try {
                 declaration.accept(this);
             } catch (SemanticException e) {
-                reportError(e);
+                SemanticErrors.reportError(e);
             }
         }
 
@@ -209,7 +188,18 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     @Override
     public String visit(ArrayInitializer node) {
-        return null;
+        if (node.getValues() == null || node.getValues().isEmpty()) return "null";
+        String firstElementType = node.getValues().get(0).accept(this);
+
+        for (int i = 1; i < node.getValues().size(); i++) {
+            String currentType = node.getValues().get(i).accept(this);
+            if (!firstElementType.equals(currentType)) {
+                throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() +
+                        " ERROR: Heterogeneous array elements. Expected '" + firstElementType + "' but found '" + currentType + "'.");
+            }
+        }
+
+        return firstElementType;
     }
 
     @Override
@@ -258,7 +248,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             try {
                 statement.accept(this);
             } catch (SemanticException e) {
-                reportError(e);
+                SemanticErrors.reportError(e);
             }
         }
 
@@ -294,7 +284,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         try {
             requireBoolean(node.getCondition(), "facere-dum");
         } catch (SemanticException e) {
-            reportError(e);
+            SemanticErrors.reportError(e);
         }
 
         return null;
@@ -342,7 +332,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     @Override
     public String visit(FunctionCallStatement node) {
-        String functionName = "";
+        String functionName;
 
         if (node.getCallee() instanceof VariableExpression varExpr) {
             functionName = varExpr.getName();
@@ -384,7 +374,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         try {
             requireBoolean(node.getCondition(), "'si'");
         } catch (SemanticException e) {
-            reportError(e);
+            SemanticErrors.reportError(e);
         }
 
         node.getThenBlock().accept(this);
@@ -393,7 +383,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             try {
                 elseIf.accept(this);
             } catch (SemanticException e) {
-                reportError(e);
+                SemanticErrors.reportError(e);
             }
         }
 
@@ -467,7 +457,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         try {
             requireBoolean(node.getCondition(), "dum");
         } catch (SemanticException e) {
-            reportError(e);
+            SemanticErrors.reportError(e);
         }
 
         loopDepth++;
@@ -491,6 +481,23 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         Expression arrayExpression = node.getArray();
 
         /*
+         * Case of an array used inside a struct initializer:
+         * series animales : Animal
+         * animales: Animal[7]
+         *
+         * Here "Animal[7]" represents a structure type initialization
+         * with size 7, not an access to an existing array variable.
+         */
+        if (arrayExpression instanceof VariableExpression variable) {
+            if (symbolTable.getStructScope(variable.getName()) != null) {
+                return variable.getName();
+            }
+
+            Symbol symbol = symbolTable.resolve(variable.getName());
+            if (symbol != null) return symbol.getType();
+        }
+
+        /*
          * Normal case:
          * variableArray[1]
          */
@@ -500,23 +507,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
             if (arraySymbol.getKind() != SymbolKind.ARRAY) {
                 throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " '" + arraySymbol.getName() + "' is not an array.");
             }
-
             return arraySymbol.getType();
-        }
-
-        /*
-         * Case of an array used inside an initializer:
-         * series animales : Animal
-         * animales: Animal[7]
-         *
-         * Here "Animal[7]" represents a structure of type Animal
-         * with size 7, not an access to an existing array.
-         */
-        if (arrayExpression instanceof VariableExpression variable) {
-            if (structs.containsKey(variable.getName())) {
-                return variable.getName();
-            }
-            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Variable '" + variable.getName() + "' is not declared.");
         }
 
         /*
@@ -525,6 +516,13 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
          */
         if (arrayExpression instanceof MemberAccessExpression member) {
             return analyzeArrayMemberAccess(member);
+        }
+
+        /*
+         * Error handling for undeclared identifiers used as arrays
+         */
+        if (arrayExpression instanceof VariableExpression variable) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " ERROR: Variable or Struct '" + variable.getName() + "' is not declared.");
         }
 
         throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Expression is not an array.");
@@ -573,19 +571,23 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     @Override
     public String visit(MemberAccessExpression node) {
         String objectType = node.getObject().accept(this);
-        StructDeclaration struct = structs.get(objectType);
-
-        if (struct == null) {
-            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Cannot access member '" + node.getMember() + "' on primitive type '" + objectType + "'.");
+        if (TypeSystem.isPrimitive(objectType)) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() +
+                    " Cannot access member '" + node.getMember() + "' on primitive type '" + objectType + "'.");
         }
 
-        StructField field = findStructField(struct, node.getMember());
+        Scope structScope = symbolTable.getStructScope(objectType);
+        if (structScope == null) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Type '" + objectType + "' is undefined or not a valid struct.");
+        }
 
-        if (field == null) {
+        Symbol fieldSymbol = structScope.resolve(node.getMember());
+
+        if (fieldSymbol == null || (fieldSymbol.getKind() != SymbolKind.FIELD && fieldSymbol.getKind() != SymbolKind.ARRAY)) {
             throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Struct '" + objectType + "' has no field '" + node.getMember() + "'.");
         }
 
-        return field.getType();
+        return fieldSymbol.getType();
     }
 
     @Override
@@ -636,28 +638,6 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         return TypeSystem.TEXTUM;
     }
 
-    // HELPERS
-    private void collectStruct(StructDeclaration struct) {
-        if (structs.containsKey(struct.getName())) {
-            throw new SemanticException("Line " + struct.getLine() + ":" + struct.getColumn() + " Struct '" + struct.getName() + "' is already declared.");
-        }
-        Set<String> fieldNames = new HashSet<>();
-
-        for (StructField field : struct.getFields()) {
-            if (!fieldNames.add(field.getName())) {
-                throw new SemanticException("Line " + struct.getLine() + ":" + struct.getColumn() + " Struct '" + struct.getName() + "' has duplicated field '" + field.getName() + "'.");
-            }
-
-            String fieldType = field.getType();
-
-            if (!TypeSystem.isPrimitive(fieldType) && !structs.containsKey(fieldType)) {
-                throw new SemanticException("Line " + struct.getLine() + ":" + struct.getColumn() + " Unknown type '" + fieldType + "' in field '" + field.getName() + "' of struct '" + struct.getName() + "'.");
-            }
-        }
-
-        structs.put(struct.getName(), struct);
-    }
-
     private String analyzeInitializer(Initializer initializer, String expectedType) {
         if (initializer instanceof ExpressionInitializer expression) {
             return expression.getExpression().accept(this);
@@ -672,25 +652,19 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     }
 
     private void analyzeStructInitializer(StructInitializer initializer, String structType) {
-        StructDeclaration struct = structs.get(structType);
+        Scope structScope = symbolTable.getStructScope(structType);
 
-        if (struct == null) {
+        if (structScope == null) {
             throw new SemanticException("Line " + initializer.getLine() + ":" + initializer.getColumn() + " Struct '" + structType + "' does not exist.");
-        }
-
-        Map<String, StructField> fields = new HashMap<>();
-
-        for (StructField field : struct.getFields()) {
-            fields.put(field.getName(), field);
         }
 
         Set<String> initialized = new HashSet<>();
 
         for (StructFieldInitializer fieldInitializer : initializer.getFields()) {
             String fieldName = fieldInitializer.getName();
-            StructField field = fields.get(fieldName);
 
-            if (field == null) {
+            Symbol fieldSymbol = structScope.resolve(fieldName);
+            if (fieldSymbol == null || (fieldSymbol.getKind() != SymbolKind.FIELD && fieldSymbol.getKind() != SymbolKind.ARRAY)) {
                 throw new SemanticException("Line " + fieldInitializer.getLine() + ":" + fieldInitializer.getColumn() + " Field '" + fieldName + "' does not exist in struct '" + structType + "'.");
             }
 
@@ -698,14 +672,19 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
                 throw new SemanticException("Line " + fieldInitializer.getLine() + ":" + fieldInitializer.getColumn() + " Field '" + fieldName + "' is initialized more than once.");
             }
 
-            String valueType = analyzeInitializer(fieldInitializer.getValue(), field.getType());
+            String valueType = analyzeInitializer(fieldInitializer.getValue(), fieldSymbol.getType());
 
-            if (!TypeSystem.canAssign(field.getType(), valueType)) {
-                throw new SemanticException("Line " + fieldInitializer.getLine() + ":" + fieldInitializer.getColumn() + " Invalid type for field '" + fieldName + "'. Expected " + field.getType() + " but found " + valueType);
+            if (!TypeSystem.canAssign(fieldSymbol.getType(), valueType)) {
+                throw new SemanticException("Line " + fieldInitializer.getLine() + ":" + fieldInitializer.getColumn() +
+                        " Invalid type for field '" + fieldName + "'. Expected " + fieldSymbol.getType() + " but found " + valueType);
             }
         }
 
-        if (initialized.size() != fields.size()) {
+        long totalFieldsInStruct = structScope.getSymbols().values().stream()
+                .filter(sym -> sym.getKind() == SymbolKind.FIELD || sym.getKind() == SymbolKind.ARRAY)
+                .count();
+
+        if (initialized.size() != totalFieldsInStruct) {
             throw new SemanticException("Line " + initializer.getLine() + ":" + initializer.getColumn() + " Not all fields of struct '" + structType + "' were initialized.");
         }
     }
@@ -733,27 +712,25 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     private String analyzeArrayMemberAccess(MemberAccessExpression node) {
         String objectType = node.getObject().accept(this);
-        StructDeclaration struct = structs.get(objectType);
+        Scope structScope = symbolTable.getStructScope(objectType);
 
-        if (struct == null) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Type '" + objectType + "' is not a struct.");
-
-        StructField field = findStructField(struct, node.getMember());
-
-        if (field == null) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Struct '" + objectType + "' has no field '" + node.getMember() + "'.");
-        if (!field.isArray()) throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Field '" + node.getMember() + "' is not an array.");
-
-        return field.getType();
-    }
-
-    private StructField findStructField(StructDeclaration struct, String fieldName) {
-        for (StructField field : struct.getFields()) {
-            if (field.getName().equals(fieldName)) {
-                return field;
-            }
+        if (structScope == null) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Type '" + objectType + "' is not a struct.");
         }
 
-        return null;
+        Symbol fieldSymbol = structScope.resolve(node.getMember());
+
+        if (fieldSymbol == null || (fieldSymbol.getKind() != SymbolKind.FIELD && fieldSymbol.getKind() != SymbolKind.ARRAY)) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Struct '" + objectType + "' has no field '" + node.getMember() + "'.");
+        }
+
+        if (fieldSymbol.getKind() != SymbolKind.ARRAY) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Field '" + node.getMember() + "' is not an array.");
+        }
+
+        return fieldSymbol.getType();
     }
+
 
     private String analyzeBinaryExpression(BinaryExpression node, String left, String right) {
         BinaryOperator operator = node.getOperator();
@@ -825,7 +802,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
 
     private void validateTypeExists(String type, int line, int column) {
         if (TypeSystem.isPrimitive(type)) return;
-        if (structs.containsKey(type)) return;
+        if (symbolTable.getStructScope(type) != null) return;
         throw new SemanticException("Line " + line + ":" + column + " Unknown type '" + type + "'.");
     }
 
