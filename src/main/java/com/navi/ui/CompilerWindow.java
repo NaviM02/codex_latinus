@@ -204,23 +204,26 @@ public class CompilerWindow extends JFrame {
     }
 
     private void showCompilationErrors(CompilationResult result) {
+        boolean hasLexicalErrors = !result.getLexicalErrors().isEmpty();
+        boolean hasSyntaxErrors = !result.getSyntaxErrors().isEmpty();
+        boolean hasSemanticErrors = !result.getSemanticErrors().isEmpty();
 
-        if (!result.getSyntaxErrors().isEmpty()) {
-            consolePanel.appendErrorHeader("\nERRORES SINTÁCTICOS\n\n");
-
-            for (String error : result.getSyntaxErrors()) {
-                consolePanel.appendError("ERROR: " + error + "\n");
+        if (hasLexicalErrors || hasSyntaxErrors) {
+            for (String error : result.getLexicalErrors()) {
+                consolePanel.appendError("LEXER ERROR: " + error + "\n");
             }
 
-            setErrorStatus("Error sintáctico");
+            for (String error : result.getSyntaxErrors()) {
+                consolePanel.appendError("SYNTAX ERROR: " + error + "\n");
+            }
+
+            setErrorStatus("Error léxico/sintáctico");
             return;
         }
 
-        if (!result.getSemanticErrors().isEmpty()) {
-            consolePanel.appendErrorHeader("\nERRORES SEMÁNTICOS\n\n");
-
+        if (hasSemanticErrors) {
             for (String error : result.getSemanticErrors()) {
-                consolePanel.appendError("ERROR: " + error + "\n");
+                consolePanel.appendError("SEMANTIC ERROR: " + error + "\n");
             }
 
             setErrorStatus("Error semántico");

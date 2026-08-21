@@ -6,6 +6,8 @@ import com.navi.backend.lexer_parser.PigLatinParser;
 import com.navi.backend.ast.visitors.ProgramVisitor;
 import com.navi.backend.parser.ParserTrace;
 import com.navi.backend.parser.ParserTraceBuilder;
+import com.navi.backend.parser.errors.LexicalError;
+import com.navi.backend.parser.errors.LexicalErrorListener;
 import com.navi.backend.parser.errors.SyntaxError;
 import com.navi.backend.parser.errors.SyntaxErrorListener;
 import com.navi.backend.pig_latin.PigLatinWriter;
@@ -19,25 +21,28 @@ import java.util.List;
 public class CompilerService {
 
     public CompilationResult compile(String source) {
-        SyntaxErrorListener errorListener = new SyntaxErrorListener();
+        LexicalErrorListener lexicalErrorListener = new LexicalErrorListener();
+        SyntaxErrorListener syntaxErrorListener = new SyntaxErrorListener();
 
         CharStream input = CharStreams.fromString(source);
 
         PigLatinLexer lexer = new PigLatinLexer(input);
         lexer.removeErrorListeners();
-        lexer.addErrorListener(errorListener);
+        lexer.addErrorListener(lexicalErrorListener);
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
         PigLatinParser parser = new PigLatinParser(tokens);
         parser.removeErrorListeners();
-        parser.addErrorListener(errorListener);
+        parser.addErrorListener(syntaxErrorListener);
 
         PigLatinParser.ProgramContext tree = parser.program();
 
-        if (errorListener.hasErrors()) {
-            List<String> errors = errorListener.getErrors().stream().map(SyntaxError::toString).toList();
-            return CompilationResult.syntaxError(errors);
+        List<String> lexicalErrors = lexicalErrorListener.getErrors().stream().map(LexicalError::toString).toList();
+        List<String> syntaxErrors = syntaxErrorListener.getErrors().stream().map(SyntaxError::toString).toList();
+
+        if (!lexicalErrors.isEmpty() || !syntaxErrors.isEmpty()) {
+            return CompilationResult.parserError(lexicalErrors, syntaxErrors);
         }
 
         Program program = (Program) new ProgramVisitor().visit(tree);
