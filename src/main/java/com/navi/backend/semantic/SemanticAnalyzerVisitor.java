@@ -312,17 +312,24 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
     @Override
     public String visit(ForStatement node) {
         Scope previousScope = currentScope;
-        currentScope = new Scope(previousScope);
+        String forName = node.getLine() + ":" + node.getColumn();
+        Scope forScope = symbolTable.getBlockScope(forName);
+
+        if (forScope == null) {
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Scope not found for 'per' statement.");
+        }
+
+        currentScope = forScope;
         valueEvaluator.setCurrentScope(currentScope);
 
         try {
-            node.getInitializer().accept(this);
+            if (node.getInitializer() != null) node.getInitializer().accept(this);
             requireBoolean(node.getCondition(), "per");
-            node.getUpdate().accept(this);
+            if (node.getUpdate() != null) node.getUpdate().accept(this);
             loopDepth++;
 
             try {
-                node.getBlock().accept(this);
+                if (node.getBlock() != null) node.getBlock().accept(this);
             } finally {
                 loopDepth--;
             }
@@ -532,7 +539,7 @@ public class SemanticAnalyzerVisitor implements AstVisitor<String> {
         StructDeclaration struct = structs.get(objectType);
 
         if (struct == null) {
-            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Type '" + objectType + "' is not a struct.");
+            throw new SemanticException("Line " + node.getLine() + ":" + node.getColumn() + " Cannot access member '" + node.getMember() + "' on primitive type '" + objectType + "'.");
         }
 
         StructField field = findStructField(struct, node.getMember());

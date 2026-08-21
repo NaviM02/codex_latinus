@@ -34,6 +34,12 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
             }
         }
 
+        if (node.getMainStatements() != null) {
+            for (Statement statement : node.getMainStatements()) {
+                statement.accept(this);
+            }
+        }
+
         return null;
     }
 
@@ -119,7 +125,16 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
     @Override
     public Void visit(StructDeclaration node) {
         Symbol symbol = new Symbol(node.getName(), SymbolKind.STRUCT, null);
-        symbolTable.define(symbol);
+        if (!symbolTable.define(symbol)) throw new SemanticException("Struct '" + node.getName() + "' is already declared.");
+
+        Scope structScope = new Scope(symbolTable.getGlobalScope());
+
+        for (StructField field : node.getFields()) {
+            Symbol fieldSymbol = new Symbol(field.getName(), SymbolKind.FIELD, field.getType());
+            if (!structScope.define(fieldSymbol)) throw new SemanticException("Field '" + field.getName() + "' is already declared in struct '" + node.getName() + "'.");
+        }
+
+        symbolTable.registerStructScope(node.getName(), structScope);
         return null;
     }
 
@@ -150,6 +165,9 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
 
     @Override
     public Void visit(BlockStatement node) {
+        for (Statement statement : node.getStatements()) {
+            statement.accept(this);
+        }
         return null;
     }
 
@@ -165,21 +183,46 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
 
     @Override
     public Void visit(DoWhileStatement node) {
+        if (node.getBlock() != null) node.getBlock().accept(this);
         return null;
     }
 
     @Override
     public Void visit(ElseIfStatement node) {
+        if (node.getBlock() != null) node.getBlock().accept(this);
         return null;
     }
 
     @Override
     public Void visit(ForStatement node) {
+        symbolTable.enterScope();
+        Scope forScope = symbolTable.getCurrentScope();
+
+        try {
+            if (node.getInitializer() != null) node.getInitializer().accept(this);
+            if (node.getBlock() != null) node.getBlock().accept(this);
+
+            String forName = node.getLine() + ":" + node.getColumn();
+            symbolTable.registerBlockScope(forName, forScope);
+
+        } finally {
+            symbolTable.exitScope();
+        }
+
         return null;
     }
 
     @Override
     public Void visit(IfStatement node) {
+        if (node.getThenBlock() != null) node.getThenBlock().accept(this);
+
+        if (node.getElseIfStatements() != null) {
+            for (ElseIfStatement elseIf : node.getElseIfStatements()) {
+                elseIf.accept(this);
+            }
+        }
+
+        if (node.getElseBlock() != null) node.getElseBlock().accept(this);
         return null;
     }
 
@@ -205,6 +248,7 @@ public class SymbolTableBuilderVisitor implements AstVisitor<Void> {
 
     @Override
     public Void visit(WhileStatement node) {
+        if (node.getBlock() != null) node.getBlock().accept(this);
         return null;
     }
 

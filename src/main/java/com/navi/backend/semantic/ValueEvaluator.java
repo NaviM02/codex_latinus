@@ -1,5 +1,6 @@
 package com.navi.backend.semantic;
 
+import com.navi.backend.ast.declarations.ArrayInitializer;
 import com.navi.backend.ast.declarations.initializers.Initializer;
 import com.navi.backend.ast.declarations.initializers.ExpressionInitializer;
 import com.navi.backend.ast.declarations.initializers.StructInitializer;
@@ -7,6 +8,10 @@ import com.navi.backend.ast.expressions.*;
 import com.navi.backend.ast.expressions.literals.*;
 import com.navi.backend.semantic.errors.SemanticException;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Setter
 public class ValueEvaluator {
@@ -57,6 +62,9 @@ public class ValueEvaluator {
 
         // A function call cannot be evaluated here without executing the entire function
         if (expression instanceof FunctionCallExpression) return null;
+
+        if (expression instanceof ArrayAccessExpression) return null;
+
         throw new SemanticException("Cannot evaluate expression of type " + expression.getClass().getSimpleName());
     }
 

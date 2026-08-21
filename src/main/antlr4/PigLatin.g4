@@ -165,7 +165,7 @@ doWhileStatement
     ;
 
 forStatement
-    : PER '(' variableDeclaration expression ';' expression ')' block FINIS ';'
+    : PER '(' variableDeclaration expression ';' expression ')' block
     ;
 
 returnStatement

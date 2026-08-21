@@ -8,7 +8,7 @@ import lombok.Getter;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.DefaultTableCellRenderer; // 1. Importación necesaria
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.util.Map;
 
@@ -69,7 +69,15 @@ public class SymbolTablePanel extends JPanel {
         addScopeSymbols(symbolTable.getGlobalScope(), "global");
 
         for (Map.Entry<String, Scope> entry : symbolTable.getFunctionScopes().entrySet()) {
-            addScopeSymbols(entry.getValue(), entry.getKey());
+            addScopeSymbols(entry.getValue(), "function " + entry.getKey());
+        }
+
+        for (Map.Entry<String, Scope> entry : symbolTable.getStructScopes().entrySet()) {
+            addScopeSymbols(entry.getValue(), "struct " + entry.getKey());
+        }
+
+        for (Map.Entry<String, Scope> entry : symbolTable.getBlockScopes().entrySet()) {
+            addScopeSymbols(entry.getValue(), "for " + entry.getKey());
         }
     }
 
