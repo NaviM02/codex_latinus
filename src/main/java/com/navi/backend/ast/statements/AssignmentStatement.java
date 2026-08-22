@@ -32,7 +32,7 @@ public class AssignmentStatement extends Statement {
         writer.appendOperator("=");
         writer.append(" ");
         initializer.toPigLatin(writer, indent);
-        writer.append(";\n");
+        writer.append(";");
     }
 
     @Override

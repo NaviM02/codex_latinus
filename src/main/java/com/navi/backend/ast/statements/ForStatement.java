@@ -43,7 +43,9 @@ public class ForStatement extends Statement {
 
         writer.append(" {\n");
         block.toPigLatin(writer, indent + 1);
-        writer.append("\n}");
+        writer.append("\n");
+        indent(writer, indent);
+        writer.append("}\n");
     }
 
     @Override

@@ -34,7 +34,9 @@ public class WhileStatement extends Statement {
 
         writer.append(" {\n");
         block.toPigLatin(writer, indent + 1);
-        writer.append("\n} ");
+        writer.append("\n");
+        indent(writer, indent);
+        writer.append("} ");
         writer.appendKeyword(PigLatinRules.translateKeyword("finis"));
         writer.append(";\n");
     }

@@ -30,6 +30,7 @@ public class GlobalVariableSection extends AstNode {
 
         for (Declaration declaration : declarations) {
             declaration.toPigLatin(writer, indent);
+            writer.append("\n");
         }
 
         writer.append("\n");

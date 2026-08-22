@@ -41,7 +41,7 @@ public class StructDeclaration extends Declaration {
             field.toPigLatin(writer, indent + 1);
         }
 
-        writer.append("}\n");
+        writer.append("}");
     }
 
     @Override

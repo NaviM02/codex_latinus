@@ -61,12 +61,12 @@ public class Program extends AstNode {
         writer.appendKeyword(PigLatinRules.translateSectionKeyword("MAIOR"));
         writer.appendKeyword(">\n");
         for (Statement statement : mainStatements) {
-            if (statement instanceof IfStatement || statement instanceof WhileStatement
-                    || statement instanceof ForStatement || statement instanceof DoWhileStatement) {
-                writer.append("\n");
-            }
+            writer.append("\n");
             statement.toPigLatin(writer, indent);
         }
+        writer.append("\n");
+        writer.appendKeyword(PigLatinRules.translateSectionKeyword("FINIS"));
+        writer.append(";");
     }
 
     @Override

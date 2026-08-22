@@ -49,7 +49,7 @@ public class VariableDeclaration extends Declaration {
             initializer.toPigLatin(writer, indent);
         }
 
-        writer.append(";\n");
+        writer.append(";");
     }
 
     @Override

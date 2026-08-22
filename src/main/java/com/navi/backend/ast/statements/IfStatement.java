@@ -48,6 +48,7 @@ public class IfStatement extends Statement {
         condition.toPigLatin(writer, indent);
         writer.append(") {\n");
         thenBlock.toPigLatin(writer, indent + 1);
+        writer.append("\n");
         indent(writer, indent);
         writer.append("}");
 
@@ -60,8 +61,9 @@ public class IfStatement extends Statement {
             writer.appendKeyword(PigLatinRules.translateKeyword("aliter"));
             writer.append(" {\n");
             elseBlock.toPigLatin(writer, indent + 1);
+            writer.append("\n");
             indent(writer, indent);
-            writer.append("\n}");
+            writer.append("}");
         }
 
         writer.append(" ");

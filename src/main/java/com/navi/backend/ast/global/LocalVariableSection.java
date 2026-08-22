@@ -32,6 +32,7 @@ public class LocalVariableSection extends AstNode {
         for (Declaration declaration : declarations) {
             indent(writer, indent + 1);
             declaration.toPigLatin(writer, indent + 1);
+            writer.append("\n");
         }
         indent(writer, indent);
         writer.append("]\n");

@@ -61,7 +61,7 @@ public class ArrayDeclaration extends Declaration {
             initializer.toPigLatin(writer, indent);
         }
 
-        writer.append(";\n");
+        writer.append(";");
     }
 
     @Override

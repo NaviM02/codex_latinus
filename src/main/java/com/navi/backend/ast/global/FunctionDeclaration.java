@@ -63,7 +63,7 @@ public class FunctionDeclaration extends AstNode {
 
         writer.append(" ");
         writer.appendKeyword(PigLatinRules.translateKeyword("finis"));
-        writer.append(";\n");
+        writer.append(";\n\n");
     }
 
     @Override

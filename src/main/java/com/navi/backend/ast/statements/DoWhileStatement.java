@@ -30,7 +30,9 @@ public class DoWhileStatement extends Statement {
         writer.appendKeyword(PigLatinRules.translateKeyword("facere"));
         writer.append(" {\n");
         block.toPigLatin(writer, indent + 1);
-        writer.append("\n}");
+        writer.append("\n");
+        indent(writer, indent);
+        writer.append("}");
         writer.appendKeyword(PigLatinRules.translateKeyword("dum"));
 
         writer.append(" (");
