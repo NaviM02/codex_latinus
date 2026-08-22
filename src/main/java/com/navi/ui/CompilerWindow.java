@@ -11,6 +11,7 @@ import com.navi.ui.symbols.SymbolTablePanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.*;
 
@@ -288,6 +289,7 @@ public class CompilerWindow extends JFrame {
         JMenuItem saveFile = new JMenuItem("Guardar");
         JMenuItem saveAsFile = new JMenuItem("Guardar como...");
         JMenuItem exportPigLatin = new JMenuItem("Exportar .pig");
+        JMenuItem exportAstItem = new JMenuItem("Exportar AST");
         JMenuItem exit = new JMenuItem("Salir");
 
         newFile.addActionListener(e -> newFile());
@@ -295,6 +297,7 @@ public class CompilerWindow extends JFrame {
         saveFile.addActionListener(e -> saveFile());
         saveAsFile.addActionListener(e -> saveFileAs());
         exportPigLatin.addActionListener(e -> exportPigLatin());
+        exportAstItem.addActionListener(e -> exportAst());
         exit.addActionListener(e -> System.exit(0));
 
         fileMenu.add(newFile);
@@ -304,6 +307,7 @@ public class CompilerWindow extends JFrame {
         fileMenu.add(saveAsFile);
         fileMenu.addSeparator();
         fileMenu.add(exportPigLatin);
+        fileMenu.add(exportAstItem);
         fileMenu.addSeparator();
         fileMenu.add(exit);
 
@@ -377,6 +381,36 @@ public class CompilerWindow extends JFrame {
 
         currentFile = file;
         writeFile(file);
+    }
+
+    private void exportAst() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Exportar AST");
+
+        fileChooser.setSelectedFile(new File("ast.svg"));
+
+        FileNameExtensionFilter svgFilter = new FileNameExtensionFilter("Imagen SVG (*.svg)", "svg");
+        FileNameExtensionFilter pngFilter = new FileNameExtensionFilter("Imagen PNG (*.png)", "png");
+        FileNameExtensionFilter dotFilter = new FileNameExtensionFilter("Graphviz DOT (*.dot)", "dot");
+
+        fileChooser.addChoosableFileFilter(svgFilter);
+        fileChooser.addChoosableFileFilter(pngFilter);
+        fileChooser.addChoosableFileFilter(dotFilter);
+
+        fileChooser.setFileFilter(svgFilter);
+        int result = fileChooser.showSaveDialog(this);
+        if (result != JFileChooser.APPROVE_OPTION) return;
+
+        File selectedFile = fileChooser.getSelectedFile();
+
+        try {
+            astPanel.exportAst(selectedFile.toPath());
+            consolePanel.appendSuccess("AST exportado correctamente: " + selectedFile.getAbsolutePath());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Formato no soportado", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException | InterruptedException ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo exportar el AST:\n" + ex.getMessage(), "Error al exportar AST", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void writeFile(File file) {
